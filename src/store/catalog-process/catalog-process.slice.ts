@@ -10,7 +10,7 @@ const initialState: CamerasProcess = {
 };
 
 export const catalogSlice = createSlice({
-    name: NameSpace.Catalog,
+    name: NameSpace.Cameras,
     initialState,
     reducers: {},
 

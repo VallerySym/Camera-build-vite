@@ -1,16 +1,18 @@
 export enum AppRoute {
     Catalog = '/',
-    Product ='/product',
+    Product ='/camera/:id',
     NotFound = '*',
   }
 
   export const TIMEOUT_SHOW_ERROR = 2000;
   
   export enum NameSpace {
-    Catalog = 'CATALOG',
+    Cameras = 'CAMERAS',
+    Camera ='CAMERA',
     Error = 'ERROR'
   }
 
   export enum APIRoute {
     Cameras = '/cameras',
+    Product ='/camera'
   }

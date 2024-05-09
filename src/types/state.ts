@@ -1,5 +1,5 @@
 import { store } from '../store/index';
-import { CameraItems } from './camera-item';
+import { CameraItems, CameraItem} from './camera-item';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -13,4 +13,10 @@ export type CamerasProcess = {
   cameras: CameraItems;
   camerasIsLoading: boolean;
   camerasIsNotFound: boolean;
+};
+
+export type CameraProcess = {
+  camera: CameraItem | null;
+  cameraIsLoading: boolean;
+  cameraIsNotFound: boolean;
 };

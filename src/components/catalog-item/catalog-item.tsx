@@ -1,10 +1,15 @@
+import { Link, useParams } from "react-router-dom";
 import { CameraItem } from "../../types/camera-item";
+import { useNavigate } from 'react-router-dom';
 
 type CatalogItemProps = {
   catalogItem: CameraItem;
 }
 
 function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
+  const params = useParams();
+  const cameraId = params.id;
+  const navigate = useNavigate();
 
   return (
     <div className="product-card">
@@ -49,7 +54,7 @@ function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
           {catalogItem.name}
         </p>
         <p className="product-card__price">
-          <span className="visually-hidden">Цена:</span>{catalogItem.price} ₽
+          <span className="visually-hidden">Цена:</span>{catalogItem.price.toLocaleString()} ₽
         </p>
       </div>
       <div className="product-card__buttons">
@@ -59,9 +64,16 @@ function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
         >
           Купить
         </button>
-        <a className="btn btn--transparent" href="#">
+        <Link
+          className="btn btn--transparent"
+          to={`/camera/${cameraId}`}
+          onClick={(evt) => {
+            evt.preventDefault();
+            navigate(`/camera/${(cameraId)}`);
+          }}
+        >
           Подробнее
-        </a>
+        </Link>
       </div>
     </div>
   );

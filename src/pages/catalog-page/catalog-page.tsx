@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { Navigate } from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import { AppRoute } from '../../const';
@@ -18,9 +17,6 @@ function CatalogPage(): JSX.Element {
 
   return (
     <div className="wrapper">
-      <Helmet>
-        <title>Camera shop. Catalog.</title>
-      </Helmet>
       <Header />
       <main>
         <Banner />
