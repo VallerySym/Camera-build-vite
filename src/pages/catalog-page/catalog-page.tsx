@@ -1,14 +1,20 @@
 import { Helmet } from 'react-helmet-async';
+import { Navigate } from 'react-router-dom';
 import Banner from '../../components/banner/banner';
+import { AppRoute } from '../../const';
 import BreadcrumbsList from '../../components/breadcrumbs-list/breadcrumbs-list';
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
-import { getCameras } from '../../store/catalog-process/catalog-process.selectors';
+import { getCameras, getCamerasIsLoading, getCamerasIsNotFound } from '../../store/catalog-process/catalog-process.selectors';
+import Spinner from '../../components/spinner/spinner';
 
 function CatalogPage(): JSX.Element {
   const cameras = useAppSelector(getCameras);
+  const camerasIsLoading = useAppSelector(getCamerasIsLoading)
+  const camerasIsNotFound = useAppSelector(getCamerasIsNotFound)
+  const camerasCount = cameras.length;
 
   return (
     <div className="wrapper">
@@ -27,7 +33,13 @@ function CatalogPage(): JSX.Element {
                 <div className="catalog__aside">
                   <img src="img/banner.png" />
                 </div>
-                <CatalogList catalogList={cameras} />
+                {camerasIsLoading && <Spinner />}
+                {camerasIsNotFound && <Navigate to={AppRoute.NotFound} />}
+                {camerasCount ? (
+                  <CatalogList catalogList={cameras} />
+                ) : (
+                  <h2>Нет доступных камер</h2>
+                )}
               </div>
             </div>
           </section>
@@ -35,7 +47,6 @@ function CatalogPage(): JSX.Element {
       </main>
       <Footer />
     </div>
-
   );
 }
 
