@@ -4,8 +4,12 @@ import BreadcrumbsList from '../../components/breadcrumbs-list/breadcrumbs-list'
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import { useAppSelector } from '../../hooks';
+import { getCameras } from '../../store/catalog-process/catalog-process.selectors';
 
 function CatalogPage(): JSX.Element {
+  const cameras = useAppSelector(getCameras);
+
   return (
     <div className="wrapper">
       <Helmet>
@@ -23,7 +27,7 @@ function CatalogPage(): JSX.Element {
                 <div className="catalog__aside">
                   <img src="img/banner.png" />
                 </div>
-                <CatalogList />
+                <CatalogList catalogList={cameras} />
               </div>
             </div>
           </section>

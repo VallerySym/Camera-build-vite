@@ -1,5 +1,5 @@
 import { HelmetProvider } from 'react-helmet-async';
-import { Route, Routes , BrowserRouter} from 'react-router-dom';
+import { Route, Routes} from 'react-router-dom';
 import { AppRoute } from '../../const';
 import CatalogPage from '../../pages/catalog-page/catalog-page';
 import ProductPage from '../../pages/product-page/product-page';
@@ -9,7 +9,6 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Catalog}
@@ -26,7 +25,6 @@ function App(): JSX.Element {
             element={<NotFoundPage />}
           />
         </Routes>
-      </BrowserRouter>
     </HelmetProvider>
   );
 }

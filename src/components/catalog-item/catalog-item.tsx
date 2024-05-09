@@ -1,18 +1,25 @@
-function CatalogItem(): JSX.Element {
+import { CameraItem } from "../../types/camera-item";
+
+type CatalogItemProps = {
+  catalogItem: CameraItem;
+}
+
+function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
+
   return (
     <div className="product-card">
       <div className="product-card__img">
         <picture>
           <source
             type="image/webp"
-            srcSet="img/content/img1.webp, img/content/img1@2x.webp 2x"
+            srcSet={`${catalogItem.previewImgWebp}, ${catalogItem.previewImgWebp2x}`}
           />
           <img
-            src="img/content/img1.jpg"
-            srcSet="img/content/img1@2x.jpg 2x"
+            src={catalogItem.previewImg}
+            srcSet={`${catalogItem.previewImg2x}`}
             width={280}
             height={240}
-            alt="Ретрокамера «Das Auge IV»"
+            alt={catalogItem.name}
           />
         </picture>
       </div>
@@ -33,16 +40,16 @@ function CatalogItem(): JSX.Element {
           <svg width={17} height={16} aria-hidden="true">
             <use xlinkHref="#icon-star" />
           </svg>
-          <p className="visually-hidden">Рейтинг: 3</p>
+          <p className="visually-hidden">Рейтинг: {catalogItem.rating}</p>
           <p className="rate__count">
-            <span className="visually-hidden">Всего оценок:</span>23
+            <span className="visually-hidden">Всего оценок:</span>{catalogItem.reviewCount}
           </p>
         </div>
         <p className="product-card__title">
-                    Ретрокамера «Das Auge IV»
+          {catalogItem.name}
         </p>
         <p className="product-card__price">
-          <span className="visually-hidden">Цена:</span>73 450 ₽
+          <span className="visually-hidden">Цена:</span>{catalogItem.price} ₽
         </p>
       </div>
       <div className="product-card__buttons">
@@ -50,10 +57,10 @@ function CatalogItem(): JSX.Element {
           className="btn btn--purple product-card__btn"
           type="button"
         >
-                    Купить
+          Купить
         </button>
         <a className="btn btn--transparent" href="#">
-                    Подробнее
+          Подробнее
         </a>
       </div>
     </div>
