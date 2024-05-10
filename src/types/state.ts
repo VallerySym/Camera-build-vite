@@ -13,6 +13,7 @@ export type CamerasProcess = {
   cameras: CameraItems;
   camerasIsLoading: boolean;
   camerasIsNotFound: boolean;
+  selectCameraId: string;
 };
 
 export type CameraProcess = {

@@ -12,7 +12,7 @@ export const fetchCameras = createAsyncThunk<CameraItem[], undefined, {
     'cameras/fetchCameras',
     async (_arg, { extra: api }) => {
       const { data } = await api.get<CameraItem[]>(APIRoute.Cameras);
-  
+
       return data;
     }
   );
@@ -26,7 +26,7 @@ export const fetchCameras = createAsyncThunk<CameraItem[], undefined, {
     'data/fetchCamera',
     async (_arg, { extra: api }) => {
       const id = _arg;
-      const { data } = await api.get<CameraItem>(`${APIRoute.Product}/${id}`);
+      const { data } = await api.get<CameraItem>(`${APIRoute.Cameras}/${id}`);
 
       return data;
     },

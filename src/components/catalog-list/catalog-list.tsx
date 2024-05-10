@@ -13,7 +13,7 @@ function CatalogList({ catalogList }: CatalogListtProps): JSX.Element {
           const keyValue = camera.id;
           return (
             <CatalogItem key={keyValue} catalogItem={camera} />
-          )
+          );
         })}
 
       </div>

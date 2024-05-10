@@ -11,8 +11,8 @@ import Spinner from '../../components/spinner/spinner';
 
 function CatalogPage(): JSX.Element {
   const cameras = useAppSelector(getCameras);
-  const camerasIsLoading = useAppSelector(getCamerasIsLoading)
-  const camerasIsNotFound = useAppSelector(getCamerasIsNotFound)
+  const camerasIsLoading = useAppSelector(getCamerasIsLoading);
+  const camerasIsNotFound = useAppSelector(getCamerasIsNotFound);
   const camerasCount = cameras.length;
 
   return (

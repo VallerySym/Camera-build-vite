@@ -1,15 +1,11 @@
-import { Link, useParams } from "react-router-dom";
-import { CameraItem } from "../../types/camera-item";
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { CameraItem } from '../../types/camera-item';
 
 type CatalogItemProps = {
   catalogItem: CameraItem;
 }
 
 function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
-  const params = useParams();
-  const cameraId = params.id;
-  const navigate = useNavigate();
 
   return (
     <div className="product-card">
@@ -66,11 +62,7 @@ function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
         </button>
         <Link
           className="btn btn--transparent"
-          to={`/camera/${cameraId}`}
-          onClick={(evt) => {
-            evt.preventDefault();
-            navigate(`/camera/${(cameraId)}`);
-          }}
+          to={`/camera/${catalogItem.id}`}
         >
           Подробнее
         </Link>

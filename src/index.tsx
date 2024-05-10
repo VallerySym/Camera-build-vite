@@ -8,7 +8,7 @@ import browserHistory from './browser-history';
 import ErrorMessage from './components/error-message/error-message';
 import { fetchCameras } from './store/api-actions';
 
-store.dispatch(fetchCameras())
+store.dispatch(fetchCameras());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

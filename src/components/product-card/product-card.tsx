@@ -1,17 +1,17 @@
-import { useAppSelector } from "../../hooks";
-import { getCamera } from "../../store/product-process/product-process.selectors";
+import { useAppSelector } from '../../hooks';
+import { getCamera } from '../../store/product-process/product-process.selectors';
+import Tabs from '../tabs/tabs';
 
-function ProductCard():JSX.Element{
+function ProductCard(): JSX.Element {
   const selectedCamera = useAppSelector(getCamera);
-
-  return(
+  return (
     <section className="product">
       <div className="container">
         <div className="product__img">
           <picture>
             <source
               type="image/webp"
-              srcSet={`${selectedCamera?.previewImgWebp}, ${selectedCamera?.previewImgWebp2x}`}
+              srcSet={`/${selectedCamera?.previewImgWebp}, /${selectedCamera?.previewImgWebp2x}`}
             />
             <img
               src={selectedCamera?.previewImg}
@@ -54,44 +54,10 @@ function ProductCard():JSX.Element{
             <svg width={24} height={16} aria-hidden="true">
               <use xlinkHref="#icon-add-basket" />
             </svg>
-              Добавить в корзину
+            Добавить в корзину
           </button>
-          <div className="tabs product__tabs">
-            <div className="tabs__controls product__tabs-controls">
-              <button className="tabs__control" type="button">
-                  Характеристики
-              </button>
-              <button className="tabs__control is-active" type="button">
-                  Описание
-              </button>
-            </div>
-            <div className="tabs__content">
-              <div className="tabs__element">
-                <ul className="product__tabs-list">
-                  <li className="item-list">
-                    <span className="item-list__title">Артикул:</span>
-                    <p className="item-list__text"> {selectedCamera?.vendorCode}</p>
-                  </li>
-                  <li className="item-list">
-                    <span className="item-list__title">Категория:</span>
-                    <p className="item-list__text">{selectedCamera?.category}</p>
-                  </li>
-                  <li className="item-list">
-                    <span className="item-list__title">Тип камеры:</span>
-                    <p className="item-list__text">{selectedCamera?.type}</p>
-                  </li>
-                  <li className="item-list">
-                    <span className="item-list__title">Уровень:</span>
-                    <p className="item-list__text">{selectedCamera?.level}</p>
-                  </li>
-                </ul>
-              </div>
-              <div className="tabs__element is-active">
-                <div className="product__tabs-text">
-                {selectedCamera?.description}
-                </div>
-              </div>
-            </div>
+          <div className="tabs product__tabs" data-testid="tabs-data">
+            <Tabs />
           </div>
         </div>
       </div>
