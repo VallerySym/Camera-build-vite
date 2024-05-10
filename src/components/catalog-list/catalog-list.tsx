@@ -1,11 +1,11 @@
 import CatalogItem from '../catalog-item/catalog-item';
 import { CameraItems } from '../../types/camera-item';
 
-type CatalogListtProps = {
+type CatalogListProps = {
   catalogList: CameraItems;
 }
 
-function CatalogList({ catalogList }: CatalogListtProps): JSX.Element {
+function CatalogList({ catalogList }: CatalogListProps): JSX.Element {
   return (
     <div className="catalog__content">
       <div className="cards catalog__cards">

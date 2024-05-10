@@ -34,7 +34,7 @@ export const fetchCamera = createAsyncThunk<CameraItem, number | string | undefi
   );
 
 
-export const fetchReviewsAction = createAsyncThunk<Reviews, number | string | undefined, {
+export const fetchReviews = createAsyncThunk<Reviews, number | string | undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

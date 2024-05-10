@@ -1,13 +1,13 @@
 import { Navigate } from 'react-router-dom';
 import Banner from '../../components/banner/banner';
-import { AppRoute } from '../../const';
 import BreadcrumbsList from '../../components/breadcrumbs-list/breadcrumbs-list';
 import CatalogList from '../../components/catalog-list/catalog-list';
-import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+import Spinner from '../../components/spinner/spinner';
 import { useAppSelector } from '../../hooks';
 import { getCameras, getCamerasIsLoading, getCamerasIsNotFound } from '../../store/catalog-process/catalog-process.selectors';
-import Spinner from '../../components/spinner/spinner';
+import { AppRoute } from '../../const';
 
 function CatalogPage(): JSX.Element {
   const cameras = useAppSelector(getCameras);

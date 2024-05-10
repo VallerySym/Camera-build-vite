@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { ReviewsProcess } from '../../types/state';
-import { fetchReviewsAction } from '../api-actions';
+import { fetchReviews } from '../api-actions';
 import { RequestStatus } from '../../const';
 
 const initialState: ReviewsProcess = {
@@ -21,12 +21,12 @@ export const reviewsSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchReviewsAction.pending, (state) => {
+      .addCase(fetchReviews.pending, (state) => {
         state.reviewsIsLoading = true;
         state.reviewsIsNotFound = false;
       })
 
-      .addCase(fetchReviewsAction.fulfilled, (state, action) => {
+      .addCase(fetchReviews.fulfilled, (state, action) => {
         const reviewsData = action.payload;
 
         if (reviewsData.length > 0) {
@@ -36,7 +36,7 @@ export const reviewsSlice = createSlice({
         state.reviewsIsLoading = false;
       })
 
-      .addCase(fetchReviewsAction.rejected, (state) => {
+      .addCase(fetchReviews.rejected, (state) => {
         state.reviewsIsLoading = false;
         state.reviewsIsNotFound = true;
       });

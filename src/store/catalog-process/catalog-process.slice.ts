@@ -1,4 +1,4 @@
-import { createSlice,PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { CamerasProcess } from '../../types/state';
 import { fetchCameras } from '../api-actions';
 import { NameSpace } from '../../const';
@@ -13,16 +13,7 @@ const initialState: CamerasProcess = {
 export const catalogSlice = createSlice({
   name: NameSpace.Cameras,
   initialState,
-  reducers: {
-    selectProductId: (state, action: PayloadAction<string>) => {
-      state.selectCameraId = action.payload;
-      state.cameras.map((camera) => {
-        if (camera.id === Number(action.payload)) {
-          state.selectCameraId = camera;
-        }
-      });
-    },
-  },
+  reducers: {},
 
   extraReducers(builder) {
     builder
@@ -42,5 +33,3 @@ export const catalogSlice = createSlice({
 
   },
 });
-
-export const {selectProductId} = catalogSlice.actions;

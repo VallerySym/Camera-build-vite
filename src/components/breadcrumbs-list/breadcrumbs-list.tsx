@@ -13,7 +13,10 @@ function BreadcrumbsList(): JSX.Element {
       <div className="container">
         <ul className="breadcrumbs__list">
           <li className="breadcrumbs__item">
-            <Link className="breadcrumbs__link" to={`${AppRoute.Catalog}?page=1`}>
+            <Link
+              className="breadcrumbs__link"
+              to={`${AppRoute.Catalog}?page=1`}
+            >
               Главная
               <svg width={5} height={8} aria-hidden="true">
                 <use xlinkHref="#icon-arrow-mini" />
@@ -21,7 +24,10 @@ function BreadcrumbsList(): JSX.Element {
             </Link>
           </li>
           <li className="breadcrumbs__item">
-            <Link className={`breadcrumbs__link breadcrumbs__link${pathname === AppRoute.Catalog ? '--active' : ''}`} to={AppRoute.Catalog}>
+            <Link
+              className={`breadcrumbs__link breadcrumbs__link${pathname === AppRoute.Catalog ? '--active' : ''}`}
+              to={AppRoute.Catalog}
+            >
               Каталог
               {pathname !== AppRoute.Catalog &&
                 <svg width={5} height={8} aria-hidden="true">

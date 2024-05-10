@@ -8,14 +8,14 @@ type ReviewBlockListProps = {
 
 function ReviewBlockList({ reviewList }: ReviewBlockListProps): JSX.Element {
 
-  const [visibleReviewsCount, setVisibleReviewsCount] = useState(3);
-  const reviewsOnFirstLoad = reviewList.slice(0, visibleReviewsCount);
+  const [visibleReviews, setVisibleReviews] = useState(3);
+  const reviewsOnFirstLoad = reviewList.slice(0, visibleReviews);
 
   const handleShowMoreReviews = () => {
-    setVisibleReviewsCount((prevCount) => prevCount + 3);
+    setVisibleReviews((prevCount) => prevCount + 3);
   };
 
-  const isShowMoreVisible = reviewList.length > visibleReviewsCount;
+  const isShowMoreVisible = reviewList.length > visibleReviews;
 
   return (
     <>
