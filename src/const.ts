@@ -25,12 +25,11 @@ export enum Tab {
     Description = 'description'
   }
 
-  export enum RequestStatus {
+export enum RequestStatus {
     Idle = 'idle',
     Pending = 'pending',
     Success = 'success',
     Error = 'error',
   }
 
-  export const stars = [1, 2, 3, 4, 5];
-  
+export const stars = [1, 2, 3, 4, 5];

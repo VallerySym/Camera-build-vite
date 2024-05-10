@@ -18,7 +18,7 @@ export const fetchCameras = createAsyncThunk<CameraItem[], undefined, {
     }
   );
 
-  export const fetchCamera = createAsyncThunk<CameraItem, number | string | undefined,
+export const fetchCamera = createAsyncThunk<CameraItem, number | string | undefined,
   {
     dispatch: AppDispatch;
     state: State;
@@ -33,7 +33,7 @@ export const fetchCameras = createAsyncThunk<CameraItem[], undefined, {
     },
   );
 
-  
+
 export const fetchReviewsAction = createAsyncThunk<Reviews, number | string | undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -41,9 +41,8 @@ export const fetchReviewsAction = createAsyncThunk<Reviews, number | string | un
 }>(
   'data/fetchReviews',
   async (clickedProductId, { extra: api }) => {
-    
+
     const { data } = await api.get<Reviews>(`${APIRoute.Cameras}/${clickedProductId}${APIRoute.Reviews}`);
 
     return data;
   });
-  

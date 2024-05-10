@@ -1,25 +1,44 @@
 import { Reviews } from '../../types/review';
 import ReviewBlockItem from '../review-block-item/review-block-item';
+import { useState } from 'react';
 
 type ReviewBlockListProps = {
   reviewList: Reviews;
 };
 
-
 function ReviewBlockList({ reviewList }: ReviewBlockListProps): JSX.Element {
-  const MIN_REVIEWS_COUNT = 0;
-  const MAX_REVIEWS_COUNT = 3;
-  const maxReviews = reviewList.slice(MIN_REVIEWS_COUNT, Math.min(MAX_REVIEWS_COUNT, reviewList.length))
+
+  const [visibleReviewsCount, setVisibleReviewsCount] = useState(3);
+  const reviewsOnFirstLoad = reviewList.slice(0, visibleReviewsCount);
+
+  const handleShowMoreReviews = () => {
+    setVisibleReviewsCount((prevCount) => prevCount + 3);
+  };
+
+  const isShowMoreVisible = reviewList.length > visibleReviewsCount;
 
   return (
-    <ul className="review-block__list">
-      {maxReviews.map((review) => {
-        const keyValue = review.id;
-        return (
-      <ReviewBlockItem key={keyValue} reviewCard={review} />
-    );
-  })}
-    </ul>
+    <>
+      <ul className="review-block__list">
+        {reviewsOnFirstLoad.map((review) => {
+          const keyValue = review.id;
+          return (
+            <ReviewBlockItem key={keyValue} reviewCard={review} />
+          );
+        })}
+      </ul>
+      <div className="review-block__buttons">
+        {isShowMoreVisible && (
+          <button
+            className="btn btn--purple"
+            type="button"
+            onClick={handleShowMoreReviews}
+          >
+            Показать больше отзывов
+          </button>
+        )}
+      </div>
+    </>
   );
 }
 

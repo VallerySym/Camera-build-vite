@@ -10,4 +10,3 @@ export type Review = {
 }
 
 export type Reviews = Review[];
- 

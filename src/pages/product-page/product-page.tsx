@@ -3,7 +3,6 @@ import BreadcrumbsList from '../../components/breadcrumbs-list/breadcrumbs-list'
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import ReviewBlockList from '../../components/review-block-list/review-block-list';
-import ReviewButton from '../../components/review-button/review-button';
 import { useParams } from 'react-router-dom';
 import { fetchCamera, fetchReviewsAction } from '../../store/api-actions';
 import { store } from '../../store';
@@ -21,7 +20,6 @@ function ProductPage(): JSX.Element {
     store.dispatch(fetchReviewsAction(cameraId));
   }, [cameraId]);
 
-  console.log()
   return (
     <div className="wrapper">
       <Header />
@@ -37,10 +35,7 @@ function ProductPage(): JSX.Element {
                 <div className="page-content__headed">
                   <h2 className="title title--h3">Отзывы</h2>
                 </div>
-                <ReviewBlockList  reviewList={reviewsActive} />
-                <div className="review-block__buttons">
-                  <ReviewButton />
-                </div>
+                <ReviewBlockList reviewList={reviewsActive} />
               </div>
             </section>
           </div>

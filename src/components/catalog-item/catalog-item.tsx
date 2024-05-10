@@ -27,15 +27,15 @@ function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
-        {stars.map((star) => (
-          <svg key={star} width={17} height={16} aria-hidden="true">
-            {star <= Math.floor(catalogItem.rating) ? (
-              <use xlinkHref="#icon-full-star" />
-            ) : (
-              <use xlinkHref="#icon-star" />
-            )}
-          </svg>
-        ))}
+          {stars.map((star) => (
+            <svg key={star} width={17} height={16} aria-hidden="true">
+              {star <= Math.floor(catalogItem.rating) ? (
+                <use xlinkHref="#icon-full-star" />
+              ) : (
+                <use xlinkHref="#icon-star" />
+              )}
+            </svg>
+          ))}
           <p className="visually-hidden">Рейтинг: {catalogItem.rating}</p>
           <p className="rate__count">
             <span className="visually-hidden">Всего оценок:</span>{catalogItem.reviewCount}

@@ -39,6 +39,8 @@ export const reviewsSlice = createSlice({
       .addCase(fetchReviewsAction.rejected, (state) => {
         state.reviewsIsLoading = false;
         state.reviewsIsNotFound = true;
-      })
+      });
   },
 });
+
+export const {setReviewRequestStatusByDefault} = reviewsSlice.actions;

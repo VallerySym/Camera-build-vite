@@ -26,15 +26,15 @@ function ProductCard(): JSX.Element {
         <div className="product__content">
           <h1 className="title title--h3">{selectedCamera?.name}</h1>
           <div className="rate product__rate">
-          {stars.map((star) => (
-          <svg key={star} width={17} height={16} aria-hidden="true">
-            {star <= Math.floor(selectedCamera?.rating) ? (
-              <use xlinkHref="#icon-full-star" />
-            ) : (
-              <use xlinkHref="#icon-star" />
-            )}
-          </svg>
-        ))}
+            {stars.map((star) => (
+              <svg key={star} width={17} height={16} aria-hidden="true">
+                {star <= Math.floor(selectedCamera?.rating) ? (
+                  <use xlinkHref="#icon-full-star" />
+                ) : (
+                  <use xlinkHref="#icon-star" />
+                )}
+              </svg>
+            ))}
             <p className="visually-hidden">Рейтинг: {selectedCamera?.rating}</p>
             <p className="rate__count">
               <span className="visually-hidden">Всего оценок:</span>
