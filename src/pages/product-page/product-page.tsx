@@ -5,19 +5,23 @@ import Header from '../../components/header/header';
 import ReviewBlockList from '../../components/review-block-list/review-block-list';
 import ReviewButton from '../../components/review-button/review-button';
 import { useParams } from 'react-router-dom';
-import { fetchCamera } from '../../store/api-actions';
+import { fetchCamera, fetchReviewsAction } from '../../store/api-actions';
 import { store } from '../../store';
 import ProductCard from '../../components/product-card/product-card';
+import { useAppSelector } from '../../hooks';
+import { getReviews } from '../../store/reviews-process/reviews-process.selectors';
 
 function ProductPage(): JSX.Element {
   const params = useParams();
   const cameraId = params.id;
+  const reviewsActive = useAppSelector(getReviews);
 
   useEffect(() => {
     store.dispatch(fetchCamera(cameraId));
-
+    store.dispatch(fetchReviewsAction(cameraId));
   }, [cameraId]);
 
+  console.log()
   return (
     <div className="wrapper">
       <Header />
@@ -33,7 +37,7 @@ function ProductPage(): JSX.Element {
                 <div className="page-content__headed">
                   <h2 className="title title--h3">Отзывы</h2>
                 </div>
-                <ReviewBlockList />
+                <ReviewBlockList  reviewList={reviewsActive} />
                 <div className="review-block__buttons">
                   <ReviewButton />
                 </div>

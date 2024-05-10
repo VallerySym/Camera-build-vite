@@ -3,6 +3,7 @@ import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { CameraItem } from '../types/camera-item';
 import { APIRoute } from '../const';
+import { Reviews } from '../types/review';
 
 export const fetchCameras = createAsyncThunk<CameraItem[], undefined, {
     dispatch: AppDispatch;
@@ -31,3 +32,18 @@ export const fetchCameras = createAsyncThunk<CameraItem[], undefined, {
       return data;
     },
   );
+
+  
+export const fetchReviewsAction = createAsyncThunk<Reviews, number | string | undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchReviews',
+  async (clickedProductId, { extra: api }) => {
+    
+    const { data } = await api.get<Reviews>(`${APIRoute.Cameras}/${clickedProductId}${APIRoute.Reviews}`);
+
+    return data;
+  });
+  

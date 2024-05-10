@@ -1,5 +1,7 @@
+import { RequestStatus } from '../const';
 import { store } from '../store/index';
 import { CameraItems, CameraItem} from './camera-item';
+import { Reviews } from './review';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -20,4 +22,11 @@ export type CameraProcess = {
   camera: CameraItem | null;
   cameraIsLoading: boolean;
   cameraIsNotFound: boolean;
+};
+
+export type ReviewsProcess = {
+  reviews: Reviews;
+  reviewsIsLoading: boolean;
+  reviewsIsNotFound: boolean;
+  reviewRequestStatus: RequestStatus;
 };

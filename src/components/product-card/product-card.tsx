@@ -1,3 +1,4 @@
+import { stars } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getCamera } from '../../store/product-process/product-process.selectors';
 import Tabs from '../tabs/tabs';
@@ -25,21 +26,15 @@ function ProductCard(): JSX.Element {
         <div className="product__content">
           <h1 className="title title--h3">{selectedCamera?.name}</h1>
           <div className="rate product__rate">
-            <svg width={17} height={16} aria-hidden="true">
+          {stars.map((star) => (
+          <svg key={star} width={17} height={16} aria-hidden="true">
+            {star <= Math.floor(selectedCamera?.rating) ? (
               <use xlinkHref="#icon-full-star" />
-            </svg>
-            <svg width={17} height={16} aria-hidden="true">
-              <use xlinkHref="#icon-full-star" />
-            </svg>
-            <svg width={17} height={16} aria-hidden="true">
-              <use xlinkHref="#icon-full-star" />
-            </svg>
-            <svg width={17} height={16} aria-hidden="true">
-              <use xlinkHref="#icon-full-star" />
-            </svg>
-            <svg width={17} height={16} aria-hidden="true">
+            ) : (
               <use xlinkHref="#icon-star" />
-            </svg>
+            )}
+          </svg>
+        ))}
             <p className="visually-hidden">Рейтинг: {selectedCamera?.rating}</p>
             <p className="rate__count">
               <span className="visually-hidden">Всего оценок:</span>
