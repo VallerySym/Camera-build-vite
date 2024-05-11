@@ -30,3 +30,8 @@ export type ReviewsProcess = {
   reviewsIsNotFound: boolean;
   reviewRequestStatus: RequestStatus;
 };
+
+export type PopupProcess = {
+  isPopupOpen: boolean;
+  isPopupCallMeOpen:boolean;
+};

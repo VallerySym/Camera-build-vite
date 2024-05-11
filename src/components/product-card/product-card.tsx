@@ -5,6 +5,7 @@ import Tabs from '../tabs/tabs';
 
 function ProductCard(): JSX.Element {
   const selectedCamera = useAppSelector(getCamera);
+
   return (
     <section className="product">
       <div className="container">
@@ -28,7 +29,7 @@ function ProductCard(): JSX.Element {
           <div className="rate product__rate">
             {stars.map((star) => (
               <svg key={star} width={17} height={16} aria-hidden="true">
-                {star <= Math.floor(selectedCamera?.rating) ? (
+                {star <= Math.floor(Number(selectedCamera?.rating)) ? (
                   <use xlinkHref="#icon-full-star" />
                 ) : (
                   <use xlinkHref="#icon-star" />

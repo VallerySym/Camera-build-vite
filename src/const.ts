@@ -11,6 +11,7 @@ export enum NameSpace {
     Cameras = 'CAMERAS',
     Camera ='CAMERA',
     Reviews ='REVIEWS',
+    Popup='POPUP',
     Error = 'ERROR'
   }
 

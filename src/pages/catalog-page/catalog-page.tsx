@@ -8,12 +8,15 @@ import Spinner from '../../components/spinner/spinner';
 import { useAppSelector } from '../../hooks';
 import { getCameras, getCamerasIsLoading, getCamerasIsNotFound } from '../../store/catalog-process/catalog-process.selectors';
 import { AppRoute } from '../../const';
+import PopupCallItem from '../../components/popup-call-item/popup-call-item';
+import { checkPopupOpen } from '../../store/popup-process/popup-process.selectors';
 
 function CatalogPage(): JSX.Element {
   const cameras = useAppSelector(getCameras);
   const camerasIsLoading = useAppSelector(getCamerasIsLoading);
   const camerasIsNotFound = useAppSelector(getCamerasIsNotFound);
   const camerasCount = cameras.length;
+  const isPopupOpen = useAppSelector(checkPopupOpen);
 
   return (
     <div className="wrapper">
@@ -40,6 +43,7 @@ function CatalogPage(): JSX.Element {
             </div>
           </section>
         </div>
+        {isPopupOpen && <PopupCallItem />}
       </main>
       <Footer />
     </div>

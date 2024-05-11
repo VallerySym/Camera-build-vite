@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom';
 import { CameraItem } from '../../types/camera-item';
 import { stars } from '../../const';
+import { fetchCamera } from '../../store/api-actions';
+import { useAppDispatch } from '../../hooks';
+import { openCallMePopup } from '../../store/popup-process/popup-process.slice';
 
 type CatalogItemProps = {
   catalogItem: CameraItem;
 }
 
 function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
+  const dispatch = useAppDispatch();
 
   return (
     <div className="product-card">
@@ -52,6 +56,10 @@ function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
         <button
           className="btn btn--purple product-card__btn"
           type="button"
+          onClick={() => {
+            dispatch(fetchCamera(Number(catalogItem.id)));
+            dispatch(openCallMePopup());
+          }}
         >
           Купить
         </button>
