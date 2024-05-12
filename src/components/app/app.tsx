@@ -1,5 +1,5 @@
 import { HelmetProvider } from 'react-helmet-async';
-import { Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import CatalogPage from '../../pages/catalog-page/catalog-page';
 import ProductPage from '../../pages/product-page/product-page';
@@ -16,8 +16,6 @@ function App(): JSX.Element {
           path={AppRoute.Catalog}
           element={<CatalogPage />}
         />
-      </Routes>
-      <Routes>
         <Route
           path={AppRoute.Product}
           element={<ProductPage />}

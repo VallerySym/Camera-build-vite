@@ -1,10 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { PopupProcess } from '../../types/state';
 
 const initialState: PopupProcess = {
+  tel: '',
   isPopupOpen: false,
   isPopupCallMeOpen: false,
+  popupCallIsLoading: false,
+  popupCallIsNotFound: false,
 };
 
 export const popupSlice = createSlice({
@@ -18,11 +21,15 @@ export const popupSlice = createSlice({
     closeCallMePopup: (state) => {
       state.isPopupOpen = false;
       state.isPopupCallMeOpen = false;
-    }
+    },
+    setFormTel: (state, action: PayloadAction<string>) => {
+      state.tel = action.payload;
+    },
   },
   extraReducers(builder) {
-    builder;
+    builder
+  
   },
 });
 
-export const { openCallMePopup, closeCallMePopup } = popupSlice.actions;
+export const { openCallMePopup, closeCallMePopup, setFormTel } = popupSlice.actions;

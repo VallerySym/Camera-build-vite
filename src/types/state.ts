@@ -32,6 +32,18 @@ export type ReviewsProcess = {
 };
 
 export type PopupProcess = {
+  tel: string;
   isPopupOpen: boolean;
   isPopupCallMeOpen:boolean;
+  popupCallIsLoading: boolean;
+  popupCallIsNotFound: boolean;
 };
+
+export type CallMeData = {
+  tel: string;
+}
+
+export type PostData = {
+  postData: CallMeData;
+  id: number;
+}

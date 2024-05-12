@@ -1,10 +1,12 @@
 import { useForm } from 'react-hook-form';
-import { FormEvent } from 'react';
 import { AppRoute } from '../../const';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCamera } from '../../store/product-process/product-process.selectors';
-import { closeCallMePopup } from '../../store/popup-process/popup-process.slice';
+import { closeCallMePopup, setFormTel } from '../../store/popup-process/popup-process.slice';
+import { checkPopupOpen, getPopupTel } from '../../store/popup-process/popup-process.selectors';
+import { postFormData } from '../../store/api-actions';
+import { useScrollLock } from '../../hooks/use-scroll-lock';
 
 type FormValues = {
   tel: string;
@@ -15,21 +17,28 @@ function PopupCallItem(): JSX.Element {
   const navigate = useNavigate();
 
   const selectedCamera = useAppSelector(getCamera);
+  const formData = useAppSelector(getPopupTel);
+  const isPopupOpen = useAppSelector(checkPopupOpen);
 
   const { register, formState: { errors, isValid }, reset } = useForm<FormValues>({ mode: 'onChange' });
 
   const handleSetPhone = (data: string) => {
-    // dispatch(setFormPhone(data));
+    dispatch(setFormTel(data));
   };
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
+  const postData = {
+    tel: String(formData),
+    id: selectedCamera?.id,
+  };
 
-    // dispatch(postFormData(postData));
-
+  const handleSubmit = () => {
+    dispatch(postFormData(postData));
+    dispatch(closeCallMePopup());
     navigate(AppRoute.Catalog);
     reset();
   };
+
+  useScrollLock(isPopupOpen);
 
   return (
     <div className="modal is-active">
@@ -68,10 +77,7 @@ function PopupCallItem(): JSX.Element {
               </p>
             </div>
           </div>
-          <form
-            className="custom-input form-review__item"
-            onSubmit={handleSubmit}
-          >
+          <div className="custom-input form-review__item">
             <label>
               <span className="custom-input__label">
                 Телефон
@@ -83,7 +89,7 @@ function PopupCallItem(): JSX.Element {
                 {...register('tel', {
                   required: 'Обязательное поле',
                   pattern: {
-                    value: /(\+7)[\d\-\(\) ]{9,}\d/g,
+                    value: /^(\+7|8)[\d\-\(\) ]{9,}$/,
                     message: 'Пожалуйста, введите номер в формате +7(9XX)XXX-XX-XX',
                   }
                 })}
@@ -98,12 +104,13 @@ function PopupCallItem(): JSX.Element {
                 </p>}
             </label>
             <p className="custom-input__error">Нужно указать номер</p>
-          </form>
+          </div>
           <div className="modal__buttons">
             <button
               className="btn btn--purple modal__btn modal__btn--fit-width"
               type="button"
               disabled={!isValid}
+              onClick={handleSubmit}
             >
               <svg width={24} height={16} aria-hidden="true">
                 <use xlinkHref="#icon-add-basket" />

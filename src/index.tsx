@@ -18,8 +18,8 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <HistoryRouter history={browserHistory}>
-        <App />
         <ErrorMessage />
+        <App />
       </HistoryRouter>
     </Provider>
   </React.StrictMode>

@@ -1,4 +1,3 @@
-import { Navigate } from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import BreadcrumbsList from '../../components/breadcrumbs-list/breadcrumbs-list';
 import CatalogList from '../../components/catalog-list/catalog-list';
@@ -6,15 +5,14 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Spinner from '../../components/spinner/spinner';
 import { useAppSelector } from '../../hooks';
-import { getCameras, getCamerasIsLoading, getCamerasIsNotFound } from '../../store/catalog-process/catalog-process.selectors';
-import { AppRoute } from '../../const';
+import { getCameras, getCamerasIsLoading } from '../../store/catalog-process/catalog-process.selectors';
 import PopupCallItem from '../../components/popup-call-item/popup-call-item';
 import { checkPopupOpen } from '../../store/popup-process/popup-process.selectors';
 
 function CatalogPage(): JSX.Element {
   const cameras = useAppSelector(getCameras);
   const camerasIsLoading = useAppSelector(getCamerasIsLoading);
-  const camerasIsNotFound = useAppSelector(getCamerasIsNotFound);
+
   const camerasCount = cameras.length;
   const isPopupOpen = useAppSelector(checkPopupOpen);
 
@@ -33,7 +31,6 @@ function CatalogPage(): JSX.Element {
                   <img src="img/banner.png" />
                 </div>
                 {camerasIsLoading && <Spinner />}
-                {camerasIsNotFound && <Navigate to={AppRoute.NotFound} />}
                 {camerasCount ? (
                   <CatalogList catalogList={cameras} />
                 ) : (
