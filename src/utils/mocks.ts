@@ -18,4 +18,4 @@ export const makeFakeCamera = (): CameraItem => ({
     previewImgWebp2x: datatype.string(),
 });
 
-export const makeFakeCameras = (): CameraItems => Array.from({ length: 40 }, makeFakeCamera);
+export const makeFakeCameras = (): CameraItems => Array.from({ length: 4 }, makeFakeCamera);
