@@ -1,7 +1,8 @@
 import { datatype } from 'faker';
 import { CameraItem, CameraItems } from "../types/camera-item";
+import { Review, Reviews } from '../types/review';
 
-export const makeFakeCamera = (): CameraItem => ({
+ const makeFakeCamera = (): CameraItem => ({
     id: datatype.number(),
     name: datatype.string(),
     vendorCode: datatype.string(),
@@ -18,4 +19,19 @@ export const makeFakeCamera = (): CameraItem => ({
     previewImgWebp2x: datatype.string(),
 });
 
-export const makeFakeCameras = (): CameraItems => Array.from({ length: 4 }, makeFakeCamera);
+ const makeFakeCameras = (): CameraItems => Array.from({ length: 4 }, makeFakeCamera);
+
+ const makeFakeReview = (): Review => ({
+    id:datatype.string(),
+    cameraId: datatype.number(),
+    userName: datatype.string(),
+    advantage: datatype.string(),
+    disadvantage: datatype.string(),
+    review: datatype.string(),
+    rating: datatype.number(),
+    createAt: datatype.string(),
+  });
+  
+  const makeFakeReviews = (): Reviews => Array.from({ length: 3 }, makeFakeReview);
+
+  export {makeFakeCamera, makeFakeCameras, makeFakeReview, makeFakeReviews};
