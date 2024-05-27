@@ -1,15 +1,12 @@
-import { makeFakeCameras } from '../../utils/mocks';
 import { NameSpace } from '../../const';
 import { CamerasProcess } from '../../types/state';
 import { getCameras, getCamerasIsLoading, getCamerasIsNotFound } from './catalog-process.selectors';
 
-const fakeCameras = makeFakeCameras();
-
 const fakeState: CamerasProcess = {
-    cameras: [],
-    camerasIsLoading: true,
-    camerasIsNotFound: false,
-    selectCameraId: '',
+  cameras: [],
+  camerasIsLoading: true,
+  camerasIsNotFound: false,
+  selectCameraId: '',
 };
 
 let state = { [NameSpace.Cameras]: fakeState };

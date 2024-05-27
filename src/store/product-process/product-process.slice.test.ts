@@ -4,9 +4,9 @@ import { makeFakeCamera } from '../../utils/mocks';
 import { fetchCamera } from '../api-actions';
 
 const initialState: CameraProcess = {
-    camera: null,
-    cameraIsLoading: false,
-    cameraIsNotFound: false,
+  camera: null,
+  cameraIsLoading: false,
+  cameraIsNotFound: false,
 };
 
 let state: CameraProcess;

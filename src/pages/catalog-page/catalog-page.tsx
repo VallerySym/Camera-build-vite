@@ -1,4 +1,3 @@
-import Banner from '../../components/banner/banner';
 import BreadcrumbsList from '../../components/breadcrumbs-list/breadcrumbs-list';
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Header from '../../components/header/header';
@@ -8,6 +7,7 @@ import { useAppSelector } from '../../hooks';
 import { getCameras, getCamerasIsLoading } from '../../store/catalog-process/catalog-process.selectors';
 import PopupCallItem from '../../components/popup-call-item/popup-call-item';
 import { checkPopupOpen } from '../../store/popup-process/popup-process.selectors';
+import SwiperPromo from '../../components/swiper-promo/swiper-promo';
 
 function CatalogPage(): JSX.Element {
   const cameras = useAppSelector(getCameras);
@@ -20,7 +20,7 @@ function CatalogPage(): JSX.Element {
     <div className="wrapper">
       <Header />
       <main>
-        <Banner />
+        <SwiperPromo />
         <div className="page-content">
           <BreadcrumbsList />
           <section className="catalog">

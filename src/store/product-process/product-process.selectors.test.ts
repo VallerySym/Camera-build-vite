@@ -3,9 +3,9 @@ import { CameraProcess } from '../../types/state';
 import { getCamera, getCameraIsLoading, getCameraIsNotFound } from './product-process.selectors';
 
 const fakeState: CameraProcess = {
-    camera: null,
-    cameraIsLoading: true,
-    cameraIsNotFound: false,
+  camera: null,
+  cameraIsLoading: true,
+  cameraIsNotFound: false,
 };
 
 let state = { [NameSpace.Camera]: fakeState };

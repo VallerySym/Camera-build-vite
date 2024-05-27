@@ -15,7 +15,7 @@ function Tabs(): JSX.Element {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
-      <div className="tabs__content">
+      <div className="tabs__content" data-testid="tabs">
         <div
           className={cn('tabs__element', {
             'is-active': activeTab === Tab.Characteristics,

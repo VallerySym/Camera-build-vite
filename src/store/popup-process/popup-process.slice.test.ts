@@ -1,4 +1,4 @@
-import { popupSlice } from "./popup-process.slice";
+import { popupSlice } from './popup-process.slice';
 
 describe('PopupProcess slice', () => {
   it('should return initial state with empty action', () => {
@@ -6,11 +6,11 @@ describe('PopupProcess slice', () => {
       type: '',
     };
     const expectedState = {
-        tel: '',
-        isPopupOpen: false,
-        isPopupCallMeOpen: false,
-        popupCallIsLoading: false,
-        popupCallIsNotFound: false,
+      tel: '',
+      isPopupOpen: false,
+      isPopupCallMeOpen: false,
+      popupCallIsLoading: false,
+      popupCallIsNotFound: false,
     };
 
     const result = popupSlice.reducer(expectedState, emptyAction);
@@ -23,11 +23,11 @@ describe('PopupProcess slice', () => {
       type: '',
     };
     const expectedState = {
-        tel: '',
-        isPopupOpen: false,
-        isPopupCallMeOpen: false,
-        popupCallIsLoading: false,
-        popupCallIsNotFound: false,
+      tel: '',
+      isPopupOpen: false,
+      isPopupCallMeOpen: false,
+      popupCallIsLoading: false,
+      popupCallIsNotFound: false,
     };
 
     const result = popupSlice.reducer(undefined, emptyAction);
@@ -37,18 +37,18 @@ describe('PopupProcess slice', () => {
 
   it('should set isPopupOpen to true with "openCallMePopup"', () => {
     const initialState = {
-        tel: '',
-        isPopupOpen: false,
-        isPopupCallMeOpen: false,
-        popupCallIsLoading: false,
-        popupCallIsNotFound: false,
+      tel: '',
+      isPopupOpen: false,
+      isPopupCallMeOpen: false,
+      popupCallIsLoading: false,
+      popupCallIsNotFound: false,
     };
     const expectedState = {
-        tel: '',
-        isPopupOpen: true,
-        isPopupCallMeOpen: true,
-        popupCallIsLoading: false,
-        popupCallIsNotFound: false,
+      tel: '',
+      isPopupOpen: true,
+      isPopupCallMeOpen: true,
+      popupCallIsLoading: false,
+      popupCallIsNotFound: false,
     };
 
     const result = popupSlice.reducer(

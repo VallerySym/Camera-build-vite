@@ -4,11 +4,11 @@ import { checkPopupOpen } from './popup-process.selectors';
 describe('ModalProcess selectors', () => {
   const state = {
     [NameSpace.Popup]: {
-        tel: '',
-        isPopupOpen: false,
-        isPopupCallMeOpen: false,
-        popupCallIsLoading: false,
-        popupCallIsNotFound: false,
+      tel: '',
+      isPopupOpen: false,
+      isPopupCallMeOpen: false,
+      popupCallIsLoading: false,
+      popupCallIsNotFound: false,
     },
   };
   it('should return isPopupOpen', () => {

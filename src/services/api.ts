@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import { StatusCodes } from 'http-status-codes';
-import { errorHandle } from './error-handle';
+import {toast} from 'react-toastify';
 
 const BACKEND_URL = 'https://camera-shop.accelerator.htmlacademy.pro/';
 
@@ -30,9 +30,9 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        const detailMessage = error.response.data;
+        const detailMessage = (error.response.data);
 
-        errorHandle(detailMessage.message);
+        toast.warn(detailMessage.message);
       }
 
       throw error;

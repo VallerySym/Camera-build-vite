@@ -41,7 +41,7 @@ function PopupCallItem(): JSX.Element {
   useScrollLock(isPopupOpen);
 
   return (
-    <div className="modal is-active">
+    <div className="modal is-active"  data-testid="popup-data">
       <div className="modal__wrapper">
         <div className="modal__overlay" />
         <div className="modal__content">
@@ -89,7 +89,7 @@ function PopupCallItem(): JSX.Element {
                 {...register('tel', {
                   required: 'Обязательное поле',
                   pattern: {
-                    value: /^(\+7|8)[\d\-\(\) ]{9,}$/,
+                    value: /^(\+7|8)[\d\- ]{9,}$/,
                     message: 'Пожалуйста, введите номер в формате +7(9XX)XXX-XX-XX',
                   }
                 })}

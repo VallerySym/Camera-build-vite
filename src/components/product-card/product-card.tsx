@@ -7,7 +7,7 @@ function ProductCard(): JSX.Element {
   const selectedCamera = useAppSelector(getCamera);
 
   return (
-    <section className="product">
+    <section className="product" data-testid="product-card">
       <div className="container">
         <div className="product__img">
           <picture>

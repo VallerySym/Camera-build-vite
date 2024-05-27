@@ -19,7 +19,7 @@ function ReviewBlockList({ reviewList }: ReviewBlockListProps): JSX.Element {
 
   return (
     <>
-      <ul className="review-block__list">
+      <ul className="review-block__list" data-testid="review-block__listt">
         {reviewsOnFirstLoad.map((review) => {
           const keyValue = review.id;
           return (

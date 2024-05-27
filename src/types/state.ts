@@ -1,6 +1,7 @@
 import { RequestStatus } from '../const';
 import { store } from '../store/index';
 import { CameraItems, CameraItem} from './camera-item';
+import { Promos } from './promo';
 import { Reviews } from './review';
 
 export type State = ReturnType<typeof store.getState>;
@@ -47,3 +48,9 @@ export type PostData = {
   postData: CallMeData;
   id: number;
 }
+
+export type PromoProcess = {
+  promoCameras: Promos;
+  promoCamerasIsLoading: boolean;
+  promoCamerasIsNotFound: boolean;
+};

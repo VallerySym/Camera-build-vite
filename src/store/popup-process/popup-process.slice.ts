@@ -26,10 +26,6 @@ export const popupSlice = createSlice({
       state.tel = action.payload;
     },
   },
-  extraReducers(builder) {
-    builder
-  
-  },
 });
 
 export const { openCallMePopup, closeCallMePopup, setFormTel } = popupSlice.actions;

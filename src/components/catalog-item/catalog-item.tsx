@@ -13,7 +13,7 @@ function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="product-card">
+    <div className="product-card" data-testid="camera-card">
       <div className="product-card__img">
         <picture>
           <source

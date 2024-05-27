@@ -1,5 +1,6 @@
 import { Review } from '../../types/review';
 import { stars } from '../../const';
+import dayjs from 'dayjs';
 
 type ReviewProps = {
   reviewCard: Review;
@@ -7,14 +8,18 @@ type ReviewProps = {
 
 function ReviewBlockItem({ reviewCard }: ReviewProps): JSX.Element {
   const { userName, advantage, disadvantage, review, rating, createAt } = reviewCard;
-  const dueDate = new Intl.DateTimeFormat('ru', { day: 'numeric', month: 'long' }).format(new Date(createAt.split('T')[0]));
+  const getReviewDate = (date: Review['createAt']): string => dayjs(date).locale('ru').format('DD MMMM');
+  const getReviewDateTime = (date: Review['createAt']): string =>dayjs(date).format('YYYY-MM-DD');
 
   return (
-    <li className="review-card">
+    <li className="review-card" data-testid="review-block-item">
       <div className="review-card__head">
         <p className="title title--h4">{userName}</p>
-        <time className="review-card__data" dateTime={dueDate}>
-          {dueDate}
+        <time 
+        className="review-card__data"
+        dateTime={getReviewDateTime(createAt)}
+         >
+        {getReviewDate(createAt)}
         </time>
       </div>
       <div className="rate review-card__rate">

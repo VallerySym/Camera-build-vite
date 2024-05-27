@@ -7,7 +7,7 @@ type CatalogListProps = {
 
 function CatalogList({ catalogList }: CatalogListProps): JSX.Element {
   return (
-    <div className="catalog__content">
+    <div className="catalog__content" data-testid="catalog-list">
       <div className="cards catalog__cards">
         {catalogList.map((camera) => {
           const keyValue = camera.id;

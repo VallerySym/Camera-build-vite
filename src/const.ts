@@ -12,13 +12,15 @@ export enum NameSpace {
     Camera ='CAMERA',
     Reviews ='REVIEWS',
     Popup='POPUP',
-    Error = 'ERROR'
+    Error = 'ERROR',
+    Promo= 'PROMO'
   }
 
 export enum APIRoute {
     Cameras = '/cameras',
     Product ='/camera',
     Reviews = '/reviews',
+    Promo='/promo'
   }
 
 export enum Tab {
@@ -34,3 +36,5 @@ export enum RequestStatus {
   }
 
 export const stars = [1, 2, 3, 4, 5];
+
+export const TIME_TO_RENDER_PAGE = 1000;
