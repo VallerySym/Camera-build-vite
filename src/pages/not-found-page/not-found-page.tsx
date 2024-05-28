@@ -19,7 +19,7 @@ function NotFoundPage(): JSX.Element {
         </svg>
       </Link>
       <h2>404 Page not found</h2>
-      <Link to="/">Вернуться на главную страницу</Link>
+      <Link to="/" data-testid="back-home">Вернуться на главную страницу</Link>
     </div>
   );
 }

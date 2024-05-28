@@ -9,7 +9,7 @@ describe('Component: CatalogItem', () => {
     const mockCamera = makeFakeCameras()[0];
     const mockStore = makeFakeStore();
     const { withStoreComponent } = withStore(
-      <CatalogItem catalogItem={mockCamera}  />,
+      <CatalogItem catalogItem={mockCamera} />,
       mockStore
     );
     const preparedComponent = withHistory(withStoreComponent);

@@ -1,13 +1,16 @@
 import cn from 'classnames';
 import { useState } from 'react';
 import { Tab } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { getCamera } from '../../store/product-process/product-process.selectors';
 import TabsNavigation from '../tabs-navigation/tabs-navigation';
+import { CameraItem } from '../../types/camera-item';
 
-function Tabs(): JSX.Element {
-  const selectedCamera = useAppSelector(getCamera);
+type TabsProps = {
+  selectedCamera: CameraItem;
+};
+
+function Tabs({selectedCamera}:TabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState<Tab>(Tab.Description);
+
   return (
     <>
       <TabsNavigation

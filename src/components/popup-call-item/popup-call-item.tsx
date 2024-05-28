@@ -41,7 +41,7 @@ function PopupCallItem(): JSX.Element {
   useScrollLock(isPopupOpen);
 
   return (
-    <div className="modal is-active"  data-testid="popup-data">
+    <div className="modal is-active" data-testid="popup-data">
       <div className="modal__wrapper">
         <div className="modal__overlay" />
         <div className="modal__content">

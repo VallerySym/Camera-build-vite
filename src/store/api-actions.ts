@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
+import { toast } from 'react-toastify';
 import { AppDispatch, PostData, State } from '../types/state';
 import { CameraItem } from '../types/camera-item';
 import { APIRoute } from '../const';
@@ -13,7 +14,11 @@ export const fetchCameras = createAsyncThunk<CameraItem[], undefined, {
   }>(
     'cameras/fetchCameras',
     async (_arg, { extra: api }) => {
-      const { data } = await api.get<CameraItem[]>(APIRoute.Cameras);
+      const { data } = await api
+        .get<CameraItem[]>(APIRoute.Cameras)
+        .catch((err: AxiosError) => {
+          throw toast.error(err.message);
+        });
 
       return data;
     }

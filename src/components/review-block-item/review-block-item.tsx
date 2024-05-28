@@ -15,11 +15,11 @@ function ReviewBlockItem({ reviewCard }: ReviewProps): JSX.Element {
     <li className="review-card" data-testid="review-block-item">
       <div className="review-card__head">
         <p className="title title--h4">{userName}</p>
-        <time 
-        className="review-card__data"
-        dateTime={getReviewDateTime(createAt)}
-         >
-        {getReviewDate(createAt)}
+        <time
+          className="review-card__data"
+          dateTime={getReviewDateTime(createAt)}
+        >
+          {getReviewDate(createAt)}
         </time>
       </div>
       <div className="rate review-card__rate">

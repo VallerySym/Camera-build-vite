@@ -21,7 +21,7 @@ function CatalogPage(): JSX.Element {
       <Header />
       <main>
         <SwiperPromo />
-        <div className="page-content">
+        <div className="page-content" data-testid="catalog">
           <BreadcrumbsList />
           <section className="catalog">
             <div className="container">

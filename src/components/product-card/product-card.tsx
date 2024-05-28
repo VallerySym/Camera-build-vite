@@ -53,7 +53,7 @@ function ProductCard(): JSX.Element {
             Добавить в корзину
           </button>
           <div className="tabs product__tabs" data-testid="tabs-data">
-            <Tabs />
+            <Tabs selectedCamera={selectedCamera} />
           </div>
         </div>
       </div>

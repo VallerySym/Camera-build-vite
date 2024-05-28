@@ -38,7 +38,7 @@ export function withStore(
   const mockAxiosAdapter = new MockAdapter(axios);
   const middleware = [thunk.withExtraArgument(axios)];
   const mockStoreCreator = configureMockStore<State, Action<string>, AppThunkDispatch>(middleware);
-  
+
   const mockStore = mockStoreCreator(initialState);
 
   return ({

@@ -4,6 +4,7 @@ import { Review, Reviews } from '../types/review';
 import { Promo } from '../types/promo';
 import { State } from '../types/state';
 import { RequestStatus } from '../const';
+import { Action } from 'redux';
 
 const makeFakeCamera = (): CameraItem => ({
   id: datatype.number(),
@@ -85,4 +86,10 @@ const makeFakeStore = (initialState?: Partial<State>): State => ({
 });
 
 
-export { makeFakeCamera, makeFakeCameras, makeFakeReview, makeFakeReviews, makeFakePromoList, makeFakeStore };
+const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
+
+export {
+  makeFakeCamera, makeFakeCameras, makeFakeReview,
+  makeFakeReviews, makeFakePromoList, makeFakeStore,
+  extractActionsTypes
+};
