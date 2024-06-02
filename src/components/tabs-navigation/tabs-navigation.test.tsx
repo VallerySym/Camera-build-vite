@@ -8,6 +8,7 @@ import { makeFakeCamera } from '../../utils/mocks';
 describe('Component: TabsNavigation', () => {
   it('should render correctly', () => {
     const mockCamera = makeFakeCamera();
+
     const { withStoreComponent } = withStore(
       <TabsNavigation
         camera={mockCamera}
@@ -16,7 +17,6 @@ describe('Component: TabsNavigation', () => {
       />
     );
     const preparedComponent = withHistory(withStoreComponent);
-
     render(preparedComponent);
 
     expect(screen.getByTestId('tabs-navigation')).toBeInTheDocument();

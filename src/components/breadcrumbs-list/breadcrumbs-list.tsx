@@ -9,7 +9,7 @@ function BreadcrumbsList(): JSX.Element {
   const selectedCamera = useAppSelector(getCamera);
 
   return (
-    <div className="breadcrumbs" data-testid="breadcrumbs">
+    <div className="breadcrumbs" data-testid="breadcrumbs-list">
       <div className="container">
         <ul className="breadcrumbs__list">
           <li className="breadcrumbs__item">

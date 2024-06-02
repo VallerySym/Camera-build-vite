@@ -15,7 +15,6 @@ function CatalogList({ catalogList }: CatalogListProps): JSX.Element {
             <CatalogItem key={keyValue} catalogItem={camera} />
           );
         })}
-
       </div>
     </div>
   );

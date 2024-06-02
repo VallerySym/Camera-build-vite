@@ -33,5 +33,3 @@ export const catalogSlice = createSlice({
 
   },
 });
-
-export { initialState as testInitialState };

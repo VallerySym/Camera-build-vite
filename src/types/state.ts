@@ -33,24 +33,26 @@ export type ReviewsProcess = {
 };
 
 export type PopupProcess = {
-  tel: string;
+  postData: PostData;
   isPopupOpen: boolean;
   isPopupCallMeOpen:boolean;
   popupCallIsLoading: boolean;
   popupCallIsNotFound: boolean;
 };
 
-export type CallMeData = {
-  tel: string;
-}
-
 export type PostData = {
-  postData: CallMeData;
-  id: number;
+  tel: string;
+  id: string ;
 }
 
 export type PromoProcess = {
   promoCameras: Promos;
   promoCamerasIsLoading: boolean;
   promoCamerasIsNotFound: boolean;
+};
+
+export type SimilarCamerasProcess = {
+  similarCameras: CameraItems;
+  similarCameraIsLoading: boolean;
+  similarCameraIsNotFound: boolean;
 };

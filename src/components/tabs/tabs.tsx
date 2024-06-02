@@ -5,7 +5,7 @@ import TabsNavigation from '../tabs-navigation/tabs-navigation';
 import { CameraItem } from '../../types/camera-item';
 
 type TabsProps = {
-  selectedCamera: CameraItem;
+  selectedCamera: CameraItem | null;
 };
 
 function Tabs({selectedCamera}:TabsProps): JSX.Element {

@@ -2,7 +2,7 @@ import { datatype } from 'faker';
 import { CameraItem, CameraItems } from '../types/camera-item';
 import { Review, Reviews } from '../types/review';
 import { Promo } from '../types/promo';
-import { State } from '../types/state';
+import { PostData, State } from '../types/state';
 import { RequestStatus } from '../const';
 import { Action } from 'redux';
 
@@ -68,14 +68,19 @@ const makeFakeStore = (initialState?: Partial<State>): State => ({
     reviewRequestStatus: RequestStatus.Idle,
   },
   POPUP: {
-    tel: '',
+    postData:{
+      tel: '',
+      id:'',
+    },
     isPopupOpen: false,
     isPopupCallMeOpen: false,
     popupCallIsLoading: false,
     popupCallIsNotFound: false,
   },
-  ERROR: {
-    errorMessage: null
+  SIMILAR: {
+    similarCameras: [],
+    similarCameraIsLoading: false,
+    similarCameraIsNotFound: false,
   },
   PROMO: {
     promoCameras: [],
@@ -85,11 +90,18 @@ const makeFakeStore = (initialState?: Partial<State>): State => ({
   ...initialState ?? {},
 });
 
-
 const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
+
+const makeFakeSimilarCameras = (): CameraItem[] => Array.from({length: 10}, makeFakeCamera);
+
+const makeFakePostData = (): PostData => ({
+  tel: datatype.string(),
+  id: datatype.string(),
+
+});
 
 export {
   makeFakeCamera, makeFakeCameras, makeFakeReview,
   makeFakeReviews, makeFakePromoList, makeFakeStore,
-  extractActionsTypes
+  extractActionsTypes,makeFakeSimilarCameras, makeFakePostData
 };

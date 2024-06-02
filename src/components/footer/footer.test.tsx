@@ -5,13 +5,12 @@ import Footer from './footer';
 describe('Component: Footer', () => {
   it('should render correctly', () => {
     const footerTestId = 'footer';
-    const preparedComponent = withHistory(<Footer />);
 
+    const preparedComponent = withHistory(<Footer />);
     render(preparedComponent);
 
     const footerContainer = screen.getByTestId(footerTestId);
 
     expect(footerContainer).toBeInTheDocument();
-
   });
 });

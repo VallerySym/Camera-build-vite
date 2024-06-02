@@ -10,16 +10,23 @@ import Spinner from '../../components/spinner/spinner';
 import { fetchCamera, fetchReviews } from '../../store/api-actions';
 import { store } from '../../store';
 import { getReviews } from '../../store/reviews-process/reviews-process.selectors';
-import { getCameraIsLoading, getCameraIsNotFound } from '../../store/product-process/product-process.selectors';
+import { getCamera, getCameraIsLoading, getCameraIsNotFound } from '../../store/product-process/product-process.selectors';
 import { AppRoute } from '../../const';
+import { getSimilarCameras } from '../../store/similar-cameras-process/similar-cameras-process.selectors';
+import SimilarCamerasList from '../../components/similar-cameras-list/similar-cameras-list';
+import { checkPopupOpen } from '../../store/popup-process/popup-process.selectors';
+import PopupCallItem from '../../components/popup-call-item/popup-call-item';
 
 function ProductPage(): JSX.Element {
   const params = useParams();
   const cameraId = params.id;
 
   const reviewsActive = useAppSelector(getReviews);
+  const camera = useAppSelector(getCamera);
+  const similarCameras = useAppSelector(getSimilarCameras);
   const cameraIsLoading = useAppSelector(getCameraIsLoading);
   const cameraIsNotFound = useAppSelector(getCameraIsNotFound);
+  const isPopupOpen = useAppSelector(checkPopupOpen);
 
   useEffect(() => {
     store.dispatch(fetchCamera(Number(cameraId)));
@@ -42,7 +49,10 @@ function ProductPage(): JSX.Element {
           {cameraIsLoading && <Spinner />}
           {cameraIsNotFound && <Navigate to={AppRoute.NotFound} />}
           <div className="page-content__section">
-            <ProductCard />
+            <ProductCard selectedCamera={camera} />
+          </div>
+          <SimilarCamerasList similarList={similarCameras}/>
+          <div className="page-content__section">
           </div>
           <div className="page-content__section">
             <section className="review-block">
@@ -55,6 +65,7 @@ function ProductPage(): JSX.Element {
             </section>
           </div>
         </div>
+        {isPopupOpen && <PopupCallItem selectedCamera={camera} />}
       </main>
       <a
         className="up-btn"

@@ -8,14 +8,11 @@ describe('Component: CatalogList', () => {
   it('should render correctly', () => {
     const mockCameras = makeFakeCameras();
     const mockStore = makeFakeStore();
-    const { withStoreComponent } = withStore(
-      <CatalogList catalogList={mockCameras} />,
-      mockStore
-    );
+
+    const { withStoreComponent } = withStore(<CatalogList catalogList={mockCameras} />,mockStore);
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);
 
     expect(screen.getByTestId('catalog-list')).toBeInTheDocument();
-
   });
 });

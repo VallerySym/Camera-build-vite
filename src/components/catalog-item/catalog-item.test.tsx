@@ -8,10 +8,8 @@ describe('Component: CatalogItem', () => {
   it('should render correctly', () => {
     const mockCamera = makeFakeCameras()[0];
     const mockStore = makeFakeStore();
-    const { withStoreComponent } = withStore(
-      <CatalogItem catalogItem={mockCamera} />,
-      mockStore
-    );
+
+    const { withStoreComponent } = withStore(<CatalogItem catalogItem={mockCamera} />,mockStore);
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);
 

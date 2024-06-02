@@ -7,11 +7,9 @@ describe('Component: Banner', () => {
   const mockPromoItem = makeFakePromoList()[0];
 
   it('should render correctly', () => {
-
-    const {withStoreComponent} = withStore(
-      <Banner promoCamera={{...mockPromoItem}} />, {});
     const expectedText = 'Профессиональная камера от известного производителя';
 
+    const {withStoreComponent} = withStore(<Banner promoCamera={{...mockPromoItem}} />, {});
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);
 

@@ -6,12 +6,9 @@ import NotFoundPage from './not-found-page';
 describe('Component: NotFoundPage', () => {
   it('should render correctly', () => {
     const preparedComponent = withHistory(<NotFoundPage />);
-
     render(preparedComponent);
 
-    const expectedText = 'Вернуться на главную страницу';
-
     expect(screen.getByText('404 Page not found')).toBeInTheDocument();
-    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByText('Вернуться на главную страницу')).toBeInTheDocument();
   });
 });

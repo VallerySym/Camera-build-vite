@@ -49,7 +49,7 @@ describe('Slice promo-process', () => {
     const actualState: PromoProcess = { ...initialState, promoCamerasIsLoading: true, promoCamerasIsNotFound: false };
 
     const result = promoSlice.reducer(actualState, { type: fetchPromos.rejected.type });
-   
+
     expect(result).toEqual(expectedState);
   });
 });

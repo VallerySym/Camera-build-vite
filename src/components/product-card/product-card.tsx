@@ -1,10 +1,12 @@
 import { stars } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { getCamera } from '../../store/product-process/product-process.selectors';
 import Tabs from '../tabs/tabs';
+import { CameraItem } from '../../types/camera-item';
 
-function ProductCard(): JSX.Element {
-  const selectedCamera = useAppSelector(getCamera);
+type ProductCardProps ={
+  selectedCamera: CameraItem | null;
+}
+
+function ProductCard({selectedCamera}:ProductCardProps): JSX.Element {
 
   return (
     <section className="product" data-testid="product-card">
@@ -13,11 +15,11 @@ function ProductCard(): JSX.Element {
           <picture>
             <source
               type="image/webp"
-              srcSet={`/${selectedCamera?.previewImgWebp}, /${selectedCamera?.previewImgWebp2x}`}
+              srcSet={`/${String(selectedCamera?.previewImgWebp)}, /${String(selectedCamera?.previewImgWebp2x)}`}
             />
             <img
               src={selectedCamera?.previewImg}
-              srcSet={`${selectedCamera?.previewImg2x}`}
+              srcSet={`${String(selectedCamera?.previewImg2x)}`}
               width={560}
               height={480}
               alt={selectedCamera?.name}

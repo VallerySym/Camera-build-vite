@@ -8,8 +8,10 @@ import { getCameras, getCamerasIsLoading } from '../../store/catalog-process/cat
 import PopupCallItem from '../../components/popup-call-item/popup-call-item';
 import { checkPopupOpen } from '../../store/popup-process/popup-process.selectors';
 import SwiperPromo from '../../components/swiper-promo/swiper-promo';
+import { getCamera } from '../../store/product-process/product-process.selectors';
 
 function CatalogPage(): JSX.Element {
+  const camera = useAppSelector(getCamera);
   const cameras = useAppSelector(getCameras);
   const camerasIsLoading = useAppSelector(getCamerasIsLoading);
 
@@ -40,7 +42,7 @@ function CatalogPage(): JSX.Element {
             </div>
           </section>
         </div>
-        {isPopupOpen && <PopupCallItem />}
+        {isPopupOpen && <PopupCallItem selectedCamera={camera} />}
       </main>
       <Footer />
     </div>

@@ -1,9 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { PopupProcess } from '../../types/state';
+import { PopupProcess, PostData } from '../../types/state';
+import { postFormData } from '../api-actions';
+
+const initialPostData: PostData = {
+  tel: '',
+  id:'',
+};
 
 const initialState: PopupProcess = {
-  tel: '',
+  postData:initialPostData,
   isPopupOpen: false,
   isPopupCallMeOpen: false,
   popupCallIsLoading: false,
@@ -23,8 +29,24 @@ export const popupSlice = createSlice({
       state.isPopupCallMeOpen = false;
     },
     setFormTel: (state, action: PayloadAction<string>) => {
-      state.tel = action.payload;
+      state.postData.tel = action.payload;
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(postFormData.pending, (state) => {
+        state.popupCallIsLoading = true;
+        state.popupCallIsNotFound = false;
+      })
+      .addCase(postFormData.fulfilled, (state, action) => {
+        state.postData = action.payload;
+        state.popupCallIsLoading = false;
+      })
+      .addCase(postFormData.rejected, (state) => {
+        state.popupCallIsLoading = false;
+        state.popupCallIsNotFound = true;
+      });
+
   },
 });
 

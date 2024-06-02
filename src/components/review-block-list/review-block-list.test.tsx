@@ -12,6 +12,7 @@ describe('Component: ReviewsList', () => {
     const expectedTest = 'reviews_list';
     const expectedItemTest = 'reviews_item';
     const expectedReviewsQuantity = mockReviews.length;
+
     const { withStoreComponent } = withStore(<ReviewBlockList reviewList ={mockReviews} />, {
       REVIEWS: {
         reviews: mockReviews,
@@ -21,7 +22,6 @@ describe('Component: ReviewsList', () => {
       },
     });
     const preparedComponent = withHistory(withStoreComponent);
-
     render(preparedComponent);
 
     const waitingRenderTimer = setTimeout(() => {

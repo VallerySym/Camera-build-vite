@@ -5,12 +5,14 @@ import { withHistory } from '../../utils/mock-component';
 describe('Component: Header', () => {
   it('should render correctly', () => {
     const expectedText = 'Каталог';
+    const headerTestId = 'header';
 
     const preparedComponent = withHistory(<Header />);
-
     render(preparedComponent);
 
-    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    const headerContainer = screen.getByTestId(headerTestId);
 
+    expect(headerContainer).toBeInTheDocument();
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
 });

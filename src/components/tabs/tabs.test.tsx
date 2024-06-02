@@ -7,9 +7,9 @@ import Tabs from './tabs';
 describe('Component: Tabs', () => {
   it('should render correctly', () => {
     const mockCamera = makeFakeCamera();
+
     const { withStoreComponent } = withStore(<Tabs selectedCamera={mockCamera} />);
     const preparedComponent = withHistory(withStoreComponent);
-
     render(preparedComponent);
 
     expect(screen.getByTestId('tabs')).toBeInTheDocument();

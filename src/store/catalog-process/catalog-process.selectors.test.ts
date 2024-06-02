@@ -11,7 +11,7 @@ const fakeState: CamerasProcess = {
 
 let state = { [NameSpace.Cameras]: fakeState };
 
-describe('OffersProcess selectors', () => {
+describe('CamerasProcess selectors', () => {
   beforeEach(() => {
     state = { [NameSpace.Cameras]: { ...fakeState } };
   });
@@ -23,13 +23,13 @@ describe('OffersProcess selectors', () => {
     expect(result).toEqual(cameras);
   });
 
-  it('should return true offersIsLoading status', () => {
+  it('should return true camerasIsLoading status', () => {
     const result = getCamerasIsLoading(state);
 
     expect(result).toEqual(true);
   });
 
-  it('should return false offersIsNotFound status', () => {
+  it('should return false camerasIsNotFound status', () => {
     const result = getCamerasIsNotFound(state);
 
     expect(result).toEqual(false);

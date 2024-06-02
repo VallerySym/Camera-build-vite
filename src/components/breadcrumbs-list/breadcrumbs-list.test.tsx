@@ -3,12 +3,12 @@ import { withHistory, withStore } from '../../utils/mock-component';
 import BreadcrumbsList from './breadcrumbs-list';
 import { makeFakeCameras, makeFakeCamera } from '../../utils/mocks';
 
-describe('Component: Breadcrumbs', () => {
+describe('Component: BreadcrumbsList', () => {
   const mockCameraList = makeFakeCameras();
   const mockCameraItem = makeFakeCamera();
 
   it('should render correctly', () => {
-    const expectedTest = 'breadcrumbs';
+    const expectedTest = 'breadcrumbs-list';
     const expectedLinkText = 'Главная';
     const { withStoreComponent } = withStore(<BreadcrumbsList />, {
       CAMERAS: {

@@ -27,7 +27,10 @@ describe('Component: CatalogPage', () => {
         promoCamerasIsNotFound: false,
       },
       POPUP: {
-        tel: '',
+        postData:{
+          tel: '',
+          id: '',
+        },
         isPopupOpen: false,
         isPopupCallMeOpen: false,
         popupCallIsLoading: false,

@@ -13,7 +13,8 @@ export enum NameSpace {
     Reviews ='REVIEWS',
     Popup='POPUP',
     Error = 'ERROR',
-    Promo= 'PROMO'
+    Promo= 'PROMO',
+    Similar = 'SIMILAR'
   }
 
 export enum APIRoute {
