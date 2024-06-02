@@ -4,6 +4,7 @@ import { CSSProperties } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { Link } from 'react-router-dom';
 import { openCallMePopup } from '../../store/popup-process/popup-process.slice';
+import { fetchCamera } from '../../store/api-actions';
 
 type SimilarCameraProps = {
   similarCamera: CameraItem;
@@ -56,6 +57,7 @@ function SimilarCamera({ similarCamera, style}: SimilarCameraProps): JSX.Element
           className="btn btn--purple product-card__btn"
           type="button"
           onClick={() => {
+            dispatch(fetchCamera(Number(similarCamera.id)));
             dispatch(openCallMePopup());
           }}
         >
