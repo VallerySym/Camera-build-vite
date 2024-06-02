@@ -1,10 +1,20 @@
 import CatalogItem from '../catalog-item/catalog-item';
+import { CameraItems } from '../../types/camera-item';
 
-function CatalogList(): JSX.Element {
+type CatalogListProps = {
+  catalogList: CameraItems;
+}
+
+function CatalogList({ catalogList }: CatalogListProps): JSX.Element {
   return (
-    <div className="catalog__content">
+    <div className="catalog__content" data-testid="catalog-list">
       <div className="cards catalog__cards">
-        <CatalogItem />
+        {catalogList.map((camera) => {
+          const keyValue = camera.id;
+          return (
+            <CatalogItem key={keyValue} catalogItem={camera} />
+          );
+        })}
       </div>
     </div>
   );

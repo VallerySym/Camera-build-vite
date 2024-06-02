@@ -1,60 +1,74 @@
-function CatalogItem(): JSX.Element {
+import { Link } from 'react-router-dom';
+import { CameraItem } from '../../types/camera-item';
+import { stars } from '../../const';
+import { fetchCamera } from '../../store/api-actions';
+import { useAppDispatch } from '../../hooks';
+import { openCallMePopup } from '../../store/popup-process/popup-process.slice';
+
+type CatalogItemProps = {
+  catalogItem: CameraItem;
+}
+
+function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   return (
-    <div className="product-card">
+    <div className="product-card" data-testid="camera-card">
       <div className="product-card__img">
         <picture>
           <source
             type="image/webp"
-            srcSet="img/content/img1.webp, img/content/img1@2x.webp 2x"
+            srcSet={`${catalogItem.previewImgWebp}, ${catalogItem.previewImgWebp2x}`}
           />
           <img
-            src="img/content/img1.jpg"
-            srcSet="img/content/img1@2x.jpg 2x"
+            src={catalogItem.previewImg}
+            srcSet={`${catalogItem.previewImg2x}`}
             width={280}
             height={240}
-            alt="Ретрокамера «Das Auge IV»"
+            alt={catalogItem.name}
           />
         </picture>
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-star" />
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-star" />
-          </svg>
-          <p className="visually-hidden">Рейтинг: 3</p>
+          {stars.map((star) => (
+            <svg key={star} width={17} height={16} aria-hidden="true">
+              {star <= Math.floor(catalogItem.rating) ? (
+                <use xlinkHref="#icon-full-star" />
+              ) : (
+                <use xlinkHref="#icon-star" />
+              )}
+            </svg>
+          ))}
+          <p className="visually-hidden">Рейтинг: {catalogItem.rating}</p>
           <p className="rate__count">
-            <span className="visually-hidden">Всего оценок:</span>23
+            <span className="visually-hidden">Всего оценок:</span>{catalogItem.reviewCount}
           </p>
         </div>
         <p className="product-card__title">
-                    Ретрокамера «Das Auge IV»
+          {catalogItem.name}
         </p>
         <p className="product-card__price">
-          <span className="visually-hidden">Цена:</span>73 450 ₽
+          <span className="visually-hidden">Цена:</span>{catalogItem.price.toLocaleString()} ₽
         </p>
       </div>
       <div className="product-card__buttons">
         <button
           className="btn btn--purple product-card__btn"
           type="button"
+          onClick={() => {
+            dispatch(fetchCamera(Number(catalogItem.id)));
+            dispatch(openCallMePopup());
+          }}
         >
-                    Купить
+          Купить
         </button>
-        <a className="btn btn--transparent" href="#">
-                    Подробнее
-        </a>
+        <Link
+          className="btn btn--transparent"
+          to={`/camera/${catalogItem.id}`}
+        >
+          Подробнее
+        </Link>
       </div>
     </div>
   );

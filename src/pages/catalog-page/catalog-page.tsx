@@ -1,20 +1,29 @@
-import { Helmet } from 'react-helmet-async';
-import Banner from '../../components/banner/banner';
 import BreadcrumbsList from '../../components/breadcrumbs-list/breadcrumbs-list';
 import CatalogList from '../../components/catalog-list/catalog-list';
-import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+import Spinner from '../../components/spinner/spinner';
+import { useAppSelector } from '../../hooks';
+import { getCameras, getCamerasIsLoading } from '../../store/catalog-process/catalog-process.selectors';
+import PopupCallItem from '../../components/popup-call-item/popup-call-item';
+import { checkPopupOpen } from '../../store/popup-process/popup-process.selectors';
+import SwiperPromo from '../../components/swiper-promo/swiper-promo';
+import { getCamera } from '../../store/product-process/product-process.selectors';
 
 function CatalogPage(): JSX.Element {
+  const camera = useAppSelector(getCamera);
+  const cameras = useAppSelector(getCameras);
+  const camerasIsLoading = useAppSelector(getCamerasIsLoading);
+
+  const camerasCount = cameras.length;
+  const isPopupOpen = useAppSelector(checkPopupOpen);
+
   return (
     <div className="wrapper">
-      <Helmet>
-        <title>Camera shop. Catalog.</title>
-      </Helmet>
       <Header />
       <main>
-        <Banner />
-        <div className="page-content">
+        <SwiperPromo />
+        <div className="page-content" data-testid="catalog">
           <BreadcrumbsList />
           <section className="catalog">
             <div className="container">
@@ -23,15 +32,20 @@ function CatalogPage(): JSX.Element {
                 <div className="catalog__aside">
                   <img src="img/banner.png" />
                 </div>
-                <CatalogList />
+                {camerasIsLoading && <Spinner />}
+                {camerasCount ? (
+                  <CatalogList catalogList={cameras} />
+                ) : (
+                  <h2>Нет доступных камер</h2>
+                )}
               </div>
             </div>
           </section>
         </div>
+        {isPopupOpen && <PopupCallItem selectedCamera={camera} />}
       </main>
       <Footer />
     </div>
-
   );
 }
 

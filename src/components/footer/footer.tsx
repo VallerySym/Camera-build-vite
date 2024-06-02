@@ -1,11 +1,21 @@
-import FooterLogo from '../footer-logo/footer-logo';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function Footer(): JSX.Element {
   return (
-    <footer className="footer">
+    <footer className="footer" data-testid="footer">
       <div className="container">
         <div className="footer__info">
-          <FooterLogo />
+          <Link
+            className="footer__logo"
+            aria-label="Переход на главную"
+            to={AppRoute.Catalog}
+          >
+            <span className='visually-hidden'>Переход на главную</span>
+            <svg width={100} height={36} aria-hidden="true">
+              <use xlinkHref="#icon-logo-mono" />
+            </svg>
+          </Link>
           <p className="footer__description">
             Интернет-магазин фото- и видеотехники
           </p>
