@@ -65,7 +65,7 @@ function PopupCallItem({selectedCamera}:PopupCallItemProps): JSX.Element {
   };
 
   useEffect(() => {
-    let isMounted = true;
+    let isMounted;
 
     if (isMounted) {
       if (selectedCamera && focusRef.current) {
@@ -134,7 +134,7 @@ function PopupCallItem({selectedCamera}:PopupCallItemProps): JSX.Element {
                   {...register('tel', {
                     required: 'Обязательное поле',
                     pattern: {
-                      value: /^(\+7|8)[\d\- ]{9,}$/,
+                      value: /^(\+7|8)[\d\- ]{9,10}$/,
                       message: 'Пожалуйста, введите номер в формате +7(9XX)XXX-XX-XX',
                     }
                   })}
