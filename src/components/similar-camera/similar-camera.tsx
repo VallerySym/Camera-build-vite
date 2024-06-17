@@ -11,7 +11,7 @@ type SimilarCameraProps = {
   style: CSSProperties;
 }
 
-function SimilarCamera({ similarCamera, style}: SimilarCameraProps): JSX.Element {
+function SimilarCamera({ similarCamera, style }: SimilarCameraProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (

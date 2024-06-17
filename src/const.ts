@@ -39,3 +39,13 @@ export enum RequestStatus {
 export const stars = [1, 2, 3, 4, 5];
 
 export const TIME_TO_RENDER_PAGE = 1000;
+
+export enum SortType {
+  Price = 'price',
+  Popular = 'popular',
+}
+
+export enum SortOrder {
+  Up = 'up',
+  Down = 'down',
+}

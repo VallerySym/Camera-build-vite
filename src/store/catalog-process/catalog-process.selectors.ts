@@ -9,3 +9,10 @@ export const getCamerasIsLoading = (state: Pick<State, NameSpace.Cameras>): bool
 
 export const getCamerasIsNotFound = (state: Pick<State, NameSpace.Cameras>): boolean =>
   state[NameSpace.Cameras].camerasIsNotFound;
+
+
+export const getSortType = (state: Pick<State, NameSpace.Cameras>) =>
+  state[NameSpace.Cameras].sortType;
+
+export const getSortOrder = (state: Pick<State, NameSpace.Cameras>) =>
+  state[NameSpace.Cameras].sortOrder;
