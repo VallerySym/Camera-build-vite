@@ -1,4 +1,24 @@
+import { useEffect, useState } from 'react';
+import { useAppDispatch } from '../../hooks';
+import FilterCategory from '../filter-category/filter-category';
+import { resetFilters } from '../../store/catalog-process/catalog-process.slice';
+
 function CatalogFilter(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const [isReset, setIsReset] = useState(false);
+
+  const handleFilterReset = () => {
+    setIsReset(true);
+    dispatch(resetFilters());
+  };
+
+
+  useEffect(() => {
+    if (isReset) {
+      setIsReset(false);
+    }
+  }, [isReset]);
+
   return (
     <div className="catalog-filter">
       <form action="#">
@@ -18,28 +38,7 @@ function CatalogFilter(): JSX.Element {
             </div>
           </div>
         </fieldset>
-        <fieldset className="catalog-filter__block">
-          <legend className="title title--h5">Категория</legend>
-          <div className="custom-radio catalog-filter__item">
-            <label>
-              <input
-                type="radio"
-                name="category"
-                defaultValue="photocamera"
-                defaultChecked
-              />
-              <span className="custom-radio__icon" />
-              <span className="custom-radio__label">Фотокамера</span>
-            </label>
-          </div>
-          <div className="custom-radio catalog-filter__item">
-            <label>
-              <input type="radio" name="category" defaultValue="videocamera" />
-              <span className="custom-radio__icon" />
-              <span className="custom-radio__label">Видеокамера</span>
-            </label>
-          </div>
-        </fieldset>
+        <FilterCategory />
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Тип камеры</legend>
           <div className="custom-checkbox catalog-filter__item">
@@ -100,8 +99,8 @@ function CatalogFilter(): JSX.Element {
             </label>
           </div>
         </fieldset>
-        <button className="btn catalog-filter__reset-btn" type="reset">
-                    Сбросить фильтры
+        <button className="btn catalog-filter__reset-btn" type="reset" onClick={handleFilterReset}>
+          Сбросить фильтры
         </button>
       </form>
     </div>
@@ -110,3 +109,4 @@ function CatalogFilter(): JSX.Element {
 }
 
 export default CatalogFilter;
+

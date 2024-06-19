@@ -49,3 +49,19 @@ export enum SortOrder {
   Up = 'up',
   Down = 'down',
 }
+
+export const DEFAULT_SORT_TYPE = SortType.Price;
+
+export const DEFAULT_SORT_ORDER = SortOrder.Up;
+
+export const MIN_SEARCH_CHAR = 3;
+
+export enum CameraCategory {
+  PhotoCamera = 'Фотоаппарат',
+  VideoCamera = 'Видеокамера',
+}
+
+export const CAMERA_CATEGORY = [
+  { value: 'Фотоаппарат' },
+  { value: 'Видеокамера' },
+];

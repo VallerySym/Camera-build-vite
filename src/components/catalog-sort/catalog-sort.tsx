@@ -1,28 +1,21 @@
 import cn from 'classnames';
-import { useSearchParams } from 'react-router-dom';
 import { SortType, SortOrder } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setSortByType, setSortByOrder } from '../../store/catalog-process/catalog-process.slice';
 import { sortByType, sortByOrder } from '../../utils/utils';
+import { getSortOrder, getSortType } from '../../store/catalog-process/catalog-process.selectors';
 
-type SortProps = {
-  activeSortType: SortType | null;
-  activeSortOrder: SortOrder | null;
-};
 
-function CatalogSort({ activeSortType, activeSortOrder }: SortProps): JSX.Element {
+function CatalogSort(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const activeSortType = useAppSelector(getSortType);
+  const activeSortOrder = useAppSelector(getSortOrder);
 
   const handleSortTypeChange = (type: SortType) => {
-    searchParams.set('search_type', type);
-    setSearchParams(searchParams);
     dispatch(setSortByType(type));
   };
 
   const handleSortOrderChange = (order: SortOrder) => {
-    searchParams.set('search_order', order);
-    setSearchParams(searchParams);
     dispatch(setSortByOrder(order));
   };
 
@@ -79,3 +72,4 @@ function CatalogSort({ activeSortType, activeSortOrder }: SortProps): JSX.Elemen
 }
 
 export default CatalogSort;
+

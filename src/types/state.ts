@@ -1,4 +1,4 @@
-import { RequestStatus, SortOrder, SortType } from '../const';
+import { CameraCategory, RequestStatus, SortOrder, SortType } from '../const';
 import { store } from '../store/index';
 import { CameraItems, CameraItem} from './camera-item';
 import { Promos } from './promo';
@@ -19,6 +19,8 @@ export type CamerasProcess = {
   selectCameraId: string;
   sortType: SortType | null;
   sortOrder: SortOrder | null;
+  category: CameraCategory | null;
+  isReset: boolean;
 };
 
 export type CameraProcess = {

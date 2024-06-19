@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react';
-import Header from './header';
 import { withHistory, withStore } from '../../utils/mock-component';
+import { render, screen } from '@testing-library/react';
+import SearchForm from './search-form';
 import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE } from '../../const';
 
-describe('Component: Header', () => {
+describe('Component: Search Form', () => {
   it('should render correctly', () => {
-    const { withStoreComponent } = withStore(<Header />, {
+    const { withStoreComponent } = withStore(<SearchForm />, {
       CAMERAS: {
         cameras: [],
         camerasIsLoading: false,
@@ -15,15 +15,12 @@ describe('Component: Header', () => {
         sortOrder: DEFAULT_SORT_ORDER,
         category: null,
         isReset: false,
-      }
+      },
     });
 
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);
 
-    expect(screen.getByText(/Каталог/i)).toBeInTheDocument();
-    expect(screen.getByText(/Гарантии/i)).toBeInTheDocument();
-    expect(screen.getByText(/Доставка/i)).toBeInTheDocument();
-    expect(screen.getByText(/О компании/i)).toBeInTheDocument();
+    expect(screen.getByTestId('search-form')).toBeInTheDocument();
   });
 });

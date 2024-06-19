@@ -16,3 +16,6 @@ export const getSortType = (state: Pick<State, NameSpace.Cameras>) =>
 
 export const getSortOrder = (state: Pick<State, NameSpace.Cameras>) =>
   state[NameSpace.Cameras].sortOrder;
+
+export const getCamerasCategory = (state: Pick<State, NameSpace.Cameras>) =>
+  state[NameSpace.Cameras].category;

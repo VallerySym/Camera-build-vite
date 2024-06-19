@@ -1,4 +1,4 @@
-import { NameSpace } from '../../const';
+import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE, NameSpace } from '../../const';
 import { CamerasProcess } from '../../types/state';
 import { getCameras, getCamerasIsLoading, getCamerasIsNotFound } from './catalog-process.selectors';
 
@@ -7,6 +7,10 @@ const fakeState: CamerasProcess = {
   camerasIsLoading: true,
   camerasIsNotFound: false,
   selectCameraId: '',
+  sortType: DEFAULT_SORT_TYPE,
+  sortOrder: DEFAULT_SORT_ORDER,
+  category: null,
+  isReset: false,
 };
 
 let state = { [NameSpace.Cameras]: fakeState };

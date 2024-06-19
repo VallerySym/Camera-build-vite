@@ -1,3 +1,4 @@
+import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE } from '../../const';
 import { CamerasProcess } from '../../types/state';
 import { makeFakeCameras } from '../../utils/mocks';
 import { fetchCameras } from '../api-actions';
@@ -8,6 +9,10 @@ const initialState: CamerasProcess = {
   camerasIsLoading: false,
   camerasIsNotFound: false,
   selectCameraId: '',
+  sortType: DEFAULT_SORT_TYPE,
+  sortOrder: DEFAULT_SORT_ORDER,
+  category: null,
+  isReset: false,
 };
 
 let state: CamerasProcess;

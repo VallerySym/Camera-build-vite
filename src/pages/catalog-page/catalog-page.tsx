@@ -46,7 +46,7 @@ function CatalogPage(): JSX.Element {
                   <CatalogFilter />
                 </div>
                 <div className="catalog__content">
-                  <CatalogSort activeSortType={activeSortType} activeSortOrder={activeSortOrder}/>
+                  <CatalogSort />
                   {camerasIsLoading && <Spinner />}
                   {camerasCount ? (
                     <CatalogList catalogList={sortedCameras} />
