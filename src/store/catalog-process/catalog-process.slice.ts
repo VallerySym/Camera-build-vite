@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CamerasProcess } from '../../types/state';
 import { fetchCameras } from '../api-actions';
-import { CameraCategory, DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE, NameSpace, SortOrder, SortType } from '../../const';
+import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE, NameSpace, SortOrder, SortType } from '../../const';
+import { CameraItemCategory, CameraItemLevel, CameraItemType } from '../../types/camera-item';
 
 const initialState: CamerasProcess = {
   cameras: [],
@@ -11,7 +12,9 @@ const initialState: CamerasProcess = {
   sortType: DEFAULT_SORT_TYPE,
   sortOrder: DEFAULT_SORT_ORDER,
   category: null,
-  isReset: false,
+  type:[],
+  level:[],
+  isResetFilters: false,
 };
 
 export const catalogSlice = createSlice({
@@ -30,14 +33,28 @@ export const catalogSlice = createSlice({
       }
       state.sortOrder = action.payload;
     },
-    setCamerasCategory: (state, action: PayloadAction<CameraCategory>) => {
+    setCamerasCategory: (state, action: PayloadAction<CameraItemCategory>) => {
       state.category = action.payload;
     },
+    setCamerasType: (state, action: PayloadAction<CameraItemType>) => {
+      if (!state.type.includes(action.payload)) {
+        state.type.push(action.payload);
+      } else {
+        state.type = state.type.filter((type) => type !== action.payload);
+      }
+    },
+    setCamerasLevel: (state, action: PayloadAction<CameraItemLevel>) => {
+      if (!state.level.includes(action.payload)) {
+        state.level.push(action.payload);
+      } else {
+        state.level = state.level.filter((level) => level !== action.payload);
+      }
+    },
     resetFilters: (state) => {
-      state.sortType = null;
-      state.sortOrder = null;
       state.category = null;
-      state.isReset = true;
+      state.type = [];
+      state.level = [];
+      state.isResetFilters = true;
     },
   },
 
@@ -60,4 +77,4 @@ export const catalogSlice = createSlice({
   },
 });
 
-export const{ setSortByType, setSortByOrder, setCamerasCategory, resetFilters} = catalogSlice.actions;
+export const { setSortByType, setSortByOrder, setCamerasCategory, setCamerasType, setCamerasLevel, resetFilters } = catalogSlice.actions;

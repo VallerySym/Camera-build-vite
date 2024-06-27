@@ -14,8 +14,10 @@ describe('Component: Header', () => {
         sortType: DEFAULT_SORT_TYPE,
         sortOrder: DEFAULT_SORT_ORDER,
         category: null,
-        isReset: false,
-      }
+        type: [],
+        level: [],
+        isResetFilters: false,
+      },
     });
 
     const preparedComponent = withHistory(withStoreComponent);

@@ -10,7 +10,9 @@ const fakeState: CamerasProcess = {
   sortType: DEFAULT_SORT_TYPE,
   sortOrder: DEFAULT_SORT_ORDER,
   category: null,
-  isReset: false,
+  type: [],
+  level: [],
+  isResetFilters: false,
 };
 
 let state = { [NameSpace.Cameras]: fakeState };

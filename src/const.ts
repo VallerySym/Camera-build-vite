@@ -1,40 +1,40 @@
 export enum AppRoute {
-    Catalog = '/',
-    Product ='/camera/:id',
-    Camera ='/camera',
-    NotFound = '*',
-  }
+  Catalog = '/',
+  Product = '/camera/:id',
+  Camera = '/camera',
+  NotFound = '*',
+}
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum NameSpace {
-    Cameras = 'CAMERAS',
-    Camera ='CAMERA',
-    Reviews ='REVIEWS',
-    Popup='POPUP',
-    Error = 'ERROR',
-    Promo= 'PROMO',
-    Similar = 'SIMILAR'
-  }
+  Cameras = 'CAMERAS',
+  Camera = 'CAMERA',
+  Reviews = 'REVIEWS',
+  Popup = 'POPUP',
+  Error = 'ERROR',
+  Promo = 'PROMO',
+  Similar = 'SIMILAR'
+}
 
 export enum APIRoute {
-    Cameras = '/cameras',
-    Product ='/camera',
-    Reviews = '/reviews',
-    Promo='/promo'
-  }
+  Cameras = '/cameras',
+  Product = '/camera',
+  Reviews = '/reviews',
+  Promo = '/promo'
+}
 
 export enum Tab {
-    Characteristics = 'characteristics',
-    Description = 'description'
-  }
+  Characteristics = 'characteristics',
+  Description = 'description'
+}
 
 export enum RequestStatus {
-    Idle = 'idle',
-    Pending = 'pending',
-    Success = 'success',
-    Error = 'error',
-  }
+  Idle = 'idle',
+  Pending = 'pending',
+  Success = 'success',
+  Error = 'error',
+}
 
 export const stars = [1, 2, 3, 4, 5];
 
@@ -56,12 +56,20 @@ export const DEFAULT_SORT_ORDER = SortOrder.Up;
 
 export const MIN_SEARCH_CHAR = 3;
 
-export enum CameraCategory {
-  PhotoCamera = 'Фотоаппарат',
-  VideoCamera = 'Видеокамера',
-}
+export const CameraCategory = {
+  PhotoCamera: 'Фотоаппарат',
+  VideoCamera: 'Видеокамера',
+} as const;
 
-export const CAMERA_CATEGORY = [
-  { value: 'Фотоаппарат' },
-  { value: 'Видеокамера' },
-];
+export const CameraType = {
+  Digital: 'Цифровая',
+  Film: 'Плёночная',
+  Snapshot: 'Моментальная',
+  Collection: 'Коллекционная',
+} as const;
+
+export const CameraLevel = {
+  Zero: 'Нулевой',
+  'Non-professional': 'Любительский',
+  Professional: 'Профессиональный',
+} as const;

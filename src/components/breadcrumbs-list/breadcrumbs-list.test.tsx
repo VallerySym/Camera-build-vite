@@ -20,7 +20,9 @@ describe('Component: BreadcrumbsList', () => {
         sortType: DEFAULT_SORT_TYPE,
         sortOrder: DEFAULT_SORT_ORDER,
         category: null,
-        isReset: false,
+        type: [],
+        level: [],
+        isResetFilters: false,
       },
       CAMERA: {
         camera: { ...mockCameraItem },
@@ -36,3 +38,4 @@ describe('Component: BreadcrumbsList', () => {
     expect(screen.getByText(expectedLinkText)).toBeInTheDocument();
   });
 });
+

@@ -72,4 +72,3 @@ function CatalogSort(): JSX.Element {
 }
 
 export default CatalogSort;
-

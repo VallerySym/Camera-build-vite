@@ -1,5 +1,5 @@
 import { SortOrder, SortType, Tab } from '../const';
-import { CameraItem, CameraItems } from '../types/camera-item';
+import { CameraItem, CameraItemCategory, CameraItemLevel, CameraItemType, CameraItems } from '../types/camera-item';
 
 export const getTabName = (tab: Tab) => {
   switch (tab) {
@@ -66,4 +66,44 @@ export const sortCameras = (
   }
 
   return sortedCameras;
+};
+
+export const filterCamerasByCategory = (cameras: CameraItem[], category: CameraItemCategory | null) => {
+  if (!category) {
+    return cameras;
+  }
+
+  const filteredCameras = [...cameras].filter((camera) => camera.category === category);
+
+  return filteredCameras;
+};
+
+export const filterCamerasByType = (cameras: CameraItem[], type: CameraItemType[]) => {
+  if (!type?.length) {
+    return cameras;
+  }
+  const filteredProductList = [...cameras].filter((product) => type.includes(product.type));
+  return filteredProductList;
+};
+
+export const filterCamerasByLevel = (cameras: CameraItem[], level: CameraItemLevel[]) => {
+  if (!level?.length) {
+    return cameras;
+  }
+  const filteredProductList = [...cameras].filter((product) => level.includes(product.level));
+  return filteredProductList;
+};
+
+
+export const filterCameras = (
+  productList: CameraItem[],
+  category: CameraItemCategory | null,
+  type: CameraItemType[],
+  level: CameraItemLevel[],
+) => {
+  const filteredProductListByCategory = filterCamerasByCategory(productList, category);
+  const filteredProductListByType = filterCamerasByType(filteredProductListByCategory, type);
+  const filteredProductListByLevel = filterCamerasByLevel(filteredProductListByType, level);
+
+  return filteredProductListByLevel;
 };

@@ -1,11 +1,13 @@
+import { CameraCategory, CameraLevel, CameraType } from '../const';
+
 export type CameraItem = {
     id: number;
     name: string;
     vendorCode: string;
-    type: string;
-    category: string;
+    type: CameraItemType;
+    category: CameraItemCategory;
     description: string;
-    level: string;
+    level: CameraItemLevel;
     price: number;
     rating: number;
     reviewCount: number;
@@ -16,3 +18,9 @@ export type CameraItem = {
 }
 
 export type CameraItems = CameraItem[];
+
+export type CameraItemType = typeof CameraType[keyof typeof CameraType];
+
+export type CameraItemCategory = typeof CameraCategory[keyof typeof CameraCategory];
+
+export type CameraItemLevel = typeof CameraLevel[keyof typeof CameraLevel];

@@ -4,7 +4,7 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Spinner from '../../components/spinner/spinner';
 import { useAppSelector } from '../../hooks';
-import { getCameras, getCamerasIsLoading, getSortOrder, getSortType } from '../../store/catalog-process/catalog-process.selectors';
+import { getCameras, getCamerasIsLoading, getFilteredCameras } from '../../store/catalog-process/catalog-process.selectors';
 import PopupCallItem from '../../components/popup-call-item/popup-call-item';
 import { checkPopupOpen } from '../../store/popup-process/popup-process.selectors';
 import SwiperPromo from '../../components/swiper-promo/swiper-promo';
@@ -12,24 +12,16 @@ import { getCamera } from '../../store/product-process/product-process.selectors
 import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
 import Pagination from '../../components/pagination/pagination';
-import { CameraItems } from '../../types/camera-item';
-import { sortCameras } from '../../utils/utils';
 
 function CatalogPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
   const cameras = useAppSelector(getCameras);
   const camerasIsLoading = useAppSelector(getCamerasIsLoading);
-  const activeSortType = useAppSelector(getSortType);
-  const activeSortOrder = useAppSelector(getSortOrder);
 
   const camerasCount = cameras.length;
   const isPopupOpen = useAppSelector(checkPopupOpen);
 
-  const sortedCameras: CameraItems = sortCameras(
-    cameras,
-    activeSortType,
-    activeSortOrder
-  );
+  const filteredAndSortedCameras = useAppSelector(getFilteredCameras);
 
   return (
     <div className="wrapper">
@@ -49,7 +41,7 @@ function CatalogPage(): JSX.Element {
                   <CatalogSort />
                   {camerasIsLoading && <Spinner />}
                   {camerasCount ? (
-                    <CatalogList catalogList={sortedCameras} />
+                    <CatalogList catalogList={filteredAndSortedCameras} />
                   ) : (
                     <h2>Нет доступных камер</h2>
                   )}
