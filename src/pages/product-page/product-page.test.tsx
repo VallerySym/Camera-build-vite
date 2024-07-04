@@ -1,10 +1,11 @@
 import { withHistory, withStore } from '../../utils/mock-component';
 import { render, screen } from '@testing-library/react';
-import { makeFakeCamera, makeFakeReviews } from '../../utils/mocks';
+import { makeFakeCamera, makeFakeCameras, makeFakeReviews } from '../../utils/mocks';
 import ProductPage from './product-page';
-import { RequestStatus } from '../../const';
+import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE, RequestStatus } from '../../const';
 
 describe('Component: ProductPage', () => {
+  const mockCamerasList = makeFakeCameras();
   const mockCameraItem = makeFakeCamera();
   const mockReviews = makeFakeReviews();
 
@@ -12,10 +13,18 @@ describe('Component: ProductPage', () => {
 
     const { withStoreComponent } = withStore(<ProductPage />, {
       CAMERAS: {
-        cameras: [],
-        camerasIsLoading: false,
+        cameras: [...mockCamerasList],
+        camerasIsLoading: true,
         camerasIsNotFound: false,
-        selectCameraId: ''
+        selectCameraId: '',
+        sortType: DEFAULT_SORT_TYPE,
+        sortOrder: DEFAULT_SORT_ORDER,
+        category: null,
+        type: [],
+        level: [],
+        minPrice: 0,
+        maxPrice: 0,
+        isResetFilters: false,
       },
       CAMERA: {
         camera: { ...mockCameraItem },

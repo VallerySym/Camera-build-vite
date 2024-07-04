@@ -5,7 +5,7 @@ import { makeFakeCameras, makeFakeCamera } from '../../utils/mocks';
 import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE } from '../../const';
 
 describe('Component: BreadcrumbsList', () => {
-  const mockCameraList = makeFakeCameras();
+  const mockCamerasList = makeFakeCameras();
   const mockCameraItem = makeFakeCamera();
 
   it('should render correctly', () => {
@@ -13,7 +13,7 @@ describe('Component: BreadcrumbsList', () => {
     const expectedLinkText = 'Главная';
     const { withStoreComponent } = withStore(<BreadcrumbsList />, {
       CAMERAS: {
-        cameras: [...mockCameraList],
+        cameras: [...mockCamerasList],
         camerasIsLoading: true,
         camerasIsNotFound: false,
         selectCameraId: '',
@@ -22,6 +22,8 @@ describe('Component: BreadcrumbsList', () => {
         category: null,
         type: [],
         level: [],
+        minPrice: 0,
+        maxPrice: 0,
         isResetFilters: false,
       },
       CAMERA: {

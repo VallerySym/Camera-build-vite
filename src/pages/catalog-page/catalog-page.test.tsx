@@ -5,14 +5,14 @@ import { makeFakeCameras, makeFakePromoList, makeFakeCamera } from '../../utils/
 import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE } from '../../const';
 
 describe('Component: CatalogPage', () => {
-  const mockCameraList = makeFakeCameras();
+  const mockCamerasList = makeFakeCameras();
   const mockPromoList = makeFakePromoList();
   const mockCameraItem = makeFakeCamera();
 
   it('should render correctly', () => {
     const { withStoreComponent } = withStore(<CatalogPage />, {
       CAMERAS: {
-        cameras: [...mockCameraList],
+        cameras: [...mockCamerasList],
         camerasIsLoading: true,
         camerasIsNotFound: false,
         selectCameraId: '',
@@ -21,6 +21,8 @@ describe('Component: CatalogPage', () => {
         category: null,
         type: [],
         level: [],
+        minPrice: 0,
+        maxPrice: 0,
         isResetFilters: false,
       },
       CAMERA: {

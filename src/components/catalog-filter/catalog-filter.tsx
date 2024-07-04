@@ -4,6 +4,7 @@ import FilterCategory from '../filter-category/filter-category';
 import { resetFilters } from '../../store/catalog-process/catalog-process.slice';
 import FilterType from '../filter-type/filter-type';
 import FilterLevel from '../filter-level/filter-level';
+import FilterPrice from '../filter-price/filter-price';
 
 function CatalogFilter(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -24,21 +25,7 @@ function CatalogFilter(): JSX.Element {
     <div className="catalog-filter" data-testid="catalog-filter">
       <form action="#">
         <h2 className="visually-hidden">Фильтр</h2>
-        <fieldset className="catalog-filter__block">
-          <legend className="title title--h5">Цена, ₽</legend>
-          <div className="catalog-filter__price-range">
-            <div className="custom-input">
-              <label>
-                <input type="number" name="price" placeholder="от" />
-              </label>
-            </div>
-            <div className="custom-input">
-              <label>
-                <input type="number" name="priceUp" placeholder="до" />
-              </label>
-            </div>
-          </div>
-        </fieldset>
+        <FilterPrice />
         <FilterCategory />
         <FilterType />
         <FilterLevel />

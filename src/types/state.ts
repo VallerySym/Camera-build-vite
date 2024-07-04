@@ -22,6 +22,8 @@ export type CamerasProcess = {
   category: CameraItemCategory | null;
   type: CameraItemType[];
   level: CameraItemLevel[];
+  minPrice: number;
+  maxPrice: number;
   isResetFilters: boolean;
 };
 

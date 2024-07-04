@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { State } from '../../types/state';
-import { filterCameras, sortCameras } from '../../utils/utils';
+import { filterCameras, sortCameras } from '../../components/catalog-filter/utils';
 
 export const getCameras = (state: Pick<State, NameSpace.Cameras>) =>
   state[NameSpace.Cameras].cameras;
@@ -32,8 +32,14 @@ export const getCamerasType = (state: Pick<State, NameSpace.Cameras>) =>
 export const getCamerasLevel = (state: Pick<State, NameSpace.Cameras>) =>
   state[NameSpace.Cameras].level;
 
+export const getCamerasMinPrice = (state: Pick<State, NameSpace.Cameras>): number =>
+  state[NameSpace.Cameras].minPrice;
+
+export const getCamerasMaxPrice = (state: Pick<State, NameSpace.Cameras>): number =>
+  state[NameSpace.Cameras].maxPrice;
+
 export const getFilteredCameras = createSelector(
-  [getSortedCameras, getCamerasCategory, getCamerasType, getCamerasLevel],
-  (productList, category, type, level) =>
-    filterCameras(productList, category, type, level)
+  [getSortedCameras, getCamerasCategory, getCamerasType, getCamerasLevel, getCamerasMinPrice, getCamerasMaxPrice],
+  (cameras, category, type, level, minPrice, maxPrice) =>
+    filterCameras(cameras, category, type, level, minPrice, maxPrice)
 );

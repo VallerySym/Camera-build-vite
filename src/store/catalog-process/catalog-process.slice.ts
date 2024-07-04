@@ -12,8 +12,10 @@ const initialState: CamerasProcess = {
   sortType: DEFAULT_SORT_TYPE,
   sortOrder: DEFAULT_SORT_ORDER,
   category: null,
-  type:[],
-  level:[],
+  type: [],
+  level: [],
+  minPrice: 0,
+  maxPrice: 0,
   isResetFilters: false,
 };
 
@@ -50,10 +52,18 @@ export const catalogSlice = createSlice({
         state.level = state.level.filter((level) => level !== action.payload);
       }
     },
+    setMinPrice: (state, action: PayloadAction<number>) => {
+      state.minPrice = action.payload;
+    },
+    setMaxPrice: (state, action: PayloadAction<number>) => {
+      state.maxPrice = action.payload;
+    },
     resetFilters: (state) => {
       state.category = null;
       state.type = [];
       state.level = [];
+      state.minPrice = 0;
+      state.maxPrice = 0;
       state.isResetFilters = true;
     },
   },
@@ -77,4 +87,4 @@ export const catalogSlice = createSlice({
   },
 });
 
-export const { setSortByType, setSortByOrder, setCamerasCategory, setCamerasType, setCamerasLevel, resetFilters } = catalogSlice.actions;
+export const { setSortByType, setSortByOrder, setCamerasCategory, setCamerasType, setCamerasLevel, setMinPrice, setMaxPrice, resetFilters } = catalogSlice.actions;

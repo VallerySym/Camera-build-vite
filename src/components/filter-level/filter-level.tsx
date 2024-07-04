@@ -8,7 +8,7 @@ function FilterLevel(): JSX.Element {
   const dispatch = useAppDispatch();
   const currentType = useAppSelector(getCamerasLevel);
 
-  const handleTypeInputClick = (level: CameraItemLevel) => {
+  const handleLevelInputClick = (level: CameraItemLevel) => {
     dispatch(setCamerasLevel(level));
   };
 
@@ -22,7 +22,7 @@ function FilterLevel(): JSX.Element {
               type="checkbox"
               name={level.toLowerCase()}
               checked={currentType.includes(value)}
-              onChange={() => handleTypeInputClick(value)}
+              onChange={() => handleLevelInputClick(value)}
             />
             <span className="custom-checkbox__icon" />
             <span className="custom-checkbox__label">{value}</span>

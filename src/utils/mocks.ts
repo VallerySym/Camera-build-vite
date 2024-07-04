@@ -61,6 +61,8 @@ const makeFakeStore = (initialState?: Partial<State>): State => ({
     category: null,
     type: [],
     level: [],
+    minPrice:0,
+    maxPrice: 0,
     isResetFilters: false,
   },
   CAMERA: {
@@ -104,7 +106,6 @@ const makeFakeSimilarCameras = (): CameraItem[] => Array.from({ length: 10 }, ma
 const makeFakePostData = (): PostData => ({
   tel: datatype.string(),
   id: datatype.string(),
-
 });
 
 export {

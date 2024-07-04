@@ -14,6 +14,5 @@ describe('Component: ProductCard', () => {
     render(preparedComponent);
 
     expect(screen.getByTestId('product-card')).toBeInTheDocument();
-
   });
 });

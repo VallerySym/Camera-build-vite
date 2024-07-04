@@ -13,6 +13,5 @@ describe('Component: FilterCategory', () => {
     render(preparedComponent);
 
     expect(screen.getByTestId('filter-category')).toBeInTheDocument();
-
   });
 });

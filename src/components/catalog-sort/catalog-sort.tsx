@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { SortType, SortOrder } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setSortByType, setSortByOrder } from '../../store/catalog-process/catalog-process.slice';
-import { sortByType, sortByOrder } from '../../utils/utils';
+import { sortByType, sortByOrder } from './utils';
 import { getSortOrder, getSortType } from '../../store/catalog-process/catalog-process.selectors';
 
 

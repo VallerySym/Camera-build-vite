@@ -14,6 +14,8 @@ const initialState: CamerasProcess = {
   category: null,
   type: [],
   level: [],
+  minPrice: 0,
+  maxPrice:0,
   isResetFilters: false,
 };
 

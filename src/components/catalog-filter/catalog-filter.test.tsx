@@ -18,5 +18,6 @@ describe('Component: CatalogFilter', () => {
     expect(screen.getByTestId('filter-category')).toBeInTheDocument();
     expect(screen.getByTestId('filter-level')).toBeInTheDocument();
     expect(screen.getByTestId('filter-type')).toBeInTheDocument();
+    expect(screen.getByTestId('filter-price')).toBeInTheDocument();
   });
 });
