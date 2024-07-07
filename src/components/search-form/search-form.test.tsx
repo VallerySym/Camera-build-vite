@@ -1,26 +1,13 @@
 import { withHistory, withStore } from '../../utils/mock-component';
 import { render, screen } from '@testing-library/react';
 import SearchForm from './search-form';
-import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE } from '../../const';
+import { makeFakeStore } from '../../utils/mocks';
 
 describe('Component: Search Form', () => {
   it('should render correctly', () => {
-    const { withStoreComponent } = withStore(<SearchForm />, {
-      CAMERAS: {
-        cameras: [],
-        camerasIsLoading: false,
-        camerasIsNotFound: false,
-        selectCameraId: '',
-        sortType: DEFAULT_SORT_TYPE,
-        sortOrder: DEFAULT_SORT_ORDER,
-        category: null,
-        type: [],
-        level: [],
-        minPrice: 0,
-        maxPrice: 0,
-        isResetFilters: false,
-      },
-    });
+    const mockStore = makeFakeStore();
+
+    const { withStoreComponent } = withStore(<SearchForm />,mockStore);
 
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);

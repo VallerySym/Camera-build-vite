@@ -75,7 +75,7 @@ function FilterPrice(): JSX.Element {
     }
     setMaxPriceValue(price);
   };
-  
+
   const handleInputMinPriceKeyDown = (evt: KeyboardEvent<HTMLInputElement>) => {
     if (evt.code === 'Enter') {
       checkMinPrice();

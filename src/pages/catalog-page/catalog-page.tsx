@@ -4,7 +4,7 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Spinner from '../../components/spinner/spinner';
 import { useAppSelector } from '../../hooks';
-import { getCameras, getCamerasIsLoading, getFilteredCameras } from '../../store/catalog-process/catalog-process.selectors';
+import { getCameras, getCamerasIsLoading, getCurrentCamerasList, getTotalPageCount } from '../../store/catalog-process/catalog-process.selectors';
 import PopupCallItem from '../../components/popup-call-item/popup-call-item';
 import { checkPopupOpen } from '../../store/popup-process/popup-process.selectors';
 import SwiperPromo from '../../components/swiper-promo/swiper-promo';
@@ -21,7 +21,9 @@ function CatalogPage(): JSX.Element {
   const camerasCount = cameras.length;
   const isPopupOpen = useAppSelector(checkPopupOpen);
 
-  const filteredAndSortedCameras = useAppSelector(getFilteredCameras);
+  const filteredAndSortedCameras = useAppSelector(getCurrentCamerasList);
+
+  const totalCountPage = useAppSelector(getTotalPageCount);
 
   return (
     <div className="wrapper">
@@ -45,7 +47,7 @@ function CatalogPage(): JSX.Element {
                   ) : (
                     <h2>Нет доступных камер</h2>
                   )}
-                  <Pagination />
+                  {totalCountPage > 1 && <Pagination totalCountPage={totalCountPage}/>}
                 </div>
               </div>
             </div>

@@ -61,9 +61,10 @@ const makeFakeStore = (initialState?: Partial<State>): State => ({
     category: null,
     type: [],
     level: [],
-    minPrice:0,
+    minPrice: 0,
     maxPrice: 0,
     isResetFilters: false,
+    currentPage: 1,
   },
   CAMERA: {
     camera: null,

@@ -17,6 +17,7 @@ const initialState: CamerasProcess = {
   minPrice: 0,
   maxPrice: 0,
   isResetFilters: false,
+  currentPage: 1,
 };
 
 export const catalogSlice = createSlice({
@@ -58,6 +59,9 @@ export const catalogSlice = createSlice({
     setMaxPrice: (state, action: PayloadAction<number>) => {
       state.maxPrice = action.payload;
     },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload;
+    },
     resetFilters: (state) => {
       state.category = null;
       state.type = [];
@@ -87,4 +91,5 @@ export const catalogSlice = createSlice({
   },
 });
 
-export const { setSortByType, setSortByOrder, setCamerasCategory, setCamerasType, setCamerasLevel, setMinPrice, setMaxPrice, resetFilters } = catalogSlice.actions;
+export const { setSortByType, setSortByOrder, setCamerasCategory, setCamerasType,
+  setCamerasLevel, setMinPrice, setMaxPrice, setCurrentPage, resetFilters } = catalogSlice.actions;

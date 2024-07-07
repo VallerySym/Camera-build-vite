@@ -1,11 +1,16 @@
+export const TIMEOUT_SHOW_ERROR = 2000;
+export const TIME_TO_RENDER_PAGE = 1000;
+
+export const MIN_SEARCH_CHAR = 3;
+export const PER_PAGE_CAMERAS_COUNT = 9;
+export const MAX_PAGE_COUNT = 3;
+
 export enum AppRoute {
   Catalog = '/',
   Product = '/camera/:id',
   Camera = '/camera',
   NotFound = '*',
 }
-
-export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum NameSpace {
   Cameras = 'CAMERAS',
@@ -38,8 +43,6 @@ export enum RequestStatus {
 
 export const stars = [1, 2, 3, 4, 5];
 
-export const TIME_TO_RENDER_PAGE = 1000;
-
 export enum SortType {
   Price = 'price',
   Popular = 'popular',
@@ -51,10 +54,7 @@ export enum SortOrder {
 }
 
 export const DEFAULT_SORT_TYPE = SortType.Price;
-
 export const DEFAULT_SORT_ORDER = SortOrder.Up;
-
-export const MIN_SEARCH_CHAR = 3;
 
 export const CameraCategory = {
   PhotoCamera: 'Фотоаппарат',

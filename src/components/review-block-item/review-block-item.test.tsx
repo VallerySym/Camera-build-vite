@@ -1,25 +1,16 @@
 import { describe } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { RequestStatus } from '../../const';
 import { withHistory, withStore } from '../../utils/mock-component';
-import { makeFakeReview, makeFakeReviews } from '../../utils/mocks';
+import { makeFakeReview, makeFakeStore } from '../../utils/mocks';
 import ReviewBlockItem from './review-block-item';
 
 describe('Component: ReviewBlockItem', () => {
   it('should render correctly', () => {
     const mockReview = makeFakeReview();
-    const mockReviews = makeFakeReviews();
+    const mockStore = makeFakeStore();
+
     const { withStoreComponent } = withStore(
-      <ReviewBlockItem reviewCard={mockReview} />,
-      {
-        REVIEWS: {
-          reviews: mockReviews,
-          reviewsIsLoading: true,
-          reviewsIsNotFound: false,
-          reviewRequestStatus: RequestStatus.Success,
-        },
-      }
-    );
+      <ReviewBlockItem reviewCard={mockReview} />,mockStore);
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);

@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
+import { NameSpace, PER_PAGE_CAMERAS_COUNT } from '../../const';
 import { State } from '../../types/state';
 import { filterCameras, sortCameras } from '../../components/catalog-filter/utils';
 
@@ -43,3 +43,21 @@ export const getFilteredCameras = createSelector(
   (cameras, category, type, level, minPrice, maxPrice) =>
     filterCameras(cameras, category, type, level, minPrice, maxPrice)
 );
+
+export const getCurrentPage = (state: Pick<State, NameSpace.Cameras>): number =>
+  state[NameSpace.Cameras].currentPage;
+
+export const getTotalPageCount = createSelector([getFilteredCameras], (productList) => {
+  const totalCamerasCount = productList.length;
+  const totalPageCount = Math.ceil(totalCamerasCount / PER_PAGE_CAMERAS_COUNT);
+
+  return totalPageCount;
+});
+
+export const getCurrentCamerasList = createSelector([getFilteredCameras, getCurrentPage], (productList, currentPage) => {
+  const lastCameraIndex = currentPage * PER_PAGE_CAMERAS_COUNT;
+  const firstCameraIndex = lastCameraIndex - PER_PAGE_CAMERAS_COUNT;
+  const currentCamerasList = productList.slice(firstCameraIndex, lastCameraIndex);
+
+  return currentCamerasList;
+});

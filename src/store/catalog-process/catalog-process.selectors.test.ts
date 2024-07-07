@@ -4,7 +4,7 @@ import { getCameras, getCamerasIsLoading, getCamerasIsNotFound } from './catalog
 
 const fakeState: CamerasProcess = {
   cameras: [],
-  camerasIsLoading: true,
+  camerasIsLoading: false,
   camerasIsNotFound: false,
   selectCameraId: '',
   sortType: DEFAULT_SORT_TYPE,
@@ -12,7 +12,10 @@ const fakeState: CamerasProcess = {
   category: null,
   type: [],
   level: [],
+  minPrice: 0,
+  maxPrice: 0,
   isResetFilters: false,
+  currentPage: 1,
 };
 
 let state = { [NameSpace.Cameras]: fakeState };
@@ -32,7 +35,7 @@ describe('CamerasProcess selectors', () => {
   it('should return true camerasIsLoading status', () => {
     const result = getCamerasIsLoading(state);
 
-    expect(result).toEqual(true);
+    expect(result).toEqual(false);
   });
 
   it('should return false camerasIsNotFound status', () => {
@@ -41,4 +44,3 @@ describe('CamerasProcess selectors', () => {
     expect(result).toEqual(false);
   });
 });
-

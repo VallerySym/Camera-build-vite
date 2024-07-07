@@ -41,7 +41,7 @@ export const sortCameras = (
   return sortedCameras;
 };
 
-export const filterCamerasByCategory = (cameras: CameraItem[], category: CameraItemCategory | null) => {
+export const filterCamerasByCategory = (cameras: CameraItems, category: CameraItemCategory | null) => {
   if (!category) {
     return cameras;
   }
@@ -92,7 +92,6 @@ export const filterCamerasByPrice = (productList: CameraItem[], minPrice: number
   const filteredProductList = productList.filter((product) => product.price >= minPrice && product.price <= maxPrice);
   return filteredProductList;
 };
-
 
 export const filterCameras = (
   camerasList: CameraItem[],

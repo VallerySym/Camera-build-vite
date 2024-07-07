@@ -25,6 +25,7 @@ export type CamerasProcess = {
   minPrice: number;
   maxPrice: number;
   isResetFilters: boolean;
+  currentPage: number;
 };
 
 export type CameraProcess = {
