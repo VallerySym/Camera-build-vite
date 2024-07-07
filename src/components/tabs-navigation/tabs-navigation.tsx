@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute, Tab } from '../../const';
 import { CameraItem } from '../../types/camera-item';
 import { useEffect } from 'react';
-import { getTabName } from '../../utils/utils';
+import { getTabName } from './utils';
 
 type TabsNavigationProps = {
   camera: CameraItem | null;

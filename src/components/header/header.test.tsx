@@ -1,18 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import Header from './header';
-import { withHistory } from '../../utils/mock-component';
+import { withHistory, withStore } from '../../utils/mock-component';
+import { makeFakeStore } from '../../utils/mocks';
 
 describe('Component: Header', () => {
   it('should render correctly', () => {
-    const expectedText = 'Каталог';
-    const headerTestId = 'header';
+    const mockStore = makeFakeStore();
 
-    const preparedComponent = withHistory(<Header />);
+    const { withStoreComponent } = withStore(<Header />,mockStore);
+
+    const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);
 
-    const headerContainer = screen.getByTestId(headerTestId);
-
-    expect(headerContainer).toBeInTheDocument();
-    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByText(/Каталог/i)).toBeInTheDocument();
+    expect(screen.getByText(/Гарантии/i)).toBeInTheDocument();
+    expect(screen.getByText(/Доставка/i)).toBeInTheDocument();
+    expect(screen.getByText(/О компании/i)).toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-import { Tab } from '../const';
+import { Tab } from '../../const';
 
 export const getTabName = (tab: Tab) => {
   switch (tab) {

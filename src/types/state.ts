@@ -1,6 +1,6 @@
-import { RequestStatus } from '../const';
+import { RequestStatus, SortOrder, SortType} from '../const';
 import { store } from '../store/index';
-import { CameraItems, CameraItem} from './camera-item';
+import { CameraItems, CameraItem, CameraItemType, CameraItemCategory, CameraItemLevel} from './camera-item';
 import { Promos } from './promo';
 import { Reviews } from './review';
 
@@ -17,6 +17,15 @@ export type CamerasProcess = {
   camerasIsLoading: boolean;
   camerasIsNotFound: boolean;
   selectCameraId: string;
+  sortType: SortType | null;
+  sortOrder: SortOrder | null;
+  category: CameraItemCategory | null;
+  type: CameraItemType[];
+  level: CameraItemLevel[];
+  minPrice: number;
+  maxPrice: number;
+  isResetFilters: boolean;
+  currentPage: number;
 };
 
 export type CameraProcess = {

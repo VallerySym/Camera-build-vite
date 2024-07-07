@@ -2,12 +2,22 @@ import { CamerasProcess } from '../../types/state';
 import { makeFakeCameras } from '../../utils/mocks';
 import { fetchCameras } from '../api-actions';
 import { catalogSlice } from './catalog-process.slice';
+import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE } from '../../const';
 
 const initialState: CamerasProcess = {
   cameras: [],
   camerasIsLoading: false,
   camerasIsNotFound: false,
   selectCameraId: '',
+  sortType: DEFAULT_SORT_TYPE,
+  sortOrder: DEFAULT_SORT_ORDER,
+  category: null,
+  type: [],
+  level: [],
+  minPrice: 0,
+  maxPrice: 0,
+  isResetFilters: false,
+  currentPage: 1,
 };
 
 let state: CamerasProcess;

@@ -9,11 +9,10 @@ describe('Component: ProductCard', () => {
     const mockStore = makeFakeStore();
     const mockCamera = makeFakeCamera();
 
-    const { withStoreComponent } = withStore(<ProductCard selectedCamera={mockCamera}/>,mockStore);
+    const { withStoreComponent } = withStore(<ProductCard selectedCamera={mockCamera} />, mockStore);
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);
 
     expect(screen.getByTestId('product-card')).toBeInTheDocument();
-
   });
 });

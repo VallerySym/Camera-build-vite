@@ -1,12 +1,21 @@
-import { NameSpace } from '../../const';
+import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE, NameSpace } from '../../const';
 import { CamerasProcess } from '../../types/state';
 import { getCameras, getCamerasIsLoading, getCamerasIsNotFound } from './catalog-process.selectors';
 
 const fakeState: CamerasProcess = {
   cameras: [],
-  camerasIsLoading: true,
+  camerasIsLoading: false,
   camerasIsNotFound: false,
   selectCameraId: '',
+  sortType: DEFAULT_SORT_TYPE,
+  sortOrder: DEFAULT_SORT_ORDER,
+  category: null,
+  type: [],
+  level: [],
+  minPrice: 0,
+  maxPrice: 0,
+  isResetFilters: false,
+  currentPage: 1,
 };
 
 let state = { [NameSpace.Cameras]: fakeState };
@@ -26,7 +35,7 @@ describe('CamerasProcess selectors', () => {
   it('should return true camerasIsLoading status', () => {
     const result = getCamerasIsLoading(state);
 
-    expect(result).toEqual(true);
+    expect(result).toEqual(false);
   });
 
   it('should return false camerasIsNotFound status', () => {
@@ -35,4 +44,3 @@ describe('CamerasProcess selectors', () => {
     expect(result).toEqual(false);
   });
 });
-

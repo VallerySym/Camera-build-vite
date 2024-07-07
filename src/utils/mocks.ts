@@ -1,19 +1,20 @@
-import { datatype } from 'faker';
+import { datatype, } from 'faker';
+import { faker } from '@faker-js/faker';
 import { CameraItem, CameraItems } from '../types/camera-item';
 import { Review, Reviews } from '../types/review';
 import { Promo } from '../types/promo';
 import { PostData, State } from '../types/state';
-import { RequestStatus } from '../const';
+import { CameraCategory, CameraLevel, CameraType, DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE, RequestStatus } from '../const';
 import { Action } from 'redux';
 
 const makeFakeCamera = (): CameraItem => ({
   id: datatype.number(),
   name: datatype.string(),
   vendorCode: datatype.string(),
-  type: datatype.string(),
-  category: datatype.string(),
+  type: faker.helpers.objectValue(CameraType),
+  category: faker.helpers.objectValue(CameraCategory),
   description: datatype.string(),
-  level: datatype.string(),
+  level: faker.helpers.objectValue(CameraLevel),
   price: datatype.number(),
   rating: datatype.number(),
   reviewCount: datatype.number(),
@@ -54,7 +55,16 @@ const makeFakeStore = (initialState?: Partial<State>): State => ({
     cameras: [],
     camerasIsLoading: false,
     camerasIsNotFound: false,
-    selectCameraId: ''
+    selectCameraId: '',
+    sortType: DEFAULT_SORT_TYPE,
+    sortOrder: DEFAULT_SORT_ORDER,
+    category: null,
+    type: [],
+    level: [],
+    minPrice: 0,
+    maxPrice: 0,
+    isResetFilters: false,
+    currentPage: 1,
   },
   CAMERA: {
     camera: null,
@@ -68,9 +78,9 @@ const makeFakeStore = (initialState?: Partial<State>): State => ({
     reviewRequestStatus: RequestStatus.Idle,
   },
   POPUP: {
-    postData:{
+    postData: {
       tel: '',
-      id:'',
+      id: '',
     },
     isPopupOpen: false,
     isPopupCallMeOpen: false,
@@ -92,16 +102,15 @@ const makeFakeStore = (initialState?: Partial<State>): State => ({
 
 const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
 
-const makeFakeSimilarCameras = (): CameraItem[] => Array.from({length: 10}, makeFakeCamera);
+const makeFakeSimilarCameras = (): CameraItem[] => Array.from({ length: 10 }, makeFakeCamera);
 
 const makeFakePostData = (): PostData => ({
   tel: datatype.string(),
   id: datatype.string(),
-
 });
 
 export {
   makeFakeCamera, makeFakeCameras, makeFakeReview,
   makeFakeReviews, makeFakePromoList, makeFakeStore,
-  extractActionsTypes,makeFakeSimilarCameras, makeFakePostData
+  extractActionsTypes, makeFakeSimilarCameras, makeFakePostData
 };

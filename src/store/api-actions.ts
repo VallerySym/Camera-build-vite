@@ -58,8 +58,8 @@ export const postFormData = createAsyncThunk<PostData, PostData, {
     extra: AxiosInstance;
   }>(
     'postFormData',
-    async ({ postData, id }, { extra: api }) => {
-      const { data } = await api.post<PostData>(`${APIRoute.Cameras}/${id}`, postData);
+    async ({ tel, id }, { extra: api }) => {
+      const { data } = await api.post<PostData>(`${APIRoute.Cameras}/${id}`, tel);
 
       return data;
     }

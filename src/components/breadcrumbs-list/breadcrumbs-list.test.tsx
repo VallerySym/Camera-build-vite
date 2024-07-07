@@ -1,28 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { withHistory, withStore } from '../../utils/mock-component';
 import BreadcrumbsList from './breadcrumbs-list';
-import { makeFakeCameras, makeFakeCamera } from '../../utils/mocks';
+import { makeFakeStore } from '../../utils/mocks';
 
 describe('Component: BreadcrumbsList', () => {
-  const mockCameraList = makeFakeCameras();
-  const mockCameraItem = makeFakeCamera();
+  const mockStore = makeFakeStore();
 
   it('should render correctly', () => {
     const expectedTest = 'breadcrumbs-list';
     const expectedLinkText = 'Главная';
-    const { withStoreComponent } = withStore(<BreadcrumbsList />, {
-      CAMERAS: {
-        cameras: [...mockCameraList],
-        camerasIsLoading: true,
-        camerasIsNotFound: false,
-        selectCameraId: ''
-      },
-      CAMERA: {
-        camera: {...mockCameraItem},
-        cameraIsLoading: false,
-        cameraIsNotFound: false,
-      },
-    });
+    const { withStoreComponent } = withStore(<BreadcrumbsList />, mockStore);
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);
@@ -31,3 +18,4 @@ describe('Component: BreadcrumbsList', () => {
     expect(screen.getByText(expectedLinkText)).toBeInTheDocument();
   });
 });
+

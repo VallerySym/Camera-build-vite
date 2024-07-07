@@ -1,8 +1,8 @@
 import CatalogItem from '../catalog-item/catalog-item';
-import { CameraItems } from '../../types/camera-item';
+import { CameraItem } from '../../types/camera-item';
 
 type CatalogListProps = {
-  catalogList: CameraItems;
+  catalogList: CameraItem[];
 }
 
 function CatalogList({ catalogList }: CatalogListProps): JSX.Element {

@@ -1,26 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import { withHistory, withStore } from '../../utils/mock-component';
 import ReviewBlockList from './review-block-list';
-import { makeFakeReview } from '../../utils/mocks';
+import { makeFakeStore, makeFakeReviews } from '../../utils/mocks';
 import { TIME_TO_RENDER_PAGE } from '../../const';
-import { RequestStatus } from '../../const';
 
 describe('Component: ReviewsList', () => {
   it('should render correctly', () => {
-    const mockReviews = [makeFakeReview(), makeFakeReview(), makeFakeReview()];
+    const mockReviews = makeFakeReviews();
+    const mockStore = makeFakeStore();
     const expectedHeaderText = 'Отзывы';
     const expectedTest = 'reviews_list';
     const expectedItemTest = 'reviews_item';
     const expectedReviewsQuantity = mockReviews.length;
 
-    const { withStoreComponent } = withStore(<ReviewBlockList reviewList ={mockReviews} />, {
-      REVIEWS: {
-        reviews: mockReviews,
-        reviewsIsLoading: true,
-        reviewsIsNotFound: false,
-        reviewRequestStatus: RequestStatus.Success,
-      },
-    });
+    const { withStoreComponent } = withStore(<ReviewBlockList reviewList ={mockReviews} />, mockStore);
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);
 
