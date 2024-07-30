@@ -1,5 +1,6 @@
-import { RequestStatus, SortOrder, SortType} from '../const';
+import { CouponType, RequestStatus, SortOrder, SortType} from '../const';
 import { store } from '../store/index';
+import { Basket } from './basket';
 import { CameraItems, CameraItem, CameraItemType, CameraItemCategory, CameraItemLevel} from './camera-item';
 import { Promos } from './promo';
 import { Reviews } from './review';
@@ -64,4 +65,13 @@ export type SimilarCamerasProcess = {
   similarCameras: CameraItems;
   similarCameraIsLoading: boolean;
   similarCameraIsNotFound: boolean;
+};
+
+export type BasketProcess = {
+  items: Basket[] ;
+  discount: number;
+  promoCode: CouponType | null;
+  hasError: boolean;
+  isPromoCodeValid: boolean;
+  basketStatus: RequestStatus;
 };

@@ -25,26 +25,24 @@ describe('Component: ProductPage', () => {
         minPrice: 0,
         maxPrice: 0,
         isResetFilters: false,
+        currentPage: 1,
       },
       CAMERA: {
         camera: { ...mockCameraItem },
         cameraIsLoading: false,
         cameraIsNotFound: false,
       },
-
       REVIEWS: {
         reviews: [...mockReviews],
         reviewsIsLoading: false,
         reviewsIsNotFound: false,
         reviewRequestStatus: RequestStatus.Idle,
       },
-
       PROMO: {
         promoCameras: [],
         promoCamerasIsLoading: false,
         promoCamerasIsNotFound: false,
       },
-
       POPUP: {
         postData: {
           tel: '',
@@ -55,12 +53,19 @@ describe('Component: ProductPage', () => {
         popupCallIsLoading: false,
         popupCallIsNotFound: false,
       },
-
       SIMILAR: {
         similarCameras: [],
         similarCameraIsLoading: false,
         similarCameraIsNotFound: false,
-      }
+      },
+      BASKET: {
+        items: [],
+        discount: 0,
+        promoCode: null,
+        hasError: false,
+        isPromoCodeValid: false,
+        basketStatus: RequestStatus.Idle,
+      },
     });
 
     const preparedComponent = withHistory(withStoreComponent);

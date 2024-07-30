@@ -97,6 +97,14 @@ const makeFakeStore = (initialState?: Partial<State>): State => ({
     promoCamerasIsLoading: false,
     promoCamerasIsNotFound: false,
   },
+  BASKET: {
+    items: [],
+    discount: 0,
+    promoCode: null,
+    hasError: false,
+    isPromoCodeValid: false,
+    basketStatus: RequestStatus.Idle,
+  },
   ...initialState ?? {},
 });
 

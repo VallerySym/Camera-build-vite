@@ -65,7 +65,7 @@ function PopupCallItem({selectedCamera}:PopupCallItemProps): JSX.Element {
   };
 
   useEffect(() => {
-    let isMounted;
+    let isMounted = true;
 
     if (isMounted) {
       if (selectedCamera && focusRef.current) {
