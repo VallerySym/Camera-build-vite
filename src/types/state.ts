@@ -48,6 +48,7 @@ export type PopupProcess = {
   isPopupCallMeOpen:boolean;
   popupCallIsLoading: boolean;
   popupCallIsNotFound: boolean;
+  popupStatus: RequestStatus;
 };
 
 export type PostData = {

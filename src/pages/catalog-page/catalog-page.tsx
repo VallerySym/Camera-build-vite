@@ -12,6 +12,9 @@ import { getCamera } from '../../store/product-process/product-process.selectors
 import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
 import Pagination from '../../components/pagination/pagination';
+import PopupAddItem from '../../components/popup-add-item/popup-add-item';
+import { useState } from 'react';
+import PopupSuccess from '../../components/popup-success/popup-success';
 
 function CatalogPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
@@ -24,6 +27,8 @@ function CatalogPage(): JSX.Element {
   const filteredAndSortedCameras = useAppSelector(getCurrentCamerasList);
 
   const totalCountPage = useAppSelector(getTotalPageCount);
+
+  const [isItemAddModalActive, setItemAddModalActive] = useState(false);
 
   return (
     <div className="wrapper">
@@ -53,7 +58,8 @@ function CatalogPage(): JSX.Element {
             </div>
           </section>
         </div>
-        {isPopupOpen && <PopupCallItem selectedCamera={camera} />}
+        {isPopupOpen && <PopupAddItem selectedCamera={camera} setAddSuccess={setItemAddModalActive} />}
+        <PopupSuccess isActive={isItemAddModalActive} setIsModalActive={setItemAddModalActive}/>
       </main>
       <Footer />
     </div>
