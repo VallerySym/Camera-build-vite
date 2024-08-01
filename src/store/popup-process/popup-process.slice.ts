@@ -1,57 +1,36 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NameSpace, RequestStatus } from '../../const';
-import { PopupProcess, PostData } from '../../types/state';
-import { postFormData } from '../api-actions';
-
-const initialPostData: PostData = {
-  tel: '',
-  id:'',
-};
+import { createSlice } from '@reduxjs/toolkit';
+import { NameSpace } from '../../const';
+import { PopupProcess } from '../../types/state';
 
 const initialState: PopupProcess = {
-  postData:initialPostData,
   isPopupOpen: false,
-  isPopupCallMeOpen: false,
-  popupCallIsLoading: false,
-  popupCallIsNotFound: false,
-  popupStatus:  RequestStatus.Idle,
+  isAddItemPopupOpen: false,
+  isSuccessPopupOpen:false,
+
 };
 
 export const popupSlice = createSlice({
   name: NameSpace.Popup,
   initialState,
   reducers: {
-    openCallMePopup: (state) => {
+    openAddItemPopup: (state) => {
       state.isPopupOpen = true;
-      state.isPopupCallMeOpen = true;
+      state.isAddItemPopupOpen = true;
     },
-    closeCallMePopup: (state) => {
+    closeAddItemPopup: (state) => {
       state.isPopupOpen = false;
-      state.isPopupCallMeOpen = false;
+      state.isAddItemPopupOpen = false;
     },
-    setFormTel: (state, action: PayloadAction<string>) => {
-      state.postData.tel = action.payload;
+    openSuccessPopup: (state) => {
+      state.isPopupOpen = true;
+      state.isSuccessPopupOpen = true;
     },
-    resetPostStatus: (state) => {
-      state.popupStatus = RequestStatus.Idle;
-    }
-  },
-  extraReducers(builder) {
-    builder
-      .addCase(postFormData.pending, (state) => {
-        state.popupCallIsLoading = true;
-        state.popupCallIsNotFound = false;
-      })
-      .addCase(postFormData.fulfilled, (state, action) => {
-        state.postData = action.payload;
-        state.popupCallIsLoading = false;
-      })
-      .addCase(postFormData.rejected, (state) => {
-        state.popupCallIsLoading = false;
-        state.popupCallIsNotFound = true;
-      });
+    closeSuccessPopup: (state) => {
+      state.isPopupOpen = false;
+      state.isSuccessPopupOpen = false;
+    },
 
   },
 });
 
-export const { openCallMePopup, closeCallMePopup, setFormTel, resetPostStatus } = popupSlice.actions;
+export const { openAddItemPopup, closeAddItemPopup, openSuccessPopup, closeSuccessPopup} = popupSlice.actions;

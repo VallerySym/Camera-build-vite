@@ -43,12 +43,9 @@ export type ReviewsProcess = {
 };
 
 export type PopupProcess = {
-  postData: PostData;
   isPopupOpen: boolean;
-  isPopupCallMeOpen:boolean;
-  popupCallIsLoading: boolean;
-  popupCallIsNotFound: boolean;
-  popupStatus: RequestStatus;
+  isAddItemPopupOpen:boolean;
+  isSuccessPopupOpen:boolean;
 };
 
 export type PostData = {

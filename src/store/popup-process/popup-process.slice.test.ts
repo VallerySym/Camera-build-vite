@@ -46,7 +46,7 @@ describe('PopupProcess slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set isPopupOpen to true with "openCallMePopup"', () => {
+  it('should set isPopupOpen to true with "openAddItemPopup"', () => {
     const expectedPostData: PostData = {
       tel: '',
       id:'',
@@ -68,7 +68,7 @@ describe('PopupProcess slice', () => {
 
     const result = popupSlice.reducer(
       initialState,
-      popupSlice.actions.openCallMePopup()
+      popupSlice.actions.openAddItemPopup()
     );
 
     expect(result).toEqual(expectedState);

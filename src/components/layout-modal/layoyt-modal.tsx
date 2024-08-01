@@ -5,7 +5,6 @@ import { useAppDispatch } from '../../hooks';
 import { resetPostStatus } from '../../store/popup-process/popup-process.slice';
 
 
-
 type LayoutModalProps = {
   children: React.ReactNode;
   isActive: boolean;

@@ -9,11 +9,10 @@ import { resetBasket, setPromoCode } from '../../store/basket-process/basket-pro
 type BasketSummaryOrderProps = {
   totalPrice: number;
   orderIds: number[];
-  setIsModalActive: (arg: boolean) => void;
   isBasketEmpty: boolean;
 }
 
-function BasketSummaryOrder({ totalPrice, orderIds, setIsModalActive, isBasketEmpty }: BasketSummaryOrderProps): JSX.Element {
+function BasketSummaryOrder({ totalPrice, orderIds, isBasketEmpty }: BasketSummaryOrderProps): JSX.Element {
   const dispatch = useAppDispatch();
   const postOrderStatus = useAppSelector(getPostOrderStatus);
   const discountPercent = useAppSelector(getDiscount);
@@ -32,15 +31,14 @@ function BasketSummaryOrder({ totalPrice, orderIds, setIsModalActive, isBasketEm
   };
 
   const handleOrderSend = () => {
-    dispatch(postOrder({ camerasIds: orderIds }));
+    dispatch(postOrder({ camerasIds: orderIds, coupon: promoCode }));
   };
 
   useEffect(() => {
     if (postOrderStatus === RequestStatus.Success) {
-      setIsModalActive(true);
       dispatch(resetBasket());
     }
-  }, [dispatch, postOrderStatus, setIsModalActive]);
+  }, [dispatch, postOrderStatus]);
 
   const handlePromoCodeEnter = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

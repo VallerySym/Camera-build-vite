@@ -1,19 +1,17 @@
 import { NameSpace } from '../../const';
-import { checkPopupOpen } from './popup-process.selectors';
+import { checkAddItemPopupOpen } from './popup-process.selectors';
 
 describe('ModalProcess selectors', () => {
   const state = {
     [NameSpace.Popup]: {
-      tel: '',
       isPopupOpen: false,
-      isPopupCallMeOpen: false,
-      popupCallIsLoading: false,
-      popupCallIsNotFound: false,
+      isAddItemPopupOpen: false,
+      isSuccessPopupOpen: false,
     },
   };
   it('should return isPopupOpen', () => {
     const { isPopupOpen } = state[NameSpace.Popup];
-    const result = checkPopupOpen(state);
+    const result = checkAddItemPopupOpen(state);
     expect(result).toEqual(isPopupOpen);
   });
 });

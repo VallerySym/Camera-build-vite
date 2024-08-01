@@ -3,7 +3,7 @@ import { CameraItem } from '../../types/camera-item';
 import { stars } from '../../const';
 import { fetchCamera } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
-import { openCallMePopup } from '../../store/popup-process/popup-process.slice';
+import { openAddItemPopup } from '../../store/popup-process/popup-process.slice';
 
 type CatalogItemProps = {
   catalogItem: CameraItem;
@@ -58,7 +58,7 @@ function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
           type="button"
           onClick={() => {
             dispatch(fetchCamera(Number(catalogItem.id)));
-            dispatch(openCallMePopup());
+            dispatch(openAddItemPopup());
           }}
         >
           Купить

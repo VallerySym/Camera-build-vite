@@ -5,15 +5,13 @@ import Footer from '../../components/footer/footer';
 import Spinner from '../../components/spinner/spinner';
 import { useAppSelector } from '../../hooks';
 import { getCameras, getCamerasIsLoading, getCurrentCamerasList, getTotalPageCount } from '../../store/catalog-process/catalog-process.selectors';
-import PopupCallItem from '../../components/popup-call-item/popup-call-item';
-import { checkPopupOpen } from '../../store/popup-process/popup-process.selectors';
+import { checkAddItemPopupOpen, checkSuccessPopupOpen } from '../../store/popup-process/popup-process.selectors';
 import SwiperPromo from '../../components/swiper-promo/swiper-promo';
 import { getCamera } from '../../store/product-process/product-process.selectors';
 import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
 import Pagination from '../../components/pagination/pagination';
 import PopupAddItem from '../../components/popup-add-item/popup-add-item';
-import { useState } from 'react';
 import PopupSuccess from '../../components/popup-success/popup-success';
 
 function CatalogPage(): JSX.Element {
@@ -22,13 +20,12 @@ function CatalogPage(): JSX.Element {
   const camerasIsLoading = useAppSelector(getCamerasIsLoading);
 
   const camerasCount = cameras.length;
-  const isPopupOpen = useAppSelector(checkPopupOpen);
+  const isAddItemPopupOpen = useAppSelector(checkAddItemPopupOpen);
+  const isSuccessPopupOpen = useAppSelector(checkSuccessPopupOpen);
 
   const filteredAndSortedCameras = useAppSelector(getCurrentCamerasList);
 
   const totalCountPage = useAppSelector(getTotalPageCount);
-
-  const [isItemAddModalActive, setItemAddModalActive] = useState(false);
 
   return (
     <div className="wrapper">
@@ -58,8 +55,8 @@ function CatalogPage(): JSX.Element {
             </div>
           </section>
         </div>
-        {isPopupOpen && <PopupAddItem selectedCamera={camera} setAddSuccess={setItemAddModalActive} />}
-        <PopupSuccess isActive={isItemAddModalActive} setIsModalActive={setItemAddModalActive}/>
+        {isAddItemPopupOpen && <PopupAddItem selectedCamera={camera} />}
+        {isSuccessPopupOpen && <PopupSuccess /> }
       </main>
       <Footer />
     </div>

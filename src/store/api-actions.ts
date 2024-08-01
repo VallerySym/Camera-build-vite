@@ -90,14 +90,14 @@ export const postCoupon = createAsyncThunk<number, CouponType, {
     }
   );
 
-export const postOrder= createAsyncThunk<number, Order, {
+export const postOrder = createAsyncThunk<number, Order, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/postOrder',
-  async ({camerasIds}, {extra: api}) => {
-    const {data} = await api.post<number>(APIRoute.Basket, {camerasIds});
+  async ({camerasIds, coupon}, {extra: api}) => {
+    const {data} = await api.post<number>(APIRoute.Order, {camerasIds, coupon});
     return data;
   }
 );

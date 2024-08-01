@@ -1,5 +1,6 @@
 import { CouponType } from '../../const';
-import { Basket } from '../../types/state';
+import { Basket } from '../../types/basket';
+
 
 export const getBasketListFromLS = () => {
   const data = localStorage.getItem('basket');

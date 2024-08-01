@@ -14,8 +14,10 @@ import { getCamera, getCameraIsLoading, getCameraIsNotFound } from '../../store/
 import { AppRoute } from '../../const';
 import { getSimilarCameras } from '../../store/similar-cameras-process/similar-cameras-process.selectors';
 import SimilarCamerasList from '../../components/similar-cameras-list/similar-cameras-list';
-import { checkPopupOpen } from '../../store/popup-process/popup-process.selectors';
-import PopupCallItem from '../../components/popup-call-item/popup-call-item';
+import { checkAddItemPopupOpen, checkSuccessPopupOpen } from '../../store/popup-process/popup-process.selectors';
+import PopupAddItem from '../../components/popup-add-item/popup-add-item';
+import PopupSuccess from '../../components/popup-success/popup-success';
+
 
 function ProductPage(): JSX.Element {
   const params = useParams();
@@ -26,7 +28,8 @@ function ProductPage(): JSX.Element {
   const similarCameras = useAppSelector(getSimilarCameras);
   const cameraIsLoading = useAppSelector(getCameraIsLoading);
   const cameraIsNotFound = useAppSelector(getCameraIsNotFound);
-  const isPopupOpen = useAppSelector(checkPopupOpen);
+  const isAddItemPopupOpen = useAppSelector(checkAddItemPopupOpen);
+  const isSuccessPopupOpen = useAppSelector(checkSuccessPopupOpen);
 
   useEffect(() => {
     store.dispatch(fetchCamera(Number(cameraId)));
@@ -65,7 +68,8 @@ function ProductPage(): JSX.Element {
             </section>
           </div>
         </div>
-        {isPopupOpen && <PopupCallItem selectedCamera={camera} />}
+        {isAddItemPopupOpen && <PopupAddItem selectedCamera={camera} />}
+        {isSuccessPopupOpen && <PopupSuccess /> }
       </main>
       <a
         className="up-btn"

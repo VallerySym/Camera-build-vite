@@ -18,7 +18,6 @@ function BasketPage(): JSX.Element {
   const [isModalActive, setModalActive] = useState(false);
   const totalPrice = calcTotalPrice(basketItemList);
   const orderIds: number[] = [];
-  const [isModalBasketSuccess, setModalBasketSuccess] = useState(false);
   const isBasketEmpty = basketItemList.length === 0;
 
   [...basketItemList].forEach((item) => {
@@ -43,7 +42,7 @@ function BasketPage(): JSX.Element {
                   {basketItemList.map((item) => <BasketItem key={item.id} item={item} setCamera={setCamera} setActive={setModalActive} />)}
                 </ul> :
                 <BasketEmpty />}
-              <BasketSummaryOrder totalPrice={totalPrice} orderIds={orderIds} setIsModalActive={setModalBasketSuccess} isBasketEmpty={isBasketEmpty} />
+              <BasketSummaryOrder totalPrice={totalPrice} orderIds={orderIds} isBasketEmpty={isBasketEmpty} />
             </div>
           </section>
         </div>
