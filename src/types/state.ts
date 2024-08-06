@@ -9,10 +9,6 @@ export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export type ErrorMessageProcess = {
-  errorMessage: string | null;
-};
-
 export type CamerasProcess = {
   cameras: CameraItems;
   camerasIsLoading: boolean;
@@ -43,15 +39,14 @@ export type ReviewsProcess = {
 };
 
 export type PopupProcess = {
-  isPopupOpen: boolean;
   isAddItemPopupOpen:boolean;
   isSuccessPopupOpen:boolean;
+  isDeleteItemPopupOpen:boolean;
+  isOrderSuccessPopupOpen:boolean;
+  isAddReviewPopupOpen:boolean;
+  isAddReviewSuccessPopupOpen:boolean;
+  errorAddReview: boolean;
 };
-
-export type PostData = {
-  tel: string;
-  id: string ;
-}
 
 export type PromoProcess = {
   promoCameras: Promos;
@@ -69,6 +64,7 @@ export type BasketProcess = {
   items: Basket[] ;
   discount: number;
   promoCode: CouponType | null;
+  discountPercent: number;
   hasError: boolean;
   isPromoCodeValid: boolean;
   basketStatus: RequestStatus;

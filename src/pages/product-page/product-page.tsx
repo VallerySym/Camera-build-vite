@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import BreadcrumbsList from '../../components/breadcrumbs-list/breadcrumbs-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
@@ -14,22 +14,29 @@ import { getCamera, getCameraIsLoading, getCameraIsNotFound } from '../../store/
 import { AppRoute } from '../../const';
 import { getSimilarCameras } from '../../store/similar-cameras-process/similar-cameras-process.selectors';
 import SimilarCamerasList from '../../components/similar-cameras-list/similar-cameras-list';
-import { checkAddItemPopupOpen, checkSuccessPopupOpen } from '../../store/popup-process/popup-process.selectors';
+import { checkAddItemPopupOpen, checkAddReviewPopupOpen, checkAddReviewSuccessPopupOpen, checkSuccessPopupOpen } from '../../store/popup-process/popup-process.selectors';
 import PopupAddItem from '../../components/popup-add-item/popup-add-item';
 import PopupSuccess from '../../components/popup-success/popup-success';
-
+import PopupAddReview from '../../components/popup-add-review/popup-add-review';
+import { openAddReviewPopup } from '../../store/popup-process/popup-process.slice';
+import PopupAddReviewSuccess from '../../components/popup-add-review-success/popup-add-review-success';
 
 function ProductPage(): JSX.Element {
   const params = useParams();
   const cameraId = params.id;
 
   const reviewsActive = useAppSelector(getReviews);
+  const dispatch = useAppDispatch();
+
   const camera = useAppSelector(getCamera);
   const similarCameras = useAppSelector(getSimilarCameras);
   const cameraIsLoading = useAppSelector(getCameraIsLoading);
   const cameraIsNotFound = useAppSelector(getCameraIsNotFound);
+
   const isAddItemPopupOpen = useAppSelector(checkAddItemPopupOpen);
   const isSuccessPopupOpen = useAppSelector(checkSuccessPopupOpen);
+  const isAddReviewPopupOpen = useAppSelector(checkAddReviewPopupOpen);
+  const isAddReviewSuccessPopupOpen = useAppSelector(checkAddReviewSuccessPopupOpen);
 
   useEffect(() => {
     store.dispatch(fetchCamera(Number(cameraId)));
@@ -43,18 +50,22 @@ function ProductPage(): JSX.Element {
     });
   };
 
+  const onAddReviewButtonClick = () => {
+    dispatch(openAddReviewPopup());
+  };
+
   return (
     <div className="wrapper">
       <Header />
       <main>
-        <div className="page-content" data-testid="camera-item">
+        <div className="page-content" data-testid="product-page">
           <BreadcrumbsList />
           {cameraIsLoading && <Spinner />}
           {cameraIsNotFound && <Navigate to={AppRoute.NotFound} />}
           <div className="page-content__section">
             <ProductCard selectedCamera={camera} />
           </div>
-          <SimilarCamerasList similarList={similarCameras}/>
+          <SimilarCamerasList similarList={similarCameras} />
           <div className="page-content__section">
           </div>
           <div className="page-content__section">
@@ -62,14 +73,24 @@ function ProductPage(): JSX.Element {
               <div className="container">
                 <div className="page-content__headed">
                   <h2 className="title title--h3" data-testid="reviews">Отзывы</h2>
+                  <button
+                    className="btn"
+                    type="button"
+                    onClick={onAddReviewButtonClick}
+                  >
+                    Оставить свой отзыв
+                  </button>
                 </div>
                 <ReviewBlockList reviewList={reviewsActive} />
+
               </div>
             </section>
           </div>
         </div>
         {isAddItemPopupOpen && <PopupAddItem selectedCamera={camera} />}
-        {isSuccessPopupOpen && <PopupSuccess /> }
+        {isSuccessPopupOpen && <PopupSuccess />}
+        {isAddReviewPopupOpen && <PopupAddReview />}
+        {isAddReviewSuccessPopupOpen && <PopupAddReviewSuccess />}
       </main>
       <a
         className="up-btn"

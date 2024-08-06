@@ -2,8 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { BasketProcess } from '../../types/state';
 import { CouponType, NameSpace, RequestStatus } from '../../const';
 import { getBasketListFromLS, getDiscountLS, getPromoCodeLS } from './utils';
-import { postOrder } from '../api-actions';
-import { toast } from 'react-toastify';
+import { postCoupon, postOrder } from '../api-actions';
 import { CameraItem } from '../../types/camera-item';
 
 const { items } = getBasketListFromLS();
@@ -14,6 +13,7 @@ const initialState: BasketProcess = {
   items: items,
   discount: promoDiscount,
   promoCode: promo,
+  discountPercent: 0,
   hasError: false,
   isPromoCodeValid: false,
   basketStatus: RequestStatus.Idle,
@@ -62,8 +62,10 @@ export const basketSlice = createSlice({
       state.items = [];
       localStorage.removeItem('basket');
       state.discount = 0;
+      state.discountPercent = 0;
+      state.promoCode = null;
       state.hasError = false;
-      state.basketStatus = RequestStatus.Idle;
+      state.isPromoCodeValid = false;
       localStorage.removeItem('promo');
       localStorage.removeItem('discount');
     },
@@ -75,12 +77,29 @@ export const basketSlice = createSlice({
       })
       .addCase(postOrder.fulfilled, (state) => {
         state.basketStatus = RequestStatus.Success;
-        toast.warn('Ваш заказ успешно отправлен!');
       })
       .addCase(postOrder.rejected, (state) => {
         state.basketStatus = RequestStatus.Error;
-        toast.warn('Произошла ошибка отправки заказа. Попробуйте позже');
+      })
+      .addCase(postCoupon.pending, (state) => {
+        state.hasError = false;
+        state.isPromoCodeValid = false;
+      })
+      .addCase(postCoupon.fulfilled, (state, action) => {
+        state.discount = action.payload;
+        state.hasError = false;
+        state.isPromoCodeValid = true;
+        localStorage.setItem('promo', JSON.stringify(state.promoCode));
+        localStorage.setItem('discount', JSON.stringify(state.discount));
+      })
+      .addCase(postCoupon.rejected, (state) => {
+        state.hasError = true;
+        state.isPromoCodeValid = false;
+        state.discount = 0;
+        localStorage.removeItem('promo');
+        localStorage.removeItem('discount');
       });
+
   }
 });
 

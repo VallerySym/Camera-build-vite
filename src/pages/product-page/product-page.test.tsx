@@ -44,14 +44,13 @@ describe('Component: ProductPage', () => {
         promoCamerasIsNotFound: false,
       },
       POPUP: {
-        postData: {
-          tel: '',
-          id: '',
-        },
-        isPopupOpen: false,
-        isPopupCallMeOpen: false,
-        popupCallIsLoading: false,
-        popupCallIsNotFound: false,
+        isAddItemPopupOpen: false,
+        isSuccessPopupOpen: false,
+        isDeleteItemPopupOpen: false,
+        isOrderSuccessPopupOpen: false,
+        isAddReviewPopupOpen: false,
+        isAddReviewSuccessPopupOpen: false,
+        errorAddReview: false,
       },
       SIMILAR: {
         similarCameras: [],
@@ -61,6 +60,7 @@ describe('Component: ProductPage', () => {
       BASKET: {
         items: [],
         discount: 0,
+        discountPercent: 0,
         promoCode: null,
         hasError: false,
         isPromoCodeValid: false,
@@ -71,7 +71,7 @@ describe('Component: ProductPage', () => {
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);
 
-    expect(screen.getByTestId('camera-item')).toBeInTheDocument();
+    expect(screen.getByTestId('product-page')).toBeInTheDocument();
     expect(screen.getByTestId('reviews')).toBeInTheDocument();
   });
 });

@@ -20,8 +20,32 @@ describe('Application Routing', () => {
     render(withStoreComponent);
 
     const expectedText = 'Каталог фото- и видеотехники';
-
     expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId('catalog-page')).toBeInTheDocument();
+  });
+
+  it('should render "ProductPage" when user navigate to "/"', () => {
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+    mockHistory.push(AppRoute.Product);
+
+    render(withStoreComponent);
+
+    const expectedText = 'Похожие товары';
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId('product-page')).toBeInTheDocument();
+  });
+
+  it('should render "BasketPage" when user navigate to "/"', () => {
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+    mockHistory.push(AppRoute.Basket);
+
+    render(withStoreComponent);
+
+    const expectedText = 'Корзина';
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByTestId('basket-page')).toBeInTheDocument();
   });
 
   it('should render "NotFoundPage" when user navigate to non-existent route', () => {

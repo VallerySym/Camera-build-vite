@@ -1,71 +1,79 @@
-import FocusLock from 'react-focus-lock';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { closeAddItemPopup, openSuccessPopup } from '../../store/popup-process/popup-process.slice';
-import { CameraItem } from '../../types/camera-item';
 import { useCallback, useEffect, useRef } from 'react';
-import { addItem } from '../../store/basket-process/basket-process.slice';
-import { checkAddItemPopupOpen } from '../../store/popup-process/popup-process.selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { CameraItem } from '../../types/camera-item';
+import FocusLock from 'react-focus-lock';
+import { closeDeleteItemPopup } from '../../store/popup-process/popup-process.slice';
+import { AppRoute } from '../../const';
+import { useNavigate } from 'react-router-dom';
+import { deleteAllItems } from '../../store/basket-process/basket-process.slice';
+import { checkDeleteItemPopupOpen } from '../../store/popup-process/popup-process.selectors';
 
-type PopupAddItemProps = {
+type PopupDeleteItemProps = {
   selectedCamera: CameraItem | null;
 }
 
-function PopupAddItem({ selectedCamera }: PopupAddItemProps): JSX.Element {
+function PopupDeleteItem({ selectedCamera }: PopupDeleteItemProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const focusRef = useRef<HTMLDivElement | null>(null);
-  let isAddItemPopupOpen = useAppSelector(checkAddItemPopupOpen);
-
-  const handleSubmit = () => {
-    dispatch(addItem(selectedCamera));
-    dispatch(closeAddItemPopup());
-    dispatch(openSuccessPopup());
-  };
+  let isDeleteItemPopupOpen = useAppSelector(checkDeleteItemPopupOpen);
 
   const handleEscapeKeydown = useCallback((evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
-      dispatch(closeAddItemPopup());
+      dispatch(closeDeleteItemPopup());
       document.body.style.overflow = 'unset';
     }
   }, [dispatch]);
 
   const handleCloseButtonClick = () => {
-    dispatch(closeAddItemPopup());
+    dispatch(closeDeleteItemPopup());
     document.body.style.overflow = 'unset';
     document.removeEventListener('keydown', handleEscapeKeydown);
   };
 
   const handleOverlayClick = () => {
-    dispatch(closeAddItemPopup());
+    dispatch(closeDeleteItemPopup());
     document.body.style.overflow = 'unset';
     document.removeEventListener('keydown', handleEscapeKeydown);
   };
 
+  const handleCatalogNavigate = () => {
+    dispatch(closeDeleteItemPopup());
+    navigate(AppRoute.Catalog);
+  };
+
+  const handleButtonItemDelete = () => {
+    dispatch(deleteAllItems(Number(selectedCamera?.id)));
+    dispatch(closeDeleteItemPopup());
+  };
+
   useEffect(() => {
 
-    if (isAddItemPopupOpen) {
-      if (selectedCamera && focusRef.current) {
+    if (isDeleteItemPopupOpen) {
+      if (focusRef.current) {
         focusRef.current.focus();
         document.body.style.overflow = 'hidden';
         document.addEventListener('keydown', handleEscapeKeydown);
       }
 
       return () => {
+        document.body.style.overflow = 'unset';
         document.removeEventListener('keydown', handleEscapeKeydown);
       };
     }
     return () => {
-      isAddItemPopupOpen = false;
+      isDeleteItemPopupOpen = false;
     };
-  }, [selectedCamera, handleEscapeKeydown]);
+  }, [ handleEscapeKeydown]);
 
 
   return (
-    <div className="modal is-active" data-testid="popup-add-data" tabIndex={0}>
+    <div className="modal is-active" data-testid="popup-delete-item-data" tabIndex={0}>
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={handleOverlayClick} />
         <FocusLock ref={focusRef} returnFocus>
           <div className="modal__content">
-            <p className="title title--h4">Добавить товар в корзину</p>
+            <p className="title title--h4">Удалить этот товар?</p>
             <div className="basket-item basket-item--short">
               <div className="basket-item__img">
                 <picture>
@@ -89,26 +97,26 @@ function PopupAddItem({ selectedCamera }: PopupAddItemProps): JSX.Element {
                     <span className="basket-item__article">Артикул:</span>{' '}
                     <span className="basket-item__number">{selectedCamera?.vendorCode}</span>
                   </li>
-                  <li className="basket-item__list-item">{selectedCamera?.type}</li>
+                  <li className="basket-item__list-item">{selectedCamera?.type} </li>
                   <li className="basket-item__list-item">{selectedCamera?.level}</li>
                 </ul>
-                <p className="basket-item__price">
-                  <span className="visually-hidden">Цена:</span> {selectedCamera?.price.toLocaleString()} ₽
-                </p>
               </div>
             </div>
             <div className="modal__buttons">
               <button
-                className="btn btn--purple modal__btn modal__btn--fit-width"
+                className="btn btn--purple modal__btn modal__btn--half-width"
                 type="button"
-                onClick={handleSubmit}
-                tabIndex={0}
+                onClick={handleButtonItemDelete}
               >
-                <svg width={24} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-add-basket" />
-                </svg>
-                Добавить в корзину
+                Удалить
               </button>
+              <a
+                className="btn btn--transparent modal__btn modal__btn--half-width"
+                href="#"
+                onClick={handleCatalogNavigate}
+              >
+                Продолжить покупки
+              </a>
             </div>
             <button
               className="cross-btn"
@@ -129,4 +137,4 @@ function PopupAddItem({ selectedCamera }: PopupAddItemProps): JSX.Element {
   );
 }
 
-export default PopupAddItem;
+export default PopupDeleteItem;

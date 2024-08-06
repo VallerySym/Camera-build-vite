@@ -1,39 +1,39 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { closeSuccessPopup } from '../../store/popup-process/popup-process.slice';
+import { closeAddReviewSuccessPopup } from '../../store/popup-process/popup-process.slice';
 import { useCallback, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import FocusLock from 'react-focus-lock';
-import { checkSuccessPopupOpen } from '../../store/popup-process/popup-process.selectors';
+import { checkAddReviewSuccessPopupOpen } from '../../store/popup-process/popup-process.selectors';
 
-function PopupSuccess(): JSX.Element {
+function PopupAddReviewSuccess(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const focusRef = useRef<HTMLDivElement | null>(null);
-  let isSuccessPopupOpen = useAppSelector(checkSuccessPopupOpen);
+  let isAddReviewSuccessPopupOpen = useAppSelector(checkAddReviewSuccessPopupOpen);
 
   const handleEscapeKeydown = useCallback((evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
-      dispatch(closeSuccessPopup());
+      dispatch(closeAddReviewSuccessPopup());
       document.body.style.overflow = 'unset';
     }
   }, [dispatch]);
 
   const handleCloseButtonClick = () => {
-    dispatch(closeSuccessPopup());
+    dispatch(closeAddReviewSuccessPopup());
     document.body.style.overflow = 'unset';
     document.removeEventListener('keydown', handleEscapeKeydown);
   };
 
   const handleOverlayClick = () => {
-    dispatch(closeSuccessPopup());
+    dispatch(closeAddReviewSuccessPopup());
     document.body.style.overflow = 'unset';
     document.removeEventListener('keydown', handleEscapeKeydown);
   };
 
   useEffect(() => {
 
-    if (isSuccessPopupOpen) {
+    if (isAddReviewSuccessPopupOpen) {
       if (focusRef.current) {
         focusRef.current.focus();
         document.body.style.overflow = 'hidden';
@@ -45,47 +45,39 @@ function PopupSuccess(): JSX.Element {
       };
     }
     return () => {
-      isSuccessPopupOpen = false;
+      isAddReviewSuccessPopupOpen = false;
     };
   }, [handleEscapeKeydown]);
 
-  const handleBasketNavigate = () => {
-    dispatch(closeSuccessPopup());
-    navigate(AppRoute.Basket);
-    document.body.style.overflow = 'unset';
-  };
-
   const handleCatalogNavigate = () => {
-    dispatch(closeSuccessPopup());
+    dispatch(closeAddReviewSuccessPopup());
     navigate(AppRoute.Catalog);
     document.body.style.overflow = 'unset';
   };
 
   return (
-    <div className="is-active modal modal--narrow" data-testid="popup-success-data" tabIndex={0} >
+    <div className="is-active modal modal--narrow" data-testid='popup-add-review-success-data' tabIndex={0} >
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={handleOverlayClick} />
         <FocusLock ref={focusRef} returnFocus>
           <div className="modal__content">
-            <p className="title title--h4">Товар успешно добавлен в корзину</p>
+            <p className="title title--h4">Спасибо за отзы</p>
             <svg className="modal__icon" width={86} height={80} aria-hidden="true">
               <use xlinkHref="#icon-success" />
             </svg>
             <div className="modal__buttons">
-              <a
-                className="btn btn--transparent modal__btn"
-                onClick={handleCatalogNavigate}
-              >
-                Продолжить покупки
-              </a>
               <button
                 className="btn btn--purple modal__btn modal__btn--fit-width"
-                onClick={handleBasketNavigate}
+                type="button"
+                onClick={handleCatalogNavigate}
               >
-                Перейти в корзину
+                Вернуться к покупкам
               </button>
             </div>
-            <button className="cross-btn" type="button" aria-label="Закрыть попап"
+            <button
+              className="cross-btn"
+              type="button"
+              aria-label="Закрыть попап"
               onClick={handleCloseButtonClick}
             >
               <svg width={10} height={10} aria-hidden="true">
@@ -99,4 +91,4 @@ function PopupSuccess(): JSX.Element {
   );
 }
 
-export default PopupSuccess;
+export default PopupAddReviewSuccess;

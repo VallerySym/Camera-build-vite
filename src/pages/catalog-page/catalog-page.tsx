@@ -32,7 +32,7 @@ function CatalogPage(): JSX.Element {
       <Header />
       <main>
         <SwiperPromo />
-        <div className="page-content" data-testid="catalog">
+        <div className="page-content" data-testid="catalog-page">
           <BreadcrumbsList />
           <section className="catalog">
             <div className="container">

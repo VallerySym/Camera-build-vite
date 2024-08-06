@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError, AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
-import { AppDispatch, PostData, State } from '../types/state';
+import { AppDispatch, State } from '../types/state';
 import { CameraItem } from '../types/camera-item';
 import { APIRoute, CouponType } from '../const';
-import { Reviews } from '../types/review';
+import { Reviews, Review } from '../types/review';
 import { Promo } from '../types/promo';
 import { Order } from '../types/order';
+import { FieldValues } from 'react-hook-form';
 
 export const fetchCameras = createAsyncThunk<CameraItem[], undefined, {
     dispatch: AppDispatch;
@@ -52,19 +53,6 @@ export const fetchReviews = createAsyncThunk<Reviews, number, {
     return data;
   });
 
-export const postFormData = createAsyncThunk<PostData, PostData, {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }>(
-    'data/postFormData',
-    async ({ tel, id }, { extra: api }) => {
-      const { data } = await api.post<PostData>(`${APIRoute.Cameras}/${id}`, tel);
-
-      return data;
-    }
-  );
-
 export const fetchPromos = createAsyncThunk<Promo[], undefined, {
     dispatch: AppDispatch;
     state: State;
@@ -100,4 +88,19 @@ export const postOrder = createAsyncThunk<number, Order, {
     const {data} = await api.post<number>(APIRoute.Order, {camerasIds, coupon});
     return data;
   }
+);
+
+
+export const submitReviewsAction = createAsyncThunk<Review, FieldValues, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'submitComments',
+  async (param, { extra: api }) => {
+    const response = await api.post<Review>(APIRoute.Reviews, param);
+    const { data } = response;
+    return data;
+  },
 );

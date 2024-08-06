@@ -1,16 +1,14 @@
 import { withHistory, withStore } from '../../utils/mock-component';
 import { render, screen } from '@testing-library/react';
-import CatalogPage from './catalog-page';
-import { makeFakeCameras, makeFakePromoList, makeFakeCamera } from '../../utils/mocks';
+import { makeFakeCameras } from '../../utils/mocks';
 import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE, RequestStatus } from '../../const';
+import BasketPage from './basket-page';
 
-describe('Component: CatalogPage', () => {
+describe('Component: BasketPage', () => {
   const mockCamerasList = makeFakeCameras();
-  const mockPromoList = makeFakePromoList();
-  const mockCameraItem = makeFakeCamera();
 
   it('should render correctly', () => {
-    const { withStoreComponent } = withStore(<CatalogPage />, {
+    const { withStoreComponent } = withStore(<BasketPage />, {
       CAMERAS: {
         cameras: [...mockCamerasList],
         camerasIsLoading: true,
@@ -27,23 +25,9 @@ describe('Component: CatalogPage', () => {
         currentPage: 1,
       },
       CAMERA: {
-        camera: { ...mockCameraItem },
+        camera: null,
         cameraIsLoading: false,
         cameraIsNotFound: false,
-      },
-      PROMO: {
-        promoCameras: [...mockPromoList],
-        promoCamerasIsLoading: true,
-        promoCamerasIsNotFound: false,
-      },
-      POPUP: {
-        isAddItemPopupOpen: false,
-        isSuccessPopupOpen: false,
-        isDeleteItemPopupOpen: false,
-        isOrderSuccessPopupOpen: false,
-        isAddReviewPopupOpen: false,
-        isAddReviewSuccessPopupOpen: false,
-        errorAddReview: false,
       },
       BASKET: {
         items: [],
@@ -54,14 +38,20 @@ describe('Component: CatalogPage', () => {
         isPromoCodeValid: false,
         basketStatus: RequestStatus.Idle,
       },
+      POPUP: {
+        isAddItemPopupOpen:false,
+        isSuccessPopupOpen:false,
+        isDeleteItemPopupOpen:false,
+        isOrderSuccessPopupOpen:false,
+        isAddReviewPopupOpen:false,
+        isAddReviewSuccessPopupOpen:false,
+        errorAddReview: false,
+      },
     });
 
     const prepComponent = withHistory(withStoreComponent);
     render(prepComponent);
 
-    const expectedText = 'Каталог фото- и видеотехники';
-
-    expect(screen.getByTestId('catalog-page')).toBeInTheDocument();
-    expect(screen.getByText(expectedText)).toBeInTheDocument();
+    expect(screen.getByText('Корзина')).toBeInTheDocument();
   });
 });

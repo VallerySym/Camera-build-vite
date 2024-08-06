@@ -7,9 +7,7 @@ describe('Component: Basket Empty', () => {
   const mockStore = makeFakeStore();
 
   it('should render correctly', () => {
-
-    const {withStoreComponent} = withStore(
-      <BasketEmpty />, mockStore);
+    const {withStoreComponent} = withStore(<BasketEmpty />, mockStore);
 
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);

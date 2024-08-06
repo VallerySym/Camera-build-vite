@@ -3,14 +3,12 @@ import { render, screen} from '@testing-library/react';
 import BasketSummaryOrder from './basket-summary-order';
 import { makeFakeStore } from '../../utils/mocks';
 
-
 describe('Component: Basket Summary Order', () => {
   const mockStore = makeFakeStore();
 
   it('should render correctly', () => {
-
     const {withStoreComponent} = withStore(
-      <BasketSummaryOrder totalPrice={0} orderIds={[]} setIsModalActive={() => false} isBasketEmpty={false} />, mockStore);
+      <BasketSummaryOrder totalPrice={0} orderIds={[]} isBasketEmpty={false} />, mockStore);
 
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);

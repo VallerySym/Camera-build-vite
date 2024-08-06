@@ -10,8 +10,8 @@ type ProductCardProps ={
 
 function ProductCard({selectedCamera}:ProductCardProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const handleClick = () => {
 
+  const handleClick = () => {
     dispatch(openAddItemPopup());
   };
 

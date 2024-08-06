@@ -3,10 +3,13 @@ import { NameSpace } from '../../const';
 import { PopupProcess } from '../../types/state';
 
 const initialState: PopupProcess = {
-  isPopupOpen: false,
   isAddItemPopupOpen: false,
-  isSuccessPopupOpen:false,
-
+  isSuccessPopupOpen: false,
+  isDeleteItemPopupOpen: false,
+  isOrderSuccessPopupOpen: false,
+  isAddReviewPopupOpen: false,
+  isAddReviewSuccessPopupOpen: false,
+  errorAddReview:false,
 };
 
 export const popupSlice = createSlice({
@@ -14,23 +17,49 @@ export const popupSlice = createSlice({
   initialState,
   reducers: {
     openAddItemPopup: (state) => {
-      state.isPopupOpen = true;
       state.isAddItemPopupOpen = true;
     },
     closeAddItemPopup: (state) => {
-      state.isPopupOpen = false;
       state.isAddItemPopupOpen = false;
     },
     openSuccessPopup: (state) => {
-      state.isPopupOpen = true;
       state.isSuccessPopupOpen = true;
     },
     closeSuccessPopup: (state) => {
-      state.isPopupOpen = false;
       state.isSuccessPopupOpen = false;
     },
-
+    openDeleteItemPopup: (state) => {
+      state.isDeleteItemPopupOpen = true;
+    },
+    closeDeleteItemPopup: (state) => {
+      state.isDeleteItemPopupOpen = false;
+    },
+    openOrderSuccessPopup: (state) => {
+      state.isOrderSuccessPopupOpen = true;
+    },
+    closeOrderSuccessPopup: (state) => {
+      state.isOrderSuccessPopupOpen = false;
+    },
+    openAddReviewPopup: (state) => {
+      state.isAddReviewPopupOpen = true;
+    },
+    closeAddReviewPopup: (state) => {
+      state.isAddReviewPopupOpen = false;
+    },
+    openAddReviewSuccessPopup: (state) => {
+      state.isAddReviewSuccessPopupOpen = true;
+    },
+    closeAddReviewSuccessPopup: (state) => {
+      state.isAddReviewSuccessPopupOpen = false;
+    },
   },
 });
 
-export const { openAddItemPopup, closeAddItemPopup, openSuccessPopup, closeSuccessPopup} = popupSlice.actions;
+export const {
+  openAddItemPopup, closeAddItemPopup,
+  openSuccessPopup, closeSuccessPopup,
+  openDeleteItemPopup, closeDeleteItemPopup,
+  openOrderSuccessPopup, closeOrderSuccessPopup,
+  openAddReviewPopup, closeAddReviewPopup,
+  openAddReviewSuccessPopup,closeAddReviewSuccessPopup
+} = popupSlice.actions;

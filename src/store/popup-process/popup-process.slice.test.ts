@@ -1,6 +1,4 @@
-import { PopupProcess, PostData } from '../../types/state';
-import { makeFakePostData } from '../../utils/mocks';
-import { postFormData } from '../api-actions';
+import { PopupProcess } from '../../types/state';
 import { popupSlice } from './popup-process.slice';
 
 describe('PopupProcess slice', () => {
@@ -8,16 +6,15 @@ describe('PopupProcess slice', () => {
     const emptyAction = {
       type: '',
     };
-    const expectedPostData: PostData = {
-      tel: '',
-      id:'',
-    };
+
     const expectedState = {
-      postData: expectedPostData,
-      isPopupOpen: false,
-      isPopupCallMeOpen: false,
-      popupCallIsLoading: false,
-      popupCallIsNotFound: false,
+      isAddItemPopupOpen: false,
+      isSuccessPopupOpen: false,
+      isDeleteItemPopupOpen: false,
+      isOrderSuccessPopupOpen: false,
+      isAddReviewPopupOpen: false,
+      isAddReviewSuccessPopupOpen: false,
+      errorAddReview: false,
     };
 
     const result = popupSlice.reducer(expectedState, emptyAction);
@@ -29,16 +26,15 @@ describe('PopupProcess slice', () => {
     const emptyAction = {
       type: '',
     };
-    const expectedPostData: PostData = {
-      tel: '',
-      id:'',
-    };
+
     const expectedState = {
-      postData: expectedPostData,
-      isPopupOpen: false,
-      isPopupCallMeOpen: false,
-      popupCallIsLoading: false,
-      popupCallIsNotFound: false,
+      isAddItemPopupOpen: false,
+      isSuccessPopupOpen: false,
+      isDeleteItemPopupOpen: false,
+      isOrderSuccessPopupOpen: false,
+      isAddReviewPopupOpen: false,
+      isAddReviewSuccessPopupOpen: false,
+      errorAddReview: false,
     };
 
     const result = popupSlice.reducer(undefined, emptyAction);
@@ -47,23 +43,24 @@ describe('PopupProcess slice', () => {
   });
 
   it('should set isPopupOpen to true with "openAddItemPopup"', () => {
-    const expectedPostData: PostData = {
-      tel: '',
-      id:'',
-    };
+
     const initialState = {
-      postData: expectedPostData,
-      isPopupOpen: false,
-      isPopupCallMeOpen: false,
-      popupCallIsLoading: false,
-      popupCallIsNotFound: false,
+      isAddItemPopupOpen: false,
+      isSuccessPopupOpen: false,
+      isDeleteItemPopupOpen: false,
+      isOrderSuccessPopupOpen: false,
+      isAddReviewPopupOpen: false,
+      isAddReviewSuccessPopupOpen: false,
+      errorAddReview: false,
     };
     const expectedState = {
-      postData: expectedPostData,
-      isPopupOpen: true,
-      isPopupCallMeOpen: true,
-      popupCallIsLoading: false,
-      popupCallIsNotFound: false,
+      isAddItemPopupOpen: true,
+      isSuccessPopupOpen: false,
+      isDeleteItemPopupOpen: false,
+      isOrderSuccessPopupOpen: false,
+      isAddReviewPopupOpen: false,
+      isAddReviewSuccessPopupOpen: false,
+      errorAddReview: false,
     };
 
     const result = popupSlice.reducer(
@@ -74,16 +71,14 @@ describe('PopupProcess slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  const expectedPostData: PostData = {
-    tel: '',
-    id:'',
-  };
   const initialState = {
-    postData: expectedPostData,
-    isPopupOpen: false,
-    isPopupCallMeOpen: false,
-    popupCallIsLoading: false,
-    popupCallIsNotFound: false,
+    isAddItemPopupOpen: false,
+    isSuccessPopupOpen: false,
+    isDeleteItemPopupOpen: false,
+    isOrderSuccessPopupOpen: false,
+    isAddReviewPopupOpen: false,
+    isAddReviewSuccessPopupOpen: false,
+    errorAddReview: false,
   };
 
   let state: PopupProcess;
@@ -107,27 +102,10 @@ describe('PopupProcess slice', () => {
       const emptyAction = { type: '' };
       const expectedState: PopupProcess = { ...initialState };
 
-      const result = popupSlice.reducer(undefined, emptyAction);
+      const result = popupSlice.reducer(state, emptyAction);
 
       expect(result).toEqual(expectedState);
     });
 
-    it('postFormData fulfilled', () => {
-      const fakeCamera = makeFakePostData();
-      const expectedState: PopupProcess = { ...initialState, postData: fakeCamera };
-
-      const result = popupSlice.reducer(state, { type: postFormData.fulfilled.type, payload: fakeCamera, });
-
-      expect(result).toEqual(expectedState);
-    });
-
-    it('postFormData rejected', () => {
-      const expectedState: PopupProcess = { ...initialState, popupCallIsLoading: false, popupCallIsNotFound: true };
-      const actualState: PopupProcess = { ...initialState, popupCallIsLoading: true, popupCallIsNotFound: false };
-
-      const result = popupSlice.reducer(actualState, { type: postFormData.rejected.type });
-
-      expect(result).toEqual(expectedState);
-    });
   });
 });

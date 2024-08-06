@@ -2,22 +2,22 @@ import { ChangeEvent, KeyboardEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { minusCountItem, plusCountItem, setCountItem } from '../../store/basket-process/basket-process.slice';
 import { CameraItem } from '../../types/camera-item';
-import { MAX_QUANTITY_ITEMS, MIN_QUANTITY_ITEMS } from '../../const';
+import { MAX_QUANTITY_BASKET_ITEMS, MIN_QUANTITY_BASKET_ITEMS } from '../../const';
 import { Basket } from '../../types/basket';
+import { openDeleteItemPopup } from '../../store/popup-process/popup-process.slice';
 
 type BasketItemProps = {
   item: Basket;
   setCamera: (arg: CameraItem) => void;
-  setActive: (arg: boolean) => void;
 }
 
-function BasketItem({ item, setCamera, setActive }: BasketItemProps): JSX.Element {
+function BasketItem({ item, setCamera }: BasketItemProps): JSX.Element {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLInputElement | null>(null);
 
   const handleBasketItemDelete = () => {
     setCamera(item);
-    setActive(true);
+    dispatch(openDeleteItemPopup());
   };
 
   const handlePlusItem = () => {
@@ -31,8 +31,8 @@ function BasketItem({ item, setCamera, setActive }: BasketItemProps): JSX.Elemen
   const handleInputValueChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
 
-    if (+value > MAX_QUANTITY_ITEMS) {
-      dispatch(setCountItem({ id: item.id, count: MAX_QUANTITY_ITEMS }));
+    if (+value > MAX_QUANTITY_BASKET_ITEMS) {
+      dispatch(setCountItem({ id: item.id, count: MAX_QUANTITY_BASKET_ITEMS }));
       return;
     }
 
@@ -42,8 +42,8 @@ function BasketItem({ item, setCamera, setActive }: BasketItemProps): JSX.Elemen
   const handleInputValueBlur = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
 
-    if (+value < MIN_QUANTITY_ITEMS) {
-      dispatch(setCountItem({ id: item.id, count: MIN_QUANTITY_ITEMS }));
+    if (+value < MIN_QUANTITY_BASKET_ITEMS) {
+      dispatch(setCountItem({ id: item.id, count: MIN_QUANTITY_BASKET_ITEMS }));
     }
   };
 
@@ -90,7 +90,7 @@ function BasketItem({ item, setCamera, setActive }: BasketItemProps): JSX.Elemen
           className="btn-icon btn-icon--prev"
           aria-label="уменьшить количество товара"
           onClick={handleMinusItem}
-          disabled={item.count <= MIN_QUANTITY_ITEMS}
+          disabled={item.count <= MIN_QUANTITY_BASKET_ITEMS}
         >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
@@ -113,7 +113,7 @@ function BasketItem({ item, setCamera, setActive }: BasketItemProps): JSX.Elemen
           className="btn-icon btn-icon--next"
           aria-label="увеличить количество товара"
           onClick={handlePlusItem}
-          disabled={item.count === MAX_QUANTITY_ITEMS}
+          disabled={item.count === MAX_QUANTITY_BASKET_ITEMS}
         >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>

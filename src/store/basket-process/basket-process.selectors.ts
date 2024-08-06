@@ -7,10 +7,8 @@ export const getBasketItems = (state: Pick<State, NameSpace.Basket>) =>
 export const getDiscount = (state: Pick<State, NameSpace.Basket>): number =>
   state[NameSpace.Basket].discount;
 
-
 export const getErrorStatus = (state: Pick<State, NameSpace.Basket>): boolean =>
   state[NameSpace.Basket].hasError;
-
 
 export const getPostOrderStatus = (state: Pick<State, NameSpace.Basket>): RequestStatus =>
   state[NameSpace.Basket].basketStatus;
@@ -20,3 +18,6 @@ export const getPromoCodeName = (state: Pick<State, NameSpace.Basket>): CouponTy
 
 export const isPromoValid = (state: Pick<State, NameSpace.Basket>): boolean =>
   state[NameSpace.Basket].isPromoCodeValid;
+
+export const getDiscountPercent = (state: Pick<State, NameSpace.Basket>): number =>
+  state[NameSpace.Basket].discountPercent;

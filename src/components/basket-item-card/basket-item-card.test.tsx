@@ -9,9 +9,8 @@ describe('Component: Basket Item Card', () => {
   const {name, type} = mockCameraItem;
 
   it('should render correctly', () => {
-
     const {withStoreComponent} = withStore(
-      <BasketItem item={{...mockCameraItem, count: 1}} setCamera={() => mockCameraItem} setActive={() => false} />, mockStore);
+      <BasketItem item={{...mockCameraItem, count: 1}} setCamera={() => mockCameraItem} />, mockStore);
 
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);

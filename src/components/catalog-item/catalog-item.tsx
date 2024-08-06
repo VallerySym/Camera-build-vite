@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { CameraItem } from '../../types/camera-item';
-import { stars } from '../../const';
+import { AppRoute, stars } from '../../const';
 import { fetchCamera } from '../../store/api-actions';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { openAddItemPopup } from '../../store/popup-process/popup-process.slice';
+import { getBasketItems } from '../../store/basket-process/basket-process.selectors';
 
 type CatalogItemProps = {
   catalogItem: CameraItem;
@@ -11,6 +12,8 @@ type CatalogItemProps = {
 
 function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const basketItemList = useAppSelector(getBasketItems);
+  const itemInBasket = basketItemList.find((item) => item.id === catalogItem.id);
 
   return (
     <div className="product-card" data-testid="camera-card">
@@ -53,16 +56,23 @@ function CatalogItem({ catalogItem }: CatalogItemProps): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button
-          className="btn btn--purple product-card__btn"
-          type="button"
-          onClick={() => {
-            dispatch(fetchCamera(Number(catalogItem.id)));
-            dispatch(openAddItemPopup());
-          }}
-        >
-          Купить
-        </button>
+        {itemInBasket !== undefined ?
+          <Link className="btn btn--purple-border product-card__btn product-card__btn--in-cart" to={AppRoute.Basket}>
+            <svg width="16" height="16" aria-hidden="true">
+              <use xlinkHref="#icon-basket"></use>
+            </svg>
+            В корзине
+          </Link> :
+          <button
+            className="btn btn--purple product-card__btn"
+            type="button"
+            onClick={() => {
+              dispatch(fetchCamera(Number(catalogItem.id)));
+              dispatch(openAddItemPopup());
+            }}
+          >
+            Купить
+          </button>}
         <Link
           className="btn btn--transparent"
           to={`/camera/${catalogItem.id}`}

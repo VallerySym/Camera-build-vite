@@ -1,10 +1,14 @@
 import { CouponType, RequestStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { postCoupon, postOrder} from '../../store/api-actions';
+import { postCoupon, postOrder } from '../../store/api-actions';
 import classNames from 'classnames';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { getDiscount, getErrorStatus, getPostOrderStatus, getPromoCodeName, isPromoValid } from '../../store/basket-process/basket-process.selectors';
+import { getBasketItems, getDiscount, getErrorStatus, getPostOrderStatus, getPromoCodeName, isPromoValid } from '../../store/basket-process/basket-process.selectors';
 import { resetBasket, setPromoCode } from '../../store/basket-process/basket-process.slice';
+import { openOrderSuccessPopup } from '../../store/popup-process/popup-process.slice';
+import { checkOrderSuccessPopupOpen } from '../../store/popup-process/popup-process.selectors';
+import PopupOrderSuccess from '../popup-order-success/popup-order-success';
+import { getDiscountByQuantity, getDiscountByTotalPrice } from './utils';
 
 type BasketSummaryOrderProps = {
   totalPrice: number;
@@ -15,15 +19,27 @@ type BasketSummaryOrderProps = {
 function BasketSummaryOrder({ totalPrice, orderIds, isBasketEmpty }: BasketSummaryOrderProps): JSX.Element {
   const dispatch = useAppDispatch();
   const postOrderStatus = useAppSelector(getPostOrderStatus);
-  const discountPercent = useAppSelector(getDiscount);
-  const discount = Math.round(totalPrice * discountPercent / 100);
 
   const promoCode = useAppSelector(getPromoCodeName);
   const [promoText, setPromoText] = useState<CouponType | null>(promoCode);
   const isError = useAppSelector(getErrorStatus);
   const isValid = useAppSelector(isPromoValid);
 
-  const priceWithDiscount = Math.round(totalPrice - discount);
+  const basketItems = useAppSelector(getBasketItems);
+  const basketItemsQnt = basketItems.reduce((sum, item) => item.count + sum, 0);
+
+  const discountPromo = useAppSelector(getDiscount);
+
+  const discountPercentByQnt = getDiscountByQuantity(basketItemsQnt);
+  const discountPercentByTotalPrice = getDiscountByTotalPrice(totalPrice, discountPercentByQnt);
+
+  const discountWithPercent = Math.round(totalPrice * discountPercentByTotalPrice / 100);
+  const discountWithPromo = Math.round((totalPrice - discountWithPercent) * discountPromo / 100);
+
+  const totalDiscountSumm = discountWithPromo + discountWithPercent;
+  const priceWithDiscount = Math.round(totalPrice - totalDiscountSumm);
+
+  const isOrderSuccessPopupOpen = useAppSelector(checkOrderSuccessPopupOpen);
 
   const handleFormChange = (evt: ChangeEvent<HTMLInputElement>): void => {
     const { value } = evt.target;
@@ -32,6 +48,7 @@ function BasketSummaryOrder({ totalPrice, orderIds, isBasketEmpty }: BasketSumma
 
   const handleOrderSend = () => {
     dispatch(postOrder({ camerasIds: orderIds, coupon: promoCode }));
+    dispatch(openOrderSuccessPopup());
   };
 
   useEffect(() => {
@@ -51,10 +68,10 @@ function BasketSummaryOrder({ totalPrice, orderIds, isBasketEmpty }: BasketSumma
   return (
     <div className="basket__summary">
       <div className="basket__promo">
-        <p className="title title--h4">Если у вас есть промокод на скидку, примените его в этом поле</p>
+        <p className="title title--h4">Если у вас есть промокод на скидку, примените его в этом поле </p>
         <div className="basket-form">
           <form action="#" onSubmit={handlePromoCodeEnter}>
-            <div className={classNames({ 'is-invalid': isError, 'is-valid': isValid || discount > 0 }, 'custom-input')}>
+            <div className={classNames({ 'is-invalid': isError, 'is-valid': isValid || discountPromo > 0 }, 'custom-input')}>
               <label>
                 <span className="custom-input__label">Промокод</span>
                 <input type="text" name="promo" placeholder="Введите промокод"
@@ -78,7 +95,7 @@ function BasketSummaryOrder({ totalPrice, orderIds, isBasketEmpty }: BasketSumma
         </p>
         <p className="basket__summary-item">
           <span className="basket__summary-text">Скидка:</span>
-          <span className={classNames({ 'basket__summary-value--bonus': discount > 0 }, 'basket__summary-value')}>{discount.toLocaleString()} ₽</span>
+          <span className={classNames({ 'basket__summary-value--bonus': totalDiscountSumm > 0 }, 'basket__summary-value')}>{totalDiscountSumm.toLocaleString()} ₽</span>
         </p>
         <p className="basket__summary-item">
           <span className="basket__summary-text basket__summary-text--total">К оплате:</span>
@@ -91,6 +108,7 @@ function BasketSummaryOrder({ totalPrice, orderIds, isBasketEmpty }: BasketSumma
           Оформить заказ
         </button>
       </div>
+      {isOrderSuccessPopupOpen && <PopupOrderSuccess />}
     </div>
   );
 }
