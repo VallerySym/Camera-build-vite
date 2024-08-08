@@ -1,53 +1,65 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { PopupProcess, PostData } from '../../types/state';
-import { postFormData } from '../api-actions';
-
-const initialPostData: PostData = {
-  tel: '',
-  id:'',
-};
+import { PopupProcess } from '../../types/state';
 
 const initialState: PopupProcess = {
-  postData:initialPostData,
-  isPopupOpen: false,
-  isPopupCallMeOpen: false,
-  popupCallIsLoading: false,
-  popupCallIsNotFound: false,
+  isAddItemPopupOpen: false,
+  isSuccessPopupOpen: false,
+  isDeleteItemPopupOpen: false,
+  isOrderSuccessPopupOpen: false,
+  isAddReviewPopupOpen: false,
+  isAddReviewSuccessPopupOpen: false,
+  errorAddReview:false,
 };
 
 export const popupSlice = createSlice({
   name: NameSpace.Popup,
   initialState,
   reducers: {
-    openCallMePopup: (state) => {
-      state.isPopupOpen = true;
-      state.isPopupCallMeOpen = true;
+    openAddItemPopup: (state) => {
+      state.isAddItemPopupOpen = true;
     },
-    closeCallMePopup: (state) => {
-      state.isPopupOpen = false;
-      state.isPopupCallMeOpen = false;
+    closeAddItemPopup: (state) => {
+      state.isAddItemPopupOpen = false;
     },
-    setFormTel: (state, action: PayloadAction<string>) => {
-      state.postData.tel = action.payload;
+    openSuccessPopup: (state) => {
+      state.isSuccessPopupOpen = true;
     },
-  },
-  extraReducers(builder) {
-    builder
-      .addCase(postFormData.pending, (state) => {
-        state.popupCallIsLoading = true;
-        state.popupCallIsNotFound = false;
-      })
-      .addCase(postFormData.fulfilled, (state, action) => {
-        state.postData = action.payload;
-        state.popupCallIsLoading = false;
-      })
-      .addCase(postFormData.rejected, (state) => {
-        state.popupCallIsLoading = false;
-        state.popupCallIsNotFound = true;
-      });
-
+    closeSuccessPopup: (state) => {
+      state.isSuccessPopupOpen = false;
+    },
+    openDeleteItemPopup: (state) => {
+      state.isDeleteItemPopupOpen = true;
+    },
+    closeDeleteItemPopup: (state) => {
+      state.isDeleteItemPopupOpen = false;
+    },
+    openOrderSuccessPopup: (state) => {
+      state.isOrderSuccessPopupOpen = true;
+    },
+    closeOrderSuccessPopup: (state) => {
+      state.isOrderSuccessPopupOpen = false;
+    },
+    openAddReviewPopup: (state) => {
+      state.isAddReviewPopupOpen = true;
+    },
+    closeAddReviewPopup: (state) => {
+      state.isAddReviewPopupOpen = false;
+    },
+    openAddReviewSuccessPopup: (state) => {
+      state.isAddReviewSuccessPopupOpen = true;
+    },
+    closeAddReviewSuccessPopup: (state) => {
+      state.isAddReviewSuccessPopupOpen = false;
+    },
   },
 });
 
-export const { openCallMePopup, closeCallMePopup, setFormTel } = popupSlice.actions;
+export const {
+  openAddItemPopup, closeAddItemPopup,
+  openSuccessPopup, closeSuccessPopup,
+  openDeleteItemPopup, closeDeleteItemPopup,
+  openOrderSuccessPopup, closeOrderSuccessPopup,
+  openAddReviewPopup, closeAddReviewPopup,
+  openAddReviewSuccessPopup,closeAddReviewSuccessPopup
+} = popupSlice.actions;

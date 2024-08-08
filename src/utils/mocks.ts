@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import { CameraItem, CameraItems } from '../types/camera-item';
 import { Review, Reviews } from '../types/review';
 import { Promo } from '../types/promo';
-import { PostData, State } from '../types/state';
+import { State } from '../types/state';
 import { CameraCategory, CameraLevel, CameraType, DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE, RequestStatus } from '../const';
 import { Action } from 'redux';
 
@@ -78,14 +78,13 @@ const makeFakeStore = (initialState?: Partial<State>): State => ({
     reviewRequestStatus: RequestStatus.Idle,
   },
   POPUP: {
-    postData: {
-      tel: '',
-      id: '',
-    },
-    isPopupOpen: false,
-    isPopupCallMeOpen: false,
-    popupCallIsLoading: false,
-    popupCallIsNotFound: false,
+    isAddItemPopupOpen:false,
+    isSuccessPopupOpen:false,
+    isDeleteItemPopupOpen:false,
+    isOrderSuccessPopupOpen:false,
+    isAddReviewPopupOpen:false,
+    isAddReviewSuccessPopupOpen:false,
+    errorAddReview: false,
   },
   SIMILAR: {
     similarCameras: [],
@@ -97,6 +96,15 @@ const makeFakeStore = (initialState?: Partial<State>): State => ({
     promoCamerasIsLoading: false,
     promoCamerasIsNotFound: false,
   },
+  BASKET: {
+    items: [],
+    discount: 0,
+    promoCode: null,
+    discountPercent: 0,
+    hasError: false,
+    isPromoCodeValid: false,
+    basketStatus: RequestStatus.Idle,
+  },
   ...initialState ?? {},
 });
 
@@ -104,13 +112,9 @@ const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }
 
 const makeFakeSimilarCameras = (): CameraItem[] => Array.from({ length: 10 }, makeFakeCamera);
 
-const makeFakePostData = (): PostData => ({
-  tel: datatype.string(),
-  id: datatype.string(),
-});
 
 export {
   makeFakeCamera, makeFakeCameras, makeFakeReview,
   makeFakeReviews, makeFakePromoList, makeFakeStore,
-  extractActionsTypes, makeFakeSimilarCameras, makeFakePostData
+  extractActionsTypes, makeFakeSimilarCameras,
 };

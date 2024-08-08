@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { PaginationItem } from '../pagination-item/pagination-item';
 import { getCurrentPage } from '../../store/catalog-process/catalog-process.selectors';
 import { setCurrentPage } from '../../store/catalog-process/catalog-process.slice';
-import { MAX_PAGE_COUNT } from '../../const';
+import { MAX_PAGE_COUNT, MAX_PAGINATION_ITEM_SHOW } from '../../const';
 
 type PaginationProps = {
   totalCountPage: number;
@@ -17,15 +17,29 @@ export function Pagination({ totalCountPage }: PaginationProps) {
   const lastPageIndex = perPageNumber * MAX_PAGE_COUNT;
   const firstPageIndex = lastPageIndex - MAX_PAGE_COUNT;
   const currentPageNumbers = pageAllNumbers.slice(firstPageIndex, lastPageIndex);
-  const isHidenClassPrevPage = totalCountPage <= 3 || currentPage <= 3;
-  const isHidenClassNextPage = currentPage >= totalCountPage - 1 || totalCountPage <= 3;
+  const isHidenClassPrevPage = totalCountPage <= MAX_PAGINATION_ITEM_SHOW || currentPage <= MAX_PAGINATION_ITEM_SHOW;
+  const isHidenClassNextPage = currentPage >= totalCountPage - 1 || totalCountPage <= MAX_PAGINATION_ITEM_SHOW;
+
+  function scrollWindow(params : object) {
+    window.scrollTo(params);
+  }
 
   const hanldeNextPageClick = () => {
     dispatch(setCurrentPage(currentPage + 1));
+
+    scrollWindow({
+      top: 360,
+      behavior: 'smooth'
+    });
   };
 
   const handlePrevPageClick = () => {
     dispatch(setCurrentPage(currentPage - 1));
+
+    scrollWindow({
+      top: 360,
+      behavior: 'smooth'
+    });
   };
 
   return (

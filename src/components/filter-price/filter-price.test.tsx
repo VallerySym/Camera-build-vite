@@ -8,7 +8,7 @@ describe('Component: FilterPrice', () => {
   it('should render correctly', () => {
     const mockStore = makeFakeStore();
 
-    const { withStoreComponent } = withStore(<FilterPrice />,mockStore);
+    const { withStoreComponent } = withStore(<FilterPrice resetFilters/>,mockStore);
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);
 

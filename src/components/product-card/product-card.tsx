@@ -1,12 +1,19 @@
 import { stars } from '../../const';
 import Tabs from '../tabs/tabs';
 import { CameraItem } from '../../types/camera-item';
+import { openAddItemPopup } from '../../store/popup-process/popup-process.slice';
+import { useAppDispatch } from '../../hooks';
 
 type ProductCardProps ={
   selectedCamera: CameraItem | null;
 }
 
 function ProductCard({selectedCamera}:ProductCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(openAddItemPopup());
+  };
 
   return (
     <section className="product" data-testid="product-card">
@@ -48,7 +55,7 @@ function ProductCard({selectedCamera}:ProductCardProps): JSX.Element {
             <span className="visually-hidden">Цена:</span>
             {selectedCamera?.price.toLocaleString()} ₽
           </p>
-          <button className="btn btn--purple" type="button">
+          <button className="btn btn--purple" type="button" onClick={handleClick}>
             <svg width={24} height={16} aria-hidden="true">
               <use xlinkHref="#icon-add-basket" />
             </svg>

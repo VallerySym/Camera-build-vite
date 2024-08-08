@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import SearchForm from '../search-form/search-form';
+import { useAppSelector } from '../../hooks';
+import { getBasketItems } from '../../store/basket-process/basket-process.selectors';
 
 function Header(): JSX.Element {
+  const basketItems = useAppSelector(getBasketItems);
+  const basketItemsQuantity = basketItems.reduce((sum, item) => item.count + sum, 0);
+
   return (
     <header className="header" id="header" data-testid="header">
       <div className="container">
@@ -41,6 +46,12 @@ function Header(): JSX.Element {
           </ul>
         </nav>
         <SearchForm />
+        <Link className="header__basket-link" to={AppRoute.Basket} data-testid='header-basket'>
+          <svg width="16" height="16" aria-hidden="true">
+            <use xlinkHref="#icon-basket"></use>
+          </svg>
+          {basketItems.length > 0 && <span className="header__basket-count">{basketItemsQuantity}</span>}
+        </Link>
       </div>
     </header>
   );

@@ -3,7 +3,7 @@ import { CameraItem } from '../../types/camera-item';
 import { CSSProperties } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { Link } from 'react-router-dom';
-import { openCallMePopup } from '../../store/popup-process/popup-process.slice';
+import { openAddItemPopup } from '../../store/popup-process/popup-process.slice';
 import { fetchCamera } from '../../store/api-actions';
 
 type SimilarCameraProps = {
@@ -58,7 +58,7 @@ function SimilarCamera({ similarCamera, style }: SimilarCameraProps): JSX.Elemen
           type="button"
           onClick={() => {
             dispatch(fetchCamera(Number(similarCamera.id)));
-            dispatch(openCallMePopup());
+            dispatch(openAddItemPopup());
           }}
         >
           Купить

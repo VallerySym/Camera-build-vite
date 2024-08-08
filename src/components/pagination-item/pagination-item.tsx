@@ -12,8 +12,16 @@ export function PaginationItem({ pageNumber }: PaginationItemProps) {
   const dispatch = useAppDispatch();
   const currentPage = useAppSelector(getCurrentPage);
 
+  function scrollWindow(params : object) {
+    window.scrollTo(params);
+  }
+
   const handleLinkClick = () => {
     dispatch(setCurrentPage(pageNumber));
+    scrollWindow({
+      top: 360,
+      behavior: 'smooth'
+    });
   };
 
   return (

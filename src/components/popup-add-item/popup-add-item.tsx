@@ -1,73 +1,48 @@
-import { useForm } from 'react-hook-form';
-import { AppRoute } from '../../const';
-import { useNavigate } from 'react-router-dom';
 import FocusLock from 'react-focus-lock';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { closeCallMePopup, setFormTel } from '../../store/popup-process/popup-process.slice';
-import { getPopupTel } from '../../store/popup-process/popup-process.selectors';
-import { postFormData } from '../../store/api-actions';
-import { CameraItem } from '../../types/camera-item';
 import { useCallback, useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { closeAddItemPopup, openSuccessPopup } from '../../store/popup-process/popup-process.slice';
+import { CameraItem } from '../../types/camera-item';
+import { addItem } from '../../store/basket-process/basket-process.slice';
+import { checkAddItemPopupOpen } from '../../store/popup-process/popup-process.selectors';
 
-type FormValues = {
-  tel: string;
-}
-
-type PopupCallItemProps ={
+type PopupAddItemProps = {
   selectedCamera: CameraItem | null;
 }
 
-function PopupCallItem({selectedCamera}:PopupCallItemProps): JSX.Element {
+function PopupAddItem({ selectedCamera }: PopupAddItemProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const focusRef = useRef<HTMLDivElement | null>(null);
-
-  const formData :string = useAppSelector(getPopupTel);
-
-  const { register, formState: { errors, isValid }, reset } = useForm<FormValues>({ mode: 'onChange' });
-
-  const handleSetPhone = (data: string) => {
-    dispatch(setFormTel(data));
-  };
-
-  const postData = {
-    tel: String(formData),
-    id: String(selectedCamera?.id),
-  };
+  let isAddItemPopupOpen = useAppSelector(checkAddItemPopupOpen);
 
   const handleSubmit = () => {
-    dispatch(postFormData(postData));
-    dispatch(closeCallMePopup());
-    navigate(AppRoute.Catalog);
-    reset();
+    dispatch(addItem(selectedCamera));
+    dispatch(closeAddItemPopup());
+    dispatch(openSuccessPopup());
   };
 
   const handleEscapeKeydown = useCallback((evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
-      dispatch(closeCallMePopup());
-
+      dispatch(closeAddItemPopup());
       document.body.style.overflow = 'unset';
     }
   }, [dispatch]);
 
   const handleCloseButtonClick = () => {
-    dispatch(closeCallMePopup());
-
+    dispatch(closeAddItemPopup());
     document.body.style.overflow = 'unset';
     document.removeEventListener('keydown', handleEscapeKeydown);
   };
 
   const handleOverlayClick = () => {
-    dispatch(closeCallMePopup());
-
+    dispatch(closeAddItemPopup());
     document.body.style.overflow = 'unset';
     document.removeEventListener('keydown', handleEscapeKeydown);
   };
 
   useEffect(() => {
-    let isMounted;
 
-    if (isMounted) {
+    if (isAddItemPopupOpen) {
       if (selectedCamera && focusRef.current) {
         focusRef.current.focus();
         document.body.style.overflow = 'hidden';
@@ -79,18 +54,18 @@ function PopupCallItem({selectedCamera}:PopupCallItemProps): JSX.Element {
       };
     }
     return () => {
-      isMounted = false;
+      isAddItemPopupOpen = false;
     };
   }, [selectedCamera, handleEscapeKeydown]);
 
 
   return (
-    <div className="modal is-active" data-testid="popup-data" tabIndex={0}>
+    <div className="modal is-active" data-testid="popup-add-data" tabIndex={0}>
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={handleOverlayClick} />
         <FocusLock ref={focusRef} returnFocus>
           <div className="modal__content">
-            <p className="title title--h4">Свяжитесь со мной</p>
+            <p className="title title--h4">Добавить товар в корзину</p>
             <div className="basket-item basket-item--short">
               <div className="basket-item__img">
                 <picture>
@@ -122,47 +97,17 @@ function PopupCallItem({selectedCamera}:PopupCallItemProps): JSX.Element {
                 </p>
               </div>
             </div>
-            <div className="custom-input form-review__item">
-              <label>
-                <span className="custom-input__label">
-                Телефон
-                  <svg width={9} height={9} aria-hidden="true">
-                    <use xlinkHref="#icon-snowflake" />
-                  </svg>
-                </span>
-                <input
-                  {...register('tel', {
-                    required: 'Обязательное поле',
-                    pattern: {
-                      value: /^(\+7|8)[\d\- ]{9,10}$/,
-                      message: 'Пожалуйста, введите номер в формате +7(9XX)XXX-XX-XX',
-                    }
-                  })}
-                  type="tel"
-                  id="tel"
-                  placeholder="Введите ваш номер"
-                  onInput={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetPhone(evt.target.value)}
-                  tabIndex={0}
-                />
-                {errors?.tel &&
-                <p style={{ color: 'red', margin: 0 }}>
-                  {errors.tel.message}
-                </p>}
-              </label>
-              <p className="custom-input__error">Нужно указать номер</p>
-            </div>
             <div className="modal__buttons">
               <button
                 className="btn btn--purple modal__btn modal__btn--fit-width"
                 type="button"
-                disabled={!isValid}
                 onClick={handleSubmit}
                 tabIndex={0}
               >
                 <svg width={24} height={16} aria-hidden="true">
                   <use xlinkHref="#icon-add-basket" />
                 </svg>
-              Заказать
+                Добавить в корзину
               </button>
             </div>
             <button
@@ -184,4 +129,4 @@ function PopupCallItem({selectedCamera}:PopupCallItemProps): JSX.Element {
   );
 }
 
-export default PopupCallItem;
+export default PopupAddItem;

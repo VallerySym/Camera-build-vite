@@ -2,7 +2,7 @@ import { withHistory, withStore } from '../../utils/mock-component';
 import { render, screen } from '@testing-library/react';
 import CatalogPage from './catalog-page';
 import { makeFakeCameras, makeFakePromoList, makeFakeCamera } from '../../utils/mocks';
-import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE } from '../../const';
+import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE, RequestStatus } from '../../const';
 
 describe('Component: CatalogPage', () => {
   const mockCamerasList = makeFakeCameras();
@@ -24,6 +24,7 @@ describe('Component: CatalogPage', () => {
         minPrice: 0,
         maxPrice: 0,
         isResetFilters: false,
+        currentPage: 1,
       },
       CAMERA: {
         camera: { ...mockCameraItem },
@@ -36,14 +37,22 @@ describe('Component: CatalogPage', () => {
         promoCamerasIsNotFound: false,
       },
       POPUP: {
-        postData: {
-          tel: '',
-          id: '',
-        },
-        isPopupOpen: false,
-        isPopupCallMeOpen: false,
-        popupCallIsLoading: false,
-        popupCallIsNotFound: false,
+        isAddItemPopupOpen: false,
+        isSuccessPopupOpen: false,
+        isDeleteItemPopupOpen: false,
+        isOrderSuccessPopupOpen: false,
+        isAddReviewPopupOpen: false,
+        isAddReviewSuccessPopupOpen: false,
+        errorAddReview: false,
+      },
+      BASKET: {
+        items: [],
+        discount: 0,
+        discountPercent: 0,
+        promoCode: null,
+        hasError: false,
+        isPromoCodeValid: false,
+        basketStatus: RequestStatus.Idle,
       },
     });
 
@@ -52,7 +61,7 @@ describe('Component: CatalogPage', () => {
 
     const expectedText = 'Каталог фото- и видеотехники';
 
-    expect(screen.getByTestId('catalog')).toBeInTheDocument();
+    expect(screen.getByTestId('catalog-page')).toBeInTheDocument();
     expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
 });
