@@ -91,17 +91,25 @@ function BasketSummaryOrder({ totalPrice, orderIds, isBasketEmpty }: BasketSumma
       <div className="basket__summary-order">
         <p className="basket__summary-item">
           <span className="basket__summary-text">Всего:</span>
-          <span className="basket__summary-value">{totalPrice.toLocaleString()} ₽</span>
+          <span className="basket__summary-value">
+            {totalPrice.toLocaleString()} ₽
+          </span>
         </p>
         <p className="basket__summary-item">
           <span className="basket__summary-text">Скидка:</span>
-          <span className={classNames({ 'basket__summary-value--bonus': totalDiscountSumm > 0 }, 'basket__summary-value')}>{totalDiscountSumm.toLocaleString()} ₽</span>
+          <span className={classNames({ 'basket__summary-value--bonus': totalDiscountSumm > 0 }, 'basket__summary-value')}>
+            {totalDiscountSumm.toLocaleString()} ₽
+          </span>
         </p>
         <p className="basket__summary-item">
           <span className="basket__summary-text basket__summary-text--total">К оплате:</span>
-          <span className="basket__summary-value basket__summary-value--total">{priceWithDiscount.toLocaleString()} ₽</span>
+          <span className="basket__summary-value basket__summary-value--total">
+            {priceWithDiscount.toLocaleString()} ₽
+          </span>
         </p>
-        <button className="btn btn--purple" type="submit"
+        <button
+          className="btn btn--purple"
+          type="submit"
           onClick={handleOrderSend}
           disabled={postOrderStatus === RequestStatus.Loading || isBasketEmpty}
         >

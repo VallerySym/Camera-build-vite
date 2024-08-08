@@ -1,8 +1,8 @@
 import FocusLock from 'react-focus-lock';
+import { useCallback, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { closeAddItemPopup, openSuccessPopup } from '../../store/popup-process/popup-process.slice';
 import { CameraItem } from '../../types/camera-item';
-import { useCallback, useEffect, useRef } from 'react';
 import { addItem } from '../../store/basket-process/basket-process.slice';
 import { checkAddItemPopupOpen } from '../../store/popup-process/popup-process.selectors';
 

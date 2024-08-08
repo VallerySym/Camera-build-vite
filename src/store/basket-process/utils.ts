@@ -1,7 +1,6 @@
 import { CouponType } from '../../const';
 import { Basket } from '../../types/basket';
 
-
 export const getBasketListFromLS = () => {
   const data = localStorage.getItem('basket');
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

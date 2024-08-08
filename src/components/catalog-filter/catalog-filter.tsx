@@ -25,7 +25,7 @@ function CatalogFilter(): JSX.Element {
     <div className="catalog-filter" data-testid="catalog-filter">
       <form action="#">
         <h2 className="visually-hidden">Фильтр</h2>
-        <FilterPrice />
+        <FilterPrice resetFilters={isResetFilters} />
         <FilterCategory />
         <FilterType />
         <FilterLevel />

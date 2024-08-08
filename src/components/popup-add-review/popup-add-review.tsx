@@ -1,12 +1,12 @@
+import FocusLock from 'react-focus-lock';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { ChangeEvent, Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import FocusLock from 'react-focus-lock';
-import { closeAddReviewPopup, openAddReviewSuccessPopup } from '../../store/popup-process/popup-process.slice';
 import { submitReviewsAction } from '../../store/api-actions';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { getCamera } from '../../store/product-process/product-process.selectors';
 import { MAX_VALUE_RATING, MIN_VALUE_RATING, ReviewTextLength, ReviewNameLength } from '../../const';
 import { checkAddReviewPopupOpen, getErrorAddReview } from '../../store/popup-process/popup-process.selectors';
+import { closeAddReviewPopup, openAddReviewSuccessPopup } from '../../store/popup-process/popup-process.slice';
 
 function PopupAddReview(): JSX.Element {
   const dispatch = useAppDispatch();

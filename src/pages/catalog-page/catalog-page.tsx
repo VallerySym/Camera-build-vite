@@ -1,18 +1,26 @@
+import { useEffect, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
 import BreadcrumbsList from '../../components/breadcrumbs-list/breadcrumbs-list';
 import CatalogList from '../../components/catalog-list/catalog-list';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Spinner from '../../components/spinner/spinner';
-import { useAppSelector } from '../../hooks';
-import { getCameras, getCamerasIsLoading, getCurrentCamerasList, getTotalPageCount } from '../../store/catalog-process/catalog-process.selectors';
-import { checkAddItemPopupOpen, checkSuccessPopupOpen } from '../../store/popup-process/popup-process.selectors';
 import SwiperPromo from '../../components/swiper-promo/swiper-promo';
-import { getCamera } from '../../store/product-process/product-process.selectors';
 import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
 import Pagination from '../../components/pagination/pagination';
 import PopupAddItem from '../../components/popup-add-item/popup-add-item';
 import PopupSuccess from '../../components/popup-success/popup-success';
+import { getCamera } from '../../store/product-process/product-process.selectors';
+import { QueryParams } from '../../types/query-params';
+import { checkAddItemPopupOpen, checkSuccessPopupOpen } from '../../store/popup-process/popup-process.selectors';
+import {
+  getCameras, getCamerasCategory, getCamerasIsLoading, getCamerasLevel,
+  getCamerasMaxPrice, getCamerasMinPrice, getCamerasType, getCurrentCamerasList,
+  getCurrentPage, getSortOrder, getSortType, getTotalPageCount
+} from '../../store/catalog-process/catalog-process.selectors';
+
 
 function CatalogPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
@@ -26,6 +34,52 @@ function CatalogPage(): JSX.Element {
   const filteredAndSortedCameras = useAppSelector(getCurrentCamerasList);
 
   const totalCountPage = useAppSelector(getTotalPageCount);
+
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const currentPage = Number(searchParams.get('page'));
+
+  // const activePage = useAppSelector(getCurrentPage);
+  // const currentSortType = useAppSelector(getSortType);
+  // const currentSortOrder = useAppSelector(getSortOrder);
+  // const activeFilterCategory = useAppSelector(getCamerasCategory);
+  // const activeFilterType = useAppSelector(getCamerasType);
+  // const activeFilterLevel = useAppSelector(getCamerasLevel);
+  // const activeMinPrice = useAppSelector(getCamerasMinPrice);
+  // const activeMaxPrice = useAppSelector(getCamerasMaxPrice);
+
+  // const currentParams = useMemo(() => {
+  //   const params: QueryParams = {};
+  //   if (!currentPage) {
+  //     params.page = activePage.toString();
+  //   }
+  //   if (currentPage) {
+  //     params.page = currentPage.toString();
+  //   }
+  //   if (currentSortType && currentSortOrder) {
+  //     params.sort = currentSortType;
+  //     params.order = currentSortOrder;
+  //   }
+  //   if (activeFilterCategory) {
+  //     params.category = activeFilterCategory;
+  //   }
+  //   if (activeFilterType.length) {
+  //     params.type = activeFilterType;
+  //   }
+  //   if (activeFilterLevel.length) {
+  //     params.level = activeFilterLevel;
+  //   }
+  //   if (activeMinPrice) {
+  //     params['price_gt'] = activeMinPrice.toString();
+  //   }
+  //   if (activeMaxPrice) {
+  //     params['price_lt'] = activeMaxPrice.toString();
+  //   }
+  //   return params;
+  // }, [activeFilterCategory, activeFilterLevel, activeFilterType, activeMaxPrice, activeMinPrice, activePage, currentPage, currentSortOrder, currentSortType]);
+
+  // useEffect(() => {
+  //   setSearchParams(currentParams);
+  // }, [setSearchParams, currentParams]);
 
   return (
     <div className="wrapper">
@@ -49,14 +103,14 @@ function CatalogPage(): JSX.Element {
                   ) : (
                     <h2>Нет доступных камер</h2>
                   )}
-                  {totalCountPage > 1 && <Pagination totalCountPage={totalCountPage}/>}
+                  {totalCountPage > 1 && <Pagination totalCountPage={totalCountPage} />}
                 </div>
               </div>
             </div>
           </section>
         </div>
         {isAddItemPopupOpen && <PopupAddItem selectedCamera={camera} />}
-        {isSuccessPopupOpen && <PopupSuccess /> }
+        {isSuccessPopupOpen && <PopupSuccess />}
       </main>
       <Footer />
     </div>

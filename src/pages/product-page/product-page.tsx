@@ -1,25 +1,29 @@
 import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import BreadcrumbsList from '../../components/breadcrumbs-list/breadcrumbs-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import ReviewBlockList from '../../components/review-block-list/review-block-list';
 import ProductCard from '../../components/product-card/product-card';
 import Spinner from '../../components/spinner/spinner';
-import { fetchCamera, fetchReviews } from '../../store/api-actions';
+import SimilarCamerasList from '../../components/similar-cameras-list/similar-cameras-list';
+import PopupAddItem from '../../components/popup-add-item/popup-add-item';
+import PopupSuccess from '../../components/popup-success/popup-success';
+import PopupAddReview from '../../components/popup-add-review/popup-add-review';
+import PopupAddReviewSuccess from '../../components/popup-add-review-success/popup-add-review-success';
 import { store } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchCamera, fetchReviews } from '../../store/api-actions';
 import { getReviews } from '../../store/reviews-process/reviews-process.selectors';
 import { getCamera, getCameraIsLoading, getCameraIsNotFound } from '../../store/product-process/product-process.selectors';
 import { AppRoute } from '../../const';
 import { getSimilarCameras } from '../../store/similar-cameras-process/similar-cameras-process.selectors';
-import SimilarCamerasList from '../../components/similar-cameras-list/similar-cameras-list';
-import { checkAddItemPopupOpen, checkAddReviewPopupOpen, checkAddReviewSuccessPopupOpen, checkSuccessPopupOpen } from '../../store/popup-process/popup-process.selectors';
-import PopupAddItem from '../../components/popup-add-item/popup-add-item';
-import PopupSuccess from '../../components/popup-success/popup-success';
-import PopupAddReview from '../../components/popup-add-review/popup-add-review';
 import { openAddReviewPopup } from '../../store/popup-process/popup-process.slice';
-import PopupAddReviewSuccess from '../../components/popup-add-review-success/popup-add-review-success';
+import {
+  checkAddItemPopupOpen, checkAddReviewPopupOpen,
+  checkAddReviewSuccessPopupOpen, checkSuccessPopupOpen
+} from '../../store/popup-process/popup-process.selectors';
+
 
 function ProductPage(): JSX.Element {
   const params = useParams();

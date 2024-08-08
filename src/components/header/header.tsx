@@ -6,7 +6,7 @@ import { getBasketItems } from '../../store/basket-process/basket-process.select
 
 function Header(): JSX.Element {
   const basketItems = useAppSelector(getBasketItems);
-  const quantityItems = basketItems.reduce((sum, item) => item.count + sum, 0);
+  const basketItemsQuantity = basketItems.reduce((sum, item) => item.count + sum, 0);
 
   return (
     <header className="header" id="header" data-testid="header">
@@ -50,7 +50,7 @@ function Header(): JSX.Element {
           <svg width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
           </svg>
-          {basketItems.length > 0 && <span className="header__basket-count">{quantityItems}</span>}
+          {basketItems.length > 0 && <span className="header__basket-count">{basketItemsQuantity}</span>}
         </Link>
       </div>
     </header>

@@ -1,10 +1,10 @@
 import { ChangeEvent, KeyboardEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { minusCountItem, plusCountItem, setCountItem } from '../../store/basket-process/basket-process.slice';
-import { CameraItem } from '../../types/camera-item';
 import { MAX_QUANTITY_BASKET_ITEMS, MIN_QUANTITY_BASKET_ITEMS } from '../../const';
-import { Basket } from '../../types/basket';
+import { minusCountItem, plusCountItem, setCountItem } from '../../store/basket-process/basket-process.slice';
 import { openDeleteItemPopup } from '../../store/popup-process/popup-process.slice';
+import { CameraItem } from '../../types/camera-item';
+import { Basket } from '../../types/basket';
 
 type BasketItemProps = {
   item: Basket;

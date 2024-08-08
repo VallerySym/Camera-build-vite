@@ -5,7 +5,6 @@ import { setSortByType, setSortByOrder } from '../../store/catalog-process/catal
 import { sortByType, sortByOrder } from './utils';
 import { getSortOrder, getSortType } from '../../store/catalog-process/catalog-process.selectors';
 
-
 function CatalogSort(): JSX.Element {
   const dispatch = useAppDispatch();
   const activeSortType = useAppSelector(getSortType);
@@ -43,10 +42,7 @@ function CatalogSort(): JSX.Element {
             {Object.values(SortOrder).map((order) => (
               <div
                 key={order}
-                className={cn(
-                  'catalog-sort__btn',
-                  `catalog-sort__btn--${order}`
-                )}
+                className={cn('catalog-sort__btn', `catalog-sort__btn--${order}`)}
               >
                 <input
                   tabIndex={0}

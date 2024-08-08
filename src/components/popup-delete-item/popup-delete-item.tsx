@@ -1,10 +1,10 @@
+import FocusLock from 'react-focus-lock';
+import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useRef } from 'react';
+import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { CameraItem } from '../../types/camera-item';
-import FocusLock from 'react-focus-lock';
 import { closeDeleteItemPopup } from '../../store/popup-process/popup-process.slice';
-import { AppRoute } from '../../const';
-import { useNavigate } from 'react-router-dom';
 import { deleteAllItems } from '../../store/basket-process/basket-process.slice';
 import { checkDeleteItemPopupOpen } from '../../store/popup-process/popup-process.selectors';
 

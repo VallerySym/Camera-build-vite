@@ -63,6 +63,7 @@ export const basketSlice = createSlice({
       localStorage.removeItem('basket');
       state.discount = 0;
       state.discountPercent = 0;
+      basketStatus: RequestStatus.Idle,
       state.promoCode = null;
       state.hasError = false;
       state.isPromoCodeValid = false;

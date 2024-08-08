@@ -92,6 +92,13 @@ export const CameraType = {
   Collection: 'Коллекционная',
 } as const;
 
+export const CameraTypeEng = {
+  [CameraType.Collection]: 'collection',
+  [CameraType.Snapshot]: 'snapshot',
+  [CameraType.Film]: 'film',
+  [CameraType.Digital]: 'digital',
+} as const;
+
 export const CameraLevel = {
   Zero: 'Нулевой',
   'Non-professional': 'Любительский',

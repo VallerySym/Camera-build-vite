@@ -1,9 +1,9 @@
+import FocusLock from 'react-focus-lock';
+import { useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useRef } from 'react';
+import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { closeAddReviewSuccessPopup } from '../../store/popup-process/popup-process.slice';
-import { useCallback, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import FocusLock from 'react-focus-lock';
 import { checkAddReviewSuccessPopupOpen } from '../../store/popup-process/popup-process.selectors';
 
 function PopupAddReviewSuccess(): JSX.Element {

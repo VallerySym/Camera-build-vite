@@ -3,7 +3,7 @@ import { render, screen} from '@testing-library/react';
 import BasketSummaryOrder from './basket-summary-order';
 import { makeFakeStore } from '../../utils/mocks';
 
-describe('Component: Basket Summary Order', () => {
+describe('Component: BasketSummaryOrder', () => {
   const mockStore = makeFakeStore();
 
   it('should render correctly', () => {

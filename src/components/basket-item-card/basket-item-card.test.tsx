@@ -3,7 +3,7 @@ import { render, screen} from '@testing-library/react';
 import BasketItem from './basket-item-card';
 import { makeFakeCamera, makeFakeStore } from '../../utils/mocks';
 
-describe('Component: Basket Item Card', () => {
+describe('Component: BasketItemCard', () => {
   const mockStore = makeFakeStore();
   const mockCameraItem = makeFakeCamera();
   const {name, type} = mockCameraItem;
