@@ -20,12 +20,26 @@ export function Pagination({ totalCountPage }: PaginationProps) {
   const isHidenClassPrevPage = totalCountPage <= MAX_PAGINATION_ITEM_SHOW || currentPage <= MAX_PAGINATION_ITEM_SHOW;
   const isHidenClassNextPage = currentPage >= totalCountPage - 1 || totalCountPage <= MAX_PAGINATION_ITEM_SHOW;
 
+  function scrollWindow(params : object) {
+    window.scrollTo(params);
+  }
+
   const hanldeNextPageClick = () => {
     dispatch(setCurrentPage(currentPage + 1));
+
+    scrollWindow({
+      top: 360,
+      behavior: 'smooth'
+    });
   };
 
   const handlePrevPageClick = () => {
     dispatch(setCurrentPage(currentPage - 1));
+
+    scrollWindow({
+      top: 360,
+      behavior: 'smooth'
+    });
   };
 
   return (

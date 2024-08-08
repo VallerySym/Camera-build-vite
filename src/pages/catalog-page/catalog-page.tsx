@@ -35,51 +35,52 @@ function CatalogPage(): JSX.Element {
 
   const totalCountPage = useAppSelector(getTotalPageCount);
 
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const currentPage = Number(searchParams.get('page'));
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get('page'));
 
-  // const activePage = useAppSelector(getCurrentPage);
-  // const currentSortType = useAppSelector(getSortType);
-  // const currentSortOrder = useAppSelector(getSortOrder);
-  // const activeFilterCategory = useAppSelector(getCamerasCategory);
-  // const activeFilterType = useAppSelector(getCamerasType);
-  // const activeFilterLevel = useAppSelector(getCamerasLevel);
-  // const activeMinPrice = useAppSelector(getCamerasMinPrice);
-  // const activeMaxPrice = useAppSelector(getCamerasMaxPrice);
+  const activePage = useAppSelector(getCurrentPage);
+  const currentSortType = useAppSelector(getSortType);
+  const currentSortOrder = useAppSelector(getSortOrder);
+  const activeFilterCategory = useAppSelector(getCamerasCategory);
+  const activeFilterType = useAppSelector(getCamerasType);
+  const activeFilterLevel = useAppSelector(getCamerasLevel);
+  const activeMinPrice = useAppSelector(getCamerasMinPrice);
+  const activeMaxPrice = useAppSelector(getCamerasMaxPrice);
 
-  // const currentParams = useMemo(() => {
-  //   const params: QueryParams = {};
-  //   if (!currentPage) {
-  //     params.page = activePage.toString();
-  //   }
-  //   if (currentPage) {
-  //     params.page = currentPage.toString();
-  //   }
-  //   if (currentSortType && currentSortOrder) {
-  //     params.sort = currentSortType;
-  //     params.order = currentSortOrder;
-  //   }
-  //   if (activeFilterCategory) {
-  //     params.category = activeFilterCategory;
-  //   }
-  //   if (activeFilterType.length) {
-  //     params.type = activeFilterType;
-  //   }
-  //   if (activeFilterLevel.length) {
-  //     params.level = activeFilterLevel;
-  //   }
-  //   if (activeMinPrice) {
-  //     params['price_gt'] = activeMinPrice.toString();
-  //   }
-  //   if (activeMaxPrice) {
-  //     params['price_lt'] = activeMaxPrice.toString();
-  //   }
-  //   return params;
-  // }, [activeFilterCategory, activeFilterLevel, activeFilterType, activeMaxPrice, activeMinPrice, activePage, currentPage, currentSortOrder, currentSortType]);
+  const currentParams = useMemo(() => {
+    const params: QueryParams = {};
+    if (!currentPage) {
+      params.page = activePage.toString();
+    }
+    if (currentPage) {
+      params.page = currentPage.toString();
+    }
+    if (currentSortType && currentSortOrder) {
+      params.sort = currentSortType;
+      params.order = currentSortOrder;
+    }
+    if (activeFilterCategory) {
+      params.category = activeFilterCategory;
+    }
+    if (activeFilterType.length) {
+      params.type = activeFilterType;
+    }
+    if (activeFilterLevel.length) {
+      params.level = activeFilterLevel;
+    }
+    if (activeMinPrice) {
+      params['price_gt'] = activeMinPrice.toString();
+    }
+    if (activeMaxPrice) {
+      params['price_lt'] = activeMaxPrice.toString();
+    }
+    return params;
+  }, [activeFilterCategory, activeFilterLevel, activeFilterType, activeMaxPrice, activeMinPrice, activePage, currentPage, currentSortOrder, currentSortType]);
 
-  // useEffect(() => {
-  //   setSearchParams(currentParams);
-  // }, [setSearchParams, currentParams]);
+  useEffect(() => {
+    setSearchParams(currentParams);
+
+  }, [setSearchParams, currentParams]);
 
   return (
     <div className="wrapper">
