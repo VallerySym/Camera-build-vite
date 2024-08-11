@@ -7,15 +7,14 @@ import { State } from '../types/state';
 import { Action } from 'redux';
 import {extractActionsTypes, makeFakeCamera, makeFakeCameras, makeFakePromoList,makeFakeReviews,} from '../utils/mocks';
 import { AppThunkDispatch } from '../utils/mock-component';
-import { APIRoute } from '../const';
-import {fetchCameras,fetchCamera, fetchPromos,fetchReviews,} from './api-actions';
+import { APIRoute, CouponType } from '../const';
+import {fetchCameras,fetchCamera, fetchPromos,fetchReviews, postCoupon,} from './api-actions';
 
 describe('Async actions', () => {
   const axios = createAPI();
   const mockAxiosAdapter = new MockAdapter(axios);
   const middleware = [thunk.withExtraArgument(axios)];
-  const mockStoreCreator =
-    configureMockStore<State, Action<string>, AppThunkDispatch>(middleware);
+  const mockStoreCreator = configureMockStore<State, Action<string>, AppThunkDispatch>(middleware);
   let store: ReturnType<typeof mockStoreCreator>;
 
   beforeEach(() => {
@@ -24,8 +23,8 @@ describe('Async actions', () => {
 
   describe('fetchCameras', () => {
     it('should dispatch "fetchCameras.pending", "fetchCameras.fulfulled", when server response 200', async () => {
-      const mockProducts = [makeFakeCameras()];
-      mockAxiosAdapter.onGet(APIRoute.Cameras).reply(200, mockProducts);
+      const mockCameras = [makeFakeCameras()];
+      mockAxiosAdapter.onGet(APIRoute.Cameras).reply(200, mockCameras);
 
       await store.dispatch(fetchCameras());
 
@@ -38,7 +37,7 @@ describe('Async actions', () => {
         fetchCameras.fulfilled.type
       ]);
 
-      expect(fetchProductsActionFulfilled.payload).toEqual(mockProducts);
+      expect(fetchProductsActionFulfilled.payload).toEqual(mockCameras);
     });
 
     it('should dispatch "fetchCameras.pending", "fetchCameras.rejected", when server response 400', async () => {
@@ -58,8 +57,8 @@ describe('Async actions', () => {
 
   describe('fetchPromos', () => {
     it('should dispatch "fetchPromos.pending", "fetchPromos.fulfulled", when server response 200', async () => {
-      const mockProductsPromo = [makeFakePromoList()];
-      mockAxiosAdapter.onGet(APIRoute.Promo).reply(200, mockProductsPromo);
+      const mockPromoList = [makeFakePromoList()];
+      mockAxiosAdapter.onGet(APIRoute.Promo).reply(200, mockPromoList);
 
       await store.dispatch(fetchPromos());
 
@@ -72,7 +71,7 @@ describe('Async actions', () => {
         fetchPromos.fulfilled.type
       ]);
 
-      expect(fetchProductsActionPromoFulfilled.payload).toEqual(mockProductsPromo);
+      expect(fetchProductsActionPromoFulfilled.payload).toEqual(mockPromoList);
     });
 
     it('should dispatch "fetchPromos.pending", "fetchPromos.rejected", when server response 400', async () => {
@@ -126,14 +125,14 @@ describe('Async actions', () => {
   });
 
   describe('fetchReviews', () => {
-    const mockProductData = makeFakeCamera();
+    const mockCamera = makeFakeCamera();
     const mockReviews = [makeFakeReviews()];
-    it('should dispatch "addReview.pending", "addReview.fulfulled", when server response 200', async () => {
+    it('should dispatch "fetchReviews.pending", "fetchReviews.fulfulled", when server response 200', async () => {
 
-      mockAxiosAdapter.onGet(`${APIRoute.Cameras}/${mockProductData.id}${APIRoute.Reviews}`)
+      mockAxiosAdapter.onGet(`${APIRoute.Cameras}/${mockCamera.id}${APIRoute.Reviews}`)
         .reply(200, mockReviews);
 
-      await store.dispatch(fetchReviews(Number(mockProductData.id)));
+      await store.dispatch(fetchReviews(Number(mockCamera.id)));
 
       const emittedActions = store.getActions();
       const extractedActionTypes = extractActionsTypes(emittedActions);
@@ -147,16 +146,49 @@ describe('Async actions', () => {
       expect(getReviewsActionFulfilled.payload).toEqual(mockReviews);
     });
 
-    it('should dispatch "addReview.pending", "addReview.rejected", when server response 400', async () => {
-      mockAxiosAdapter.onGet(`${APIRoute.Cameras}/${mockProductData.id}${APIRoute.Reviews}`).reply(400, []);
+    it('should dispatch "fetchReviews.pending", "fetchReviews.rejected", when server response 400', async () => {
+      mockAxiosAdapter.onGet(`${APIRoute.Cameras}/${mockCamera.id}${APIRoute.Reviews}`).reply(400, []);
 
-      await store.dispatch(fetchReviews(Number(mockProductData.id)));
+      await store.dispatch(fetchReviews(Number(mockCamera.id)));
 
       const actions = extractActionsTypes(store.getActions());
 
       expect(actions).toEqual([
         fetchReviews.pending.type,
         fetchReviews.rejected.type
+      ]);
+    });
+  });
+
+  describe('postCoupon', () => {
+
+    it('should dispatch "postCoupon.pending", "postCoupon.fulfilled", when server response 200', async() => {
+      mockAxiosAdapter.onPost(APIRoute.Coupon, {coupon: CouponType['camera-555']}).reply(200, 15);
+
+      await store.dispatch(postCoupon(CouponType['camera-555']));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+      const postCouponActionFulfilled = emittedActions.at(1) as ReturnType<typeof postCoupon.fulfilled>;
+
+      expect(extractedActionsTypes).toEqual([
+        postCoupon.pending.type,
+        postCoupon.fulfilled.type,
+      ]);
+
+      expect(postCouponActionFulfilled.payload)
+        .toEqual(15);
+    });
+
+    it('should dispatch "postCoupon.pending", "postCoupon.rejected" when server response 400', async () => {
+      mockAxiosAdapter.onPost(APIRoute.Coupon, {coupon: CouponType['camera-555']}).reply(400, []);
+
+      await store.dispatch(postCoupon(CouponType['camera-555']));
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        postCoupon.pending.type,
+        postCoupon.rejected.type,
       ]);
     });
   });

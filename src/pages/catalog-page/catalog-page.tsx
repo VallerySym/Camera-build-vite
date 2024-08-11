@@ -21,7 +21,6 @@ import {
   getCurrentPage, getSortOrder, getSortType, getTotalPageCount
 } from '../../store/catalog-process/catalog-process.selectors';
 
-
 function CatalogPage(): JSX.Element {
   const camera = useAppSelector(getCamera);
   const cameras = useAppSelector(getCameras);
@@ -39,8 +38,8 @@ function CatalogPage(): JSX.Element {
   const currentPage = Number(searchParams.get('page'));
 
   const activePage = useAppSelector(getCurrentPage);
-  const currentSortType = useAppSelector(getSortType);
-  const currentSortOrder = useAppSelector(getSortOrder);
+  const activeSortType = useAppSelector(getSortType);
+  const activeSortOrder = useAppSelector(getSortOrder);
   const activeFilterCategory = useAppSelector(getCamerasCategory);
   const activeFilterType = useAppSelector(getCamerasType);
   const activeFilterLevel = useAppSelector(getCamerasLevel);
@@ -55,9 +54,9 @@ function CatalogPage(): JSX.Element {
     if (currentPage) {
       params.page = currentPage.toString();
     }
-    if (currentSortType && currentSortOrder) {
-      params.sort = currentSortType;
-      params.order = currentSortOrder;
+    if (activeSortType && activeSortOrder) {
+      params.sort = activeSortType;
+      params.order = activeSortOrder;
     }
     if (activeFilterCategory) {
       params.category = activeFilterCategory;
@@ -69,13 +68,13 @@ function CatalogPage(): JSX.Element {
       params.level = activeFilterLevel;
     }
     if (activeMinPrice) {
-      params['price_gt'] = activeMinPrice.toString();
+      params['price_min'] = activeMinPrice.toString();
     }
     if (activeMaxPrice) {
-      params['price_lt'] = activeMaxPrice.toString();
+      params['price_max'] = activeMaxPrice.toString();
     }
     return params;
-  }, [activeFilterCategory, activeFilterLevel, activeFilterType, activeMaxPrice, activeMinPrice, activePage, currentPage, currentSortOrder, currentSortType]);
+  }, [activeFilterCategory, activeFilterLevel, activeFilterType, activeMaxPrice, activeMinPrice, activePage, currentPage, activeSortType, activeSortOrder]);
 
   useEffect(() => {
     setSearchParams(currentParams);

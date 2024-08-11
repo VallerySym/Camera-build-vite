@@ -24,7 +24,7 @@ describe('Application Routing', () => {
     expect(screen.getByTestId('catalog-page')).toBeInTheDocument();
   });
 
-  it('should render "ProductPage" when user navigate to "/"', () => {
+  it('should render "ProductPage" when user navigate to "camera/id"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push(AppRoute.Product);
@@ -36,7 +36,7 @@ describe('Application Routing', () => {
     expect(screen.getByTestId('product-page')).toBeInTheDocument();
   });
 
-  it('should render "BasketPage" when user navigate to "/"', () => {
+  it('should render "BasketPage" when user navigate to "/basket"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push(AppRoute.Basket);

@@ -82,7 +82,6 @@ export const catalogSlice = createSlice({
         state.cameras = action.payload;
         state.camerasIsLoading = false;
       })
-
       .addCase(fetchCameras.rejected, (state) => {
         state.camerasIsLoading = false;
         state.camerasIsNotFound = true;

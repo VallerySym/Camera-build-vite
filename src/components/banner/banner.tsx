@@ -5,7 +5,7 @@ type BannerProps = {
   promoCamera: Promo;
 }
 
-function Banner({promoCamera}:BannerProps): JSX.Element {
+function Banner({ promoCamera }: BannerProps): JSX.Element {
   return (
     <div className="banner">
       <picture>
@@ -27,7 +27,7 @@ function Banner({promoCamera}:BannerProps): JSX.Element {
           {promoCamera.name}
         </span>
         <span className="banner__text">
-                    Профессиональная камера от&nbsp;известного производителя
+          Профессиональная камера от&nbsp;известного производителя
         </span>
         <Link
           className="btn"

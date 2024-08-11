@@ -1,6 +1,6 @@
 import { DEFAULT_SORT_ORDER, DEFAULT_SORT_TYPE, NameSpace } from '../../const';
 import { CamerasProcess } from '../../types/state';
-import { getCameras, getCamerasIsLoading, getCamerasIsNotFound } from './catalog-process.selectors';
+import { getCameras, getCamerasIsLoading, getCamerasIsNotFound, getSortType, getCamerasLevel, getCurrentPage} from './catalog-process.selectors';
 
 const fakeState: CamerasProcess = {
   cameras: [],
@@ -42,5 +42,26 @@ describe('CamerasProcess selectors', () => {
     const result = getCamerasIsNotFound(state);
 
     expect(result).toEqual(false);
+  });
+
+  it('should return sortType from state', () => {
+    const { sortType } = state[NameSpace.Cameras];
+    const result = getSortType(state);
+
+    expect(result).toEqual(sortType);
+  });
+
+  it('should return camerasLevel from state', () => {
+    const { level } = state[NameSpace.Cameras];
+    const result = getCamerasLevel(state);
+
+    expect(result).toEqual(level);
+  });
+
+  it('should return currentPage from state', () => {
+    const { currentPage } = state[NameSpace.Cameras];
+    const result = getCurrentPage(state);
+
+    expect(result).toEqual(currentPage);
   });
 });

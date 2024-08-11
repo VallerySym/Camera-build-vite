@@ -1,4 +1,4 @@
-import { DiscountPercent, ProductQntDiscountRange, OrderAmountRange} from '../../const';
+import { DiscountPercent, ProductQntDiscountRange, OrderSummRange} from '../../const';
 
 export const getDiscountByQuantity = (totalQuantity: number): number => {
   if (totalQuantity <= ProductQntDiscountRange.OneProduct) {
@@ -16,11 +16,11 @@ export const getDiscountByQuantity = (totalQuantity: number): number => {
 };
 
 export const getDiscountByTotalPrice = (totalPrice: number, discountPercent: number): number => {
-  if (totalPrice >= OrderAmountRange.TenThousand && totalPrice < OrderAmountRange.TwentyThousand) {
+  if (totalPrice >= OrderSummRange.TenThousand && totalPrice < OrderSummRange.TwentyThousand) {
     return discountPercent - DiscountPercent.OnePercent;
-  } else if (totalPrice >= OrderAmountRange.TwentyThousand && totalPrice < OrderAmountRange.ThirtyThousand) {
+  } else if (totalPrice >= OrderSummRange.TwentyThousand && totalPrice < OrderSummRange.ThirtyThousand) {
     return discountPercent - DiscountPercent.TwoPercents;
-  } else if (totalPrice >= OrderAmountRange.ThirtyThousand) {
+  } else if (totalPrice >= OrderSummRange.ThirtyThousand) {
     return discountPercent - DiscountPercent.ThreePercents;
   }
   return discountPercent;

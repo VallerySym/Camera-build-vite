@@ -2,7 +2,7 @@ import FocusLock from 'react-focus-lock';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { ChangeEvent, Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { submitReviewsAction } from '../../store/api-actions';
+import { submitReviews } from '../../store/api-actions';
 import { getCamera } from '../../store/product-process/product-process.selectors';
 import { MAX_VALUE_RATING, MIN_VALUE_RATING, ReviewTextLength, ReviewNameLength } from '../../const';
 import { checkAddReviewPopupOpen, getErrorAddReview } from '../../store/popup-process/popup-process.selectors';
@@ -36,7 +36,7 @@ function PopupAddReview(): JSX.Element {
     const { rating } = selectedCamera;
     selectedCamera.rating = Number(rating);
     selectedCamera.cameraId = cameraData?.id;
-    dispatch(submitReviewsAction(selectedCamera));
+    dispatch(submitReviews(selectedCamera));
     if (!errorAddReview) {
       dispatch(closeAddReviewPopup());
       dispatch(openAddReviewSuccessPopup());

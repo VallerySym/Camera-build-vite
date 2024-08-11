@@ -130,7 +130,7 @@ export const ProductQntDiscountRange = {
   TenProducts: 10
 } as const;
 
-export const OrderAmountRange = {
+export const OrderSummRange = {
   TenThousand: 10000,
   TwentyThousand: 20000,
   ThirtyThousand: 30000

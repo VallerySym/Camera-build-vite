@@ -112,7 +112,6 @@ const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }
 
 const makeFakeSimilarCameras = (): CameraItem[] => Array.from({ length: 10 }, makeFakeCamera);
 
-
 export {
   makeFakeCamera, makeFakeCameras, makeFakeReview,
   makeFakeReviews, makeFakePromoList, makeFakeStore,

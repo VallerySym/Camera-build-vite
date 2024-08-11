@@ -1,6 +1,6 @@
 import { NameSpace, RequestStatus } from '../../const';
 import { BasketProcess } from '../../types/state';
-import { getBasketItems } from './basket-process.selectors';
+import { getBasketItems, getPostOrderStatus } from './basket-process.selectors';
 
 const fakeState: BasketProcess = {
   items: [],
@@ -24,5 +24,12 @@ describe('BasketProcess selectors', () => {
     const result = getBasketItems(state);
 
     expect(result).toEqual(items);
+  });
+
+
+  it('should return RequestStatus.Idle basketStatus from state', () => {
+    const result = getPostOrderStatus(state);
+
+    expect(result).toEqual(RequestStatus.Idle);
   });
 });

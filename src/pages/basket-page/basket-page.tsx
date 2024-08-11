@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import BasketItem from '../../components/basket-item-card/basket-item-card';
+import BasketItem from '../../components/basket-item/basket-item';
 import BreadcrumbsList from '../../components/breadcrumbs-list/breadcrumbs-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';

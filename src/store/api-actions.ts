@@ -90,14 +90,13 @@ export const postOrder = createAsyncThunk<number, Order, {
   }
 );
 
-
-export const submitReviewsAction = createAsyncThunk<Review, FieldValues, {
+export const submitReviews = createAsyncThunk<Review, FieldValues, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
-  'submitComments',
+  'data/submitReviews',
   async (param, { extra: api }) => {
     const response = await api.post<Review>(APIRoute.Reviews, param);
     const { data } = response;

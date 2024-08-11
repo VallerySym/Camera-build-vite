@@ -1,9 +1,9 @@
 import { withHistory, withStore } from '../../utils/mock-component';
 import { render, screen} from '@testing-library/react';
-import BasketItem from './basket-item-card';
+import BasketItem from './basket-item';
 import { makeFakeCamera, makeFakeStore } from '../../utils/mocks';
 
-describe('Component: BasketItemCard', () => {
+describe('Component: BasketItem', () => {
   const mockStore = makeFakeStore();
   const mockCameraItem = makeFakeCamera();
   const {name, type} = mockCameraItem;
